@@ -1,0 +1,5 @@
+{
+  "name": "sos_estudante",
+  "app_id": "",
+  "gulpStartupTasks": ["sass", "watch"]
+}
