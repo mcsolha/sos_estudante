@@ -8,9 +8,7 @@ angular.module('sos_estudante.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-
-
-      .state('tabsController.matRias', {
+  .state('tabsController.matRias', {
     url: '/materias',
     views: {
       'tab1': {
@@ -37,7 +35,4 @@ angular.module('sos_estudante.routes', [])
   })
 
 $urlRouterProvider.otherwise('/page1/materias')
-
-
-
 });

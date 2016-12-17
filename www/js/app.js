@@ -8,7 +8,8 @@
 angular.module('sos_estudante', ['ionic', 'sos_estudante.controllers', 'sos_estudante.routes', 'sos_estudante.directives','sos_estudante.services','ionicCalendarDisplay', 'ionic-timepicker'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
-
+  // navbar title para a esquerda
+  $ionicConfigProvider.navBar.alignTitle('left');
 
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
 
