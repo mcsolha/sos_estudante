@@ -299,7 +299,7 @@ angular.module('ionicCalendarDisplay', [])
       '		  <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedMonthNextClick()"></i></div>' +
       '		</div>' +
       '		<div class="row Daysheading Daysheading_Label" style="background-color: #383737; color: white;">' +
-      '		  <div class="col">Su</div><div class="col">Mo</div><div class="col">Tu</div><div class="col">We</div><div class="col">Th</div><div class="col">Fr</div><div class="col">Sa</div>' +
+      '		  <div class="col">Dom</div><div class="col">Seg</div><div class="col">Ter</div><div class="col">Qua</div><div class="col">Qui</div><div class="col">Sex</div><div class="col">Sab</div>' +
       '		</div>' +
       '		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{\'marginTop0\':$first}">' +
       '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\')}"  ng-click="selectedDateClick(colVal)" >{{colVal.date}}</div> ' +
