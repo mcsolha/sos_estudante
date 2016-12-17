@@ -15,12 +15,40 @@ angular.module('ionicCalendarDisplay', [])
   return {
     restrict: 'E',
     transclude: true,
-    require: 'display',
     scope: {
-      display: "=",
       dateformat: "="
     },
-    controller: ['$scope', '$filter', function($scope, $filter) {
+    controller: ['$scope','$filter', '$ionicPopup' , function($scope, $filter, $ionicPopup) {
+
+      $scope.showPopup = function() {
+        $scope.data = {};
+
+        var myPopup = $ionicPopup.show({
+          templateUrl: '../../templates/calendarioPopup.html',
+          title: 'Enter Wi-Fi Password',
+          subTitle: 'Please use normal things',
+          scope: $scope,
+          buttons: [
+           { text: 'Cancel' },
+           {
+             text: '<b>Save</b>',
+             type: 'button-positive',
+             onTap: function(e) {
+               if (!$scope.data.wifi) {
+                 //don't allow the user to close unless he enters wifi password
+                 e.preventDefault();
+               } else {
+                 return $scope.data.wifi;
+               }
+             }
+           }
+          ]
+        });
+
+        myPopup.then(function(res) {
+          console.log('Tapped!', res);
+        });
+      }
 
       var calMonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
@@ -30,7 +58,6 @@ angular.module('ionicCalendarDisplay', [])
       var selectedYear, selectedMonth, selectedDate, shortMonth;
 
       var CurrentDate = new Date();
-
 
       $scope.calMonths = [
         [{
@@ -48,7 +75,7 @@ angular.module('ionicCalendarDisplay', [])
         }],
         [{
           'id': 4,
-          'name': 'Maio'
+          'name': 'Mai'
         }, {
           'id': 5,
           'name': 'Jun'
@@ -90,11 +117,15 @@ angular.module('ionicCalendarDisplay', [])
         } else {
           var format = $scope.dateformat;
         }
+
         $scope.display = $filter('date')(timeStamp, format);
+
+        $scope.showPopup();
+        console.log($scope.display);
       }
 
       //Onload Display Current Date
-      $scope.displayCompleteDate();
+      // $scope.displayCompleteDate();
 
       $scope.UIdisplayDatetoMonth = function() {
         $scope.UICalendarDisplay.Date = false;
@@ -186,7 +217,7 @@ angular.module('ionicCalendarDisplay', [])
       $scope.selectedDateClick = function(date) {
         $scope.displayDate = date.date;
         selectedDate = date.date;
-
+        console.log(selectedDate);
         if (date.type == 'newMonth') {
           var mnthDate = new Date(selectedYear, selectedMonth, 32)
           selectedMonth = mnthDate.getMonth();
