@@ -1,9 +1,20 @@
-<label class="item item-input">
-  <div class="input-label">
-    Título:
-  </div>
-  <input type="text" ng-model="data.titulo">
-</label>
-<input type="text" name="" id="">
-<input type="text" name="" id="">
-<input type="text" name="" id="">
+<div>
+  <label class="item item-input">
+    <div class="input-label">
+      Título:
+    </div>
+    <input type="text" ng-model="data.titulo">
+  </label>
+  <label class="item item-input">
+    <div class="input-label">
+      Hora início:
+    </div>
+    <input type="text" ng-model="data.horaIniSelected" ng-click="horaIni()" ng-readonly="true">
+  </label>
+  <label class="item item-input">
+    <div class="input-label">
+      Hora final:
+    </div>
+    <input type="text" ng-model="data.horaFinSelected" ng-click="horaFin()" ng-readonly="true">
+  </label>
+</div>

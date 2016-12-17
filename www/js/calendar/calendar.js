@@ -18,35 +18,70 @@ angular.module('ionicCalendarDisplay', [])
     scope: {
       dateformat: "="
     },
-    controller: ['$scope','$filter', '$ionicPopup' , function($scope, $filter, $ionicPopup) {
+    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , function($scope, $filter, $ionicPopup, ionicTimePicker) {
 
-      $scope.showPopup = function() {
-        $scope.data = {};
+      // Objeto para configurar time picker
+      var ipObj = {
+        inputTime: 50400,   //Optional
+        format: 24,         //Optional
+        step: 5,           //Optional
+        setLabel: 'Definir',    //Optional
+        closeLabel: 'Cancelar'
+      };
 
+      // Função para popup
+      $scope.showPopup = function(dataSelecionada) {
+        $scope.data = {
+          dataSelec: dataSelecionada
+        };
+        $scope.horaIni = function() {
+          ipObj.callback = function(val) {
+            if (typeof (val) === 'undefined') {
+              console.log('Time not selected');
+            } else {
+              console.log(val);
+              var selectedTime = new Date(val * 1000);
+              // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+              $scope.data.horaIniSelected = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+            }
+          }
+          ionicTimePicker.openTimePicker(ipObj);
+        }
+        $scope.horaFin = function() {
+          ipObj.callback = function(val) {
+            if (typeof (val) === 'undefined') {
+              console.log('Time not selected');
+            } else {
+              var selectedTime = new Date(val * 1000);
+              // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+              $scope.data.horaFinSelected = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+            }
+          }
+          ionicTimePicker.openTimePicker(ipObj);
+        }
         var myPopup = $ionicPopup.show({
           templateUrl: '../../templates/calendarioPopup.html',
-          title: 'Enter Wi-Fi Password',
-          subTitle: 'Please use normal things',
+          title: 'Compromisso',
           scope: $scope,
           buttons: [
-           { text: 'Cancel' },
-           {
-             text: '<b>Save</b>',
-             type: 'button-positive',
-             onTap: function(e) {
-               if (!$scope.data.wifi) {
-                 //don't allow the user to close unless he enters wifi password
-                 e.preventDefault();
-               } else {
-                 return $scope.data.wifi;
-               }
-             }
-           }
+            {
+              text: '<b>Salvar</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                if(typeof($scope.data.horaIniSelected) === 'undefined' && typeof($scope.data.horaFinSelected) === 'undefined') {
+                  //don't allow the user to close unless he enters wifi password
+                  e.preventDefault();
+                } else {
+                  return $scope.data;
+                }
+              }
+            },
+            { text: 'Cancelar' }
           ]
         });
 
         myPopup.then(function(res) {
-          console.log('Tapped!', res);
+          console.log('Compromisso gravado' ,res);
         });
       }
 
@@ -117,10 +152,9 @@ angular.module('ionicCalendarDisplay', [])
         } else {
           var format = $scope.dateformat;
         }
-
         $scope.display = $filter('date')(timeStamp, format);
 
-        $scope.showPopup();
+        $scope.showPopup($scope.display);
         console.log($scope.display);
       }
 
@@ -201,7 +235,7 @@ angular.module('ionicCalendarDisplay', [])
         $scope.UICalendarDisplay.Date = false;
         $scope.UICalendarDisplay.Month = true;
         $scope.UICalendarDisplay.Year = false;
-        $scope.displayCompleteDate();
+        // $scope.displayCompleteDate();
       }
 
       $scope.selectedMonthClick = function(month) {
@@ -211,7 +245,7 @@ angular.module('ionicCalendarDisplay', [])
         $scope.UICalendarDisplay.Date = true;
         $scope.UICalendarDisplay.Month = false;
         $scope.UICalendarDisplay.Year = false;
-        $scope.displayCompleteDate();
+        // $scope.displayCompleteDate();
       }
 
       $scope.selectedDateClick = function(date) {
@@ -308,9 +342,9 @@ angular.module('ionicCalendarDisplay', [])
     template: '<style>' +
       '.ionic_Calendar .calendar_Date .row.Daysheading {text-align:center;}' +
       '.ionic_Calendar .txtCenter {text-align:center;}' +
-      '.ionic_Calendar .col.selMonth { background-color: #04BDD7; color:white; }' +
-      '.ionic_Calendar .col.selDate { background-color: #04BDD7; color:white; }' +
-      '.ionic_Calendar .col.selYear { background-color: #04BDD7; color:white;  }' +
+      '.ionic_Calendar .col.selMonth { background-color: #444; color:white; }' +
+      '.ionic_Calendar .col.selDate { background-color: #444; color:white; }' +
+      '.ionic_Calendar .col.selYear { background-color: #444; color:white;  }' +
       '.ionic_Calendar .col.fadeDateDisp, .col.fadeYear { background-color: #E9E9E9; color:#D5D5D5 }' +
       '.ionic_Calendar .DaysDisplay .col{ border: 1px solid #F3F3F3; padding-top: 10px; font-weight: bolder; height: 40px;}' +
       '.ionic_Calendar .DaysDisplay.row{ padding-left: 0px; padding-right: 0px; }' +

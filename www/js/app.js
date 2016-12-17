@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('sos_estudante', ['ionic', 'sos_estudante.controllers', 'sos_estudante.routes', 'sos_estudante.directives','sos_estudante.services','ionicCalendarDisplay'])
+angular.module('sos_estudante', ['ionic', 'sos_estudante.controllers', 'sos_estudante.routes', 'sos_estudante.directives','sos_estudante.services','ionicCalendarDisplay', 'ionic-timepicker'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
 
