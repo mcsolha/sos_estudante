@@ -4,6 +4,41 @@
 */
 .ionic_timepicker_popup .heading,
 .ionic_timepicker_popup .button_set,
-.ionic_timepicker_popup .button_close{
+.ionic_timepicker_popup .button_close,
+.ionic_datepicker_popup .popup-buttons button
+{
   background-color: #444;
+}
+
+.ionic_datepicker_popup .popup-body .month_select:after, .ionic_datepicker_popup .popup-body .year_select:after{
+  color: #444;
+}
+
+.ionic_datepicker_popup .popup-body .show_nav .next_btn_section button,
+.ionic_datepicker_popup .popup-body .show_nav .prev_btn_section button{
+  color: #444 !important;
+}
+
+.ionic_datepicker_popup .popup-body .selected_date_full,
+.ionic_datepicker_popup .selected_date
+{
+  background-color: #444;
+}
+
+.ionic_datepicker_popup .popup-body .year_select,
+.ionic_datepicker_popup .popup-body .month_select{
+  border-bottom: #444;
+}
+
+.ionic_datepicker_popup .today{
+  border-color: #444;
+}
+
+#titulo-comp{
+  line-height: 20px !important;
+  padding: 0;
+}
+
+.dark{
+  color: #444 !important;
 }

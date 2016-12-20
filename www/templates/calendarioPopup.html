@@ -1,20 +1,21 @@
 <div>
-  <label class="item item-input">
-    <div class="input-label">
-      Título:
-    </div>
-    <input type="text" ng-model="data.titulo">
-  </label>
-  <label class="item item-input">
-    <div class="input-label">
-      Hora início:
-    </div>
-    <input type="text" ng-model="data.horaIniSelected" ng-click="horaIni()" ng-readonly="true">
-  </label>
-  <label class="item item-input">
-    <div class="input-label">
-      Hora final:
-    </div>
-    <input type="text" ng-model="data.horaFinSelected" ng-click="horaFin()" ng-readonly="true">
-  </label>
+  <div class="list list-inset">
+
+    <a class="item item-icon-left">
+      <i class="icon ion-pricetag"></i>
+      <input id="titulo-comp" type="text" placeholder="Título" ng-model="data.titulo">
+    </a>
+    <a class="item item-icon-left" ng-click="horaIni()">
+      <i class="icon ion-android-time"></i>
+      Hora inicial: {{data.horaIniSelected}}
+    </a>
+    <a class="item item-icon-left" ng-click="horaFin()">
+      <i class="icon ion-android-alarm-clock"></i>
+      Hora final: {{data.horaFinSelected}}
+    </a>
+    <a class="item item-icon-left" ng-click="dataSelecao()">
+      <i class="icon ion-calendar"></i>
+      Data: {{dataSelecionada}}
+    </a>
+  </div>
 </div>

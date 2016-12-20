@@ -18,7 +18,29 @@ angular.module('ionicCalendarDisplay', [])
     scope: {
       dateformat: "="
     },
-    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , function($scope, $filter, $ionicPopup, ionicTimePicker) {
+    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarSharedInfo', function($scope, $filter, $ionicPopup, ionicTimePicker, calendarSharedInfo) {
+      $scope.buscar = true;
+
+      $scope.cliqueLupa = function() {
+        $scope.buscar = !$scope.buscar;
+      }
+
+      $scope.tarefas = []
+
+      var dados = [
+        {
+          dia: '12 - Dec - 16',
+          tarefas: ['fazer prova','estudar']
+        },
+        {
+          dia: '14 - Dec - 16',
+          tarefas: ['fazer p3','comer']
+        },
+        {
+          dia: '16 - Dec - 16',
+          tarefas: ['jogar','beber','cozinhar','desenhar','trocar chuveiro']
+        },
+      ];
 
       // Objeto para configurar time picker
       var ipObj = {
@@ -145,6 +167,21 @@ angular.module('ionicCalendarDisplay', [])
       $scope.UICalendarDisplay.Month = false;
       $scope.UICalendarDisplay.Year = false;
 
+      var condicao = function(compromisso) {
+        return compromisso.dia == $scope.display;
+      }
+
+      var trocarLista = function() {
+        $scope.tarefas = [];
+        var compromisso = dados.find(condicao);
+        console.log(compromisso);
+        if(compromisso !== undefined){
+          compromisso.tarefas.forEach(function(tarefa) {
+            $scope.tarefas.push(tarefa);
+          })
+        }
+      }
+
       $scope.displayCompleteDate = function() {
         var timeStamp = new Date(selectedYear, selectedMonth, selectedDate).getTime();
         if (angular.isUndefined($scope.dateformat)) {
@@ -153,13 +190,14 @@ angular.module('ionicCalendarDisplay', [])
           var format = $scope.dateformat;
         }
         $scope.display = $filter('date')(timeStamp, format);
-
-        $scope.showPopup($scope.display);
+        calendarSharedInfo.setSelectedDate($scope.display);
+        trocarLista();
+        //$scope.showPopup($scope.display);
         console.log($scope.display);
       }
 
       //Onload Display Current Date
-      // $scope.displayCompleteDate();
+      $scope.displayCompleteDate();
 
       $scope.UIdisplayDatetoMonth = function() {
         $scope.UICalendarDisplay.Date = false;
@@ -355,41 +393,59 @@ angular.module('ionicCalendarDisplay', [])
       '.ionic_Calendar .marginTop0 { margin-top: 0px !important;}' +
       '.ionic_Calendar .paddingBottom0 { padding-bottom: 0px !important;}' +
       '.ionic_Calendar .Daysheading_Label .col { padding-bottom: 0px !important;}' +
+      '.busca-box { width:40%; float:right; line-height:25px; border-color: #445; border-radius: 5px; border-width:1px; margin-top:2px; }' +
+      '.titulo {float:left; padding: 5px 0;}'+
+      '.busca-lupa:hover { color:#445; }' +
+      '.busca-lupa:active { color:#d8d8d8; }'+
       '</style>' +
-      '<div class="ionic_Calendar">' +
-      '	<div class="calendar_Date" ng-show="UICalendarDisplay.Date">' +
-      '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
-      '		  <div class="col txtCenter" ><i class="icon ion-chevron-left" ng-click="selectedMonthPrevClick()"></i></div>' +
-      '		  <div class="col col-75 txtCenter" ng-click="UIdisplayDatetoMonth()">{{dislayMonth}} {{displayYear}}</div>' +
-      '		  <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedMonthNextClick()"></i></div>' +
-      '		</div>' +
-      '		<div class="row Daysheading Daysheading_Label" style="background-color: #383737; color: white;">' +
-      '		  <div class="col">Dom</div><div class="col">Seg</div><div class="col">Ter</div><div class="col">Qua</div><div class="col">Qui</div><div class="col">Sex</div><div class="col">Sab</div>' +
-      '		</div>' +
-      '		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{\'marginTop0\':$first}">' +
-      '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\')}"  ng-click="selectedDateClick(colVal)" >{{colVal.date}}</div> ' +
-      '		</div>' +
-      '	</div>' +
-      '	<div class="calendar_Month" ng-show="UICalendarDisplay.Month">' +
-      '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
-      '		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedMonthYearPrevClick()"></i></div>' +
-      '		  <div class="col col-75 txtCenter" ng-click="UIdisplayMonthtoYear()">{{displayYear}}</div>' +
-      '		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedMonthYearNextClick()"></i></div>' +
-      '		</div>' +
-      '		<div class="row txtCenter MonthsDisplay" ng-repeat = "rowVal in calMonths  track by $index" ng-class="{\'marginTop0\':$first}">' +
-      '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index"  ng-class="(colVal.name == shortMonth) ? \'selMonth\' : \'NonSelMonth\'"  ng-click="selectedMonthClick(colVal.id)" >{{colVal.name}}</div>' +
-      '		</div>' +
-      '	</div>' +
-      '	<div class="calendar_Year" ng-show="UICalendarDisplay.Year">' +
-      '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
-      '		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedDecadePrevClick()"></i></div>' +
-      '		  <div class="col col-75 txtCenter">{{startYearDisp+1}}-{{endYearDisp-1}}</div>' +
-      '		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedDecadeNextClick()"></i></div>' +
-      '		</div>' +
-      '		<div class="row txtCenter YearsDisplay" ng-repeat = "nx in []| rangecal:3" ng-class="{\'marginTop0\':$first}">' +
-      '		  <div class="col" ng-repeat="n in [] | rangecal:4"  ng-class="{ \'fadeYear\': (((startYearDisp+nx+nx+nx+nx+n) == startYearDisp)||((startYearDisp+nx+nx+nx+nx+n) == endYearDisp)), \'selYear\': ((startYearDisp+nx+nx+nx+nx+n) == displayYear) }" ng-click="selectedYearClick((startYearDisp+nx+nx+nx+nx+n))">{{startYearDisp+nx+nx+nx+nx+n}}</div>' +
-      '		</div>' +
-      '	</div>' +
+      '<div>' +
+        '<div class="ionic_Calendar">' +
+        '	<div class="calendar_Date" ng-show="UICalendarDisplay.Date">' +
+        '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
+        '		  <div class="col txtCenter" ><i class="icon ion-chevron-left" ng-click="selectedMonthPrevClick()"></i></div>' +
+        '		  <div class="col col-75 txtCenter" ng-click="UIdisplayDatetoMonth()">{{dislayMonth}} {{displayYear}}</div>' +
+        '		  <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedMonthNextClick()"></i></div>' +
+        '		</div>' +
+        '		<div class="row Daysheading Daysheading_Label" style="background-color: #383737; color: white;">' +
+        '		  <div class="col">Dom</div><div class="col">Seg</div><div class="col">Ter</div><div class="col">Qua</div><div class="col">Qui</div><div class="col">Sex</div><div class="col">Sab</div>' +
+        '		</div>' +
+        '		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{\'marginTop0\':$first}">' +
+        '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\')}"  ng-click="selectedDateClick(colVal)" >{{colVal.date}}</div> ' +
+        '		</div>' +
+        '	</div>' +
+        '	<div class="calendar_Month" ng-show="UICalendarDisplay.Month">' +
+        '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
+        '		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedMonthYearPrevClick()"></i></div>' +
+        '		  <div class="col col-75 txtCenter" ng-click="UIdisplayMonthtoYear()">{{displayYear}}</div>' +
+        '		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedMonthYearNextClick()"></i></div>' +
+        '		</div>' +
+        '		<div class="row txtCenter MonthsDisplay" ng-repeat = "rowVal in calMonths  track by $index" ng-class="{\'marginTop0\':$first}">' +
+        '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index"  ng-class="(colVal.name == shortMonth) ? \'selMonth\' : \'NonSelMonth\'"  ng-click="selectedMonthClick(colVal.id)" >{{colVal.name}}</div>' +
+        '		</div>' +
+        '	</div>' +
+        '	<div class="calendar_Year" ng-show="UICalendarDisplay.Year">' +
+        '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
+        '		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedDecadePrevClick()"></i></div>' +
+        '		  <div class="col col-75 txtCenter">{{startYearDisp+1}}-{{endYearDisp-1}}</div>' +
+        '		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedDecadeNextClick()"></i></div>' +
+        '		</div>' +
+        '		<div class="row txtCenter YearsDisplay" ng-repeat = "nx in []| rangecal:3" ng-class="{\'marginTop0\':$first}">' +
+        '		  <div class="col" ng-repeat="n in [] | rangecal:4"  ng-class="{ \'fadeYear\': (((startYearDisp+nx+nx+nx+nx+n) == startYearDisp)||((startYearDisp+nx+nx+nx+nx+n) == endYearDisp)), \'selYear\': ((startYearDisp+nx+nx+nx+nx+n) == displayYear) }" ng-click="selectedYearClick((startYearDisp+nx+nx+nx+nx+n))">{{startYearDisp+nx+nx+nx+nx+n}}</div>' +
+        '		</div>' +
+        '	</div>' +
+        '</div>' +
+        '<div class="item item-divider item-icon-right" ng-if="tarefas.length > 0">' +
+          '<div class="titulo">Compromissos</div>' +
+          '<i class="icon ion-search busca-lupa" ng-click="cliqueLupa()"></i>' +
+          '<input class="busca-box">' +
+        '</div>' +
+        '<ion-list show-delete="true">' +
+          '<ion-item ng-repeat = "item in tarefas" class="item-left">' +
+            '<h2>{{item}}</h2>' +
+            '<ion-delete-button class="ion-minus-circled dark" ng-click="items.splice($index, 1)">' +
+            '</ion-delete-button>' +
+          '</ion-item>' +
+        '</ion-list>' +
       '</div>'
   };
 });
