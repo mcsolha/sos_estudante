@@ -42,7 +42,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       ionicDatePicker.openDatePicker(datePickerObj);
     }
 
-    function FormatNumberLength(num, length) {
+    function FormatarNumero(num, length) {
       var r = "" + num;
       while (r.length < length) {
           r = "0" + r;
@@ -56,10 +56,10 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
           console.log('Time not selected');
         } else {
           console.log(val);
-          var selectedTime = new Date(val * 1000);
-          // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+          var tempoSelecionado = new Date(val * 1000);
+          // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
 
-          $scope.data.horaIniSelected = FormatNumberLength(selectedTime.getUTCHours(),2) + ':' + FormatNumberLength(selectedTime.getUTCMinutes(),2);
+          $scope.data.horaIniSelected = FormatarNumero(tempoSelecionado.getUTCHours(),2) + ':' + FormatarNumero(tempoSelecionado.getUTCMinutes(),2);
         }
       }
       ionicTimePicker.openTimePicker(ipObj);
@@ -70,9 +70,9 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
         if (typeof (val) === 'undefined') {
           console.log('Time not selected');
         } else {
-          var selectedTime = new Date(val * 1000);
-          // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-          $scope.data.horaFinSelected = FormatNumberLength(selectedTime.getUTCHours(),2) + ':' + FormatNumberLength(selectedTime.getUTCMinutes(),2);;
+          var tempoSelecionado = new Date(val * 1000);
+          // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
+          $scope.data.horaFinSelected = FormatarNumero(tempoSelecionado.getUTCHours(),2) + ':' + FormatarNumero(tempoSelecionado.getUTCMinutes(),2);;
         }
       }
       ionicTimePicker.openTimePicker(ipObj);

@@ -11,7 +11,7 @@ angular.module('ionicCalendarDisplay', [])
     };
   })
 
-.directive('myCalendar', function() {
+.directive('calendario', function() {
   return {
     restrict: 'E',
     transclude: true,
@@ -19,16 +19,10 @@ angular.module('ionicCalendarDisplay', [])
       dateformat: "="
     },
     controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI) {
-      $scope.buscar = true;
-
-      $scope.cliqueLupa = function() {
-        $scope.buscar = !$scope.buscar;
-      }
-
       $scope.tarefas = []
 
       // Objeto para configurar time picker
-      var ipObj = {
+      var tempoConfig = {
         inputTime: 50400,   //Optional
         format: 24,         //Optional
         step: 5,           //Optional
@@ -37,36 +31,36 @@ angular.module('ionicCalendarDisplay', [])
       };
 
       // Função para popup
-      $scope.showPopup = function(dataSelecionada) {
+      $scope.mostrarPopup = function(dataSelecionada) {
         $scope.data = {
           dataSelec: dataSelecionada
         };
         $scope.horaIni = function() {
-          ipObj.callback = function(val) {
+          tempoConfig.callback = function(val) {
             if (typeof (val) === 'undefined') {
-              console.log('Time not selected');
+              console.log('Tempo nao selecionado');
             } else {
               console.log(val);
-              var selectedTime = new Date(val * 1000);
-              // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-              $scope.data.horaIniSelected = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+              var tempoSelecionado = new Date(val * 1000);
+              // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
+              $scope.data.horaIniSelected = tempoSelecionado.getUTCHours() + ':' + tempoSelecionado.getUTCMinutes();
             }
           }
-          ionicTimePicker.openTimePicker(ipObj);
+          ionicTimePicker.openTimePicker(tempoConfig);
         }
         $scope.horaFin = function() {
-          ipObj.callback = function(val) {
+          tempoConfig.callback = function(val) {
             if (typeof (val) === 'undefined') {
-              console.log('Time not selected');
+              console.log('Tempo não selecionado');
             } else {
-              var selectedTime = new Date(val * 1000);
-              // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-              $scope.data.horaFinSelected = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+              var tempoSelecionado = new Date(val * 1000);
+              // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
+              $scope.data.horaFinSelected = tempoSelecionado.getUTCHours() + ':' + tempoSelecionado.getUTCMinutes();
             }
           }
-          ionicTimePicker.openTimePicker(ipObj);
+          ionicTimePicker.openTimePicker(tempoConfig);
         }
-        var myPopup = $ionicPopup.show({
+        var popup = $ionicPopup.show({
           templateUrl: '../../templates/calendarioPopup.html',
           title: 'Compromisso',
           scope: $scope,
@@ -87,7 +81,7 @@ angular.module('ionicCalendarDisplay', [])
           ]
         });
 
-        myPopup.then(function(res) {
+        popup.then(function(res) {
           console.log('Compromisso gravado' ,res);
         });
       }
@@ -177,7 +171,7 @@ angular.module('ionicCalendarDisplay', [])
         $scope.display = $filter('date')(timeStamp, format);
         calendarioAPI.defDataSelecionada($scope.display);
         trocarLista();
-        //$scope.showPopup($scope.display);
+        //$scope.mostrarPopup($scope.display);
         //console.log($scope.display);
       }
 
