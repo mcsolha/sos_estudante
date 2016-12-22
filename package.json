@@ -3,7 +3,6 @@
   "version": "1.1.1",
   "description": "sos_estudante: An Ionic project",
   "dependencies": {
-    "@iamadamjowett/angular-click-outside": "^2.10.1",
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
