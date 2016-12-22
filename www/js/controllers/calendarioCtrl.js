@@ -1,8 +1,8 @@
 angular.module('sos_estudante.controllers', [])
-.controller('calendRioCtrl', ['$scope', '$stateParams', 'ionicTimePicker', '$ionicPopup', 'ionicDatePicker', 'calendarioAPI',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('calendRioCtrl', ['$scope', '$stateParams', 'ionicTimePicker', '$ionicPopup', 'ionicDatePicker', 'calendarioAPI', 'compromissoFctr',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, calendarioAPI) {
+function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, calendarioAPI, Compromisso) {
 
   $scope.showConfirm = function() {
     // Objeto criado que contém as informações selecionadas pelo usuario na criação de um compromisso
@@ -109,7 +109,9 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
     //  Função executada quando o popup é fechado
      confirmPopup.then(function(res) {
        if(res) {
-         calendarioAPI.adcDados(res);
+        var comp = new Compromisso(undefined,res.titulo,res.horaIniSelected,res.horaFinSelected);
+        console.log(comp);
+        calendarioAPI.adcDados(res.dia,comp);
         //  console.log(res);
        } else {
          console.log('You are not sure');

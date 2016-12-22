@@ -1,5 +1,5 @@
 angular.module('sos_estudante.services')
-.service('calendarioAPI', [function(){
+.service('calendarioAPI', ['compromissoFctr', function(Compromisso){
   var callbackFun = [];
 
   // Variável que armazena qual data foi selecionada pelo usuario através do calendário
@@ -10,30 +10,10 @@ angular.module('sos_estudante.services')
     {
       dia: '12 - Dec - 16',
       tarefas: [
-        {
-          id: 0,
-          horaIniSelected: '12:00',
-          horaFinSelected: '13:00',
-          titulo: 'comer'
-        },
-        {
-          id: 1,
-          horaIniSelected: '12:00',
-          horaFinSelected: '15:00',
-          titulo: 'papar'
-        },
-        {
-          id: 2,
-          horaIniSelected: '12:00',
-          horaFinSelected: '16:00',
-          titulo: 'jantar'
-        },
-        {
-          id: 3,
-          horaIniSelected: '12:00',
-          horaFinSelected: '13:00',
-          titulo: 'Fazer as listas de Banco de Dados 2 e terminar todos os trabalhos incluindo o de Eng Software 2'
-        }
+        new Compromisso(0,'comer','12:00','13:00'),
+        new Compromisso(1,'papar','12:00','14:00'),
+        new Compromisso(2,'jantar','12:00','16:00'),
+        new Compromisso(3,'Fazer as listas de Banco de Dados 2 e terminar todos os trabalhos incluindo o de Eng Software 2','12:00','13:00')
       ]
     }
   ];
@@ -48,25 +28,23 @@ angular.module('sos_estudante.services')
       return dados;
     },
     // Função para adicionar dados novos
-    adcDados: function(dado) {
-      var dia = dado.dia;
-      delete dado.dia;
-
+    adcDados: function(dia,comp) {
       // console.log(dado);
-      for (var i = 0; i < dados.length; i++) {
-        if(dados[i].dia == dado.dia){
-          dado.id = dados[i].tarefas[dados[dados.length].tarefas.length - 1].id + 1;
-          dados[i].tarefas.push(dado);
+      for (var i = 0; i < dados.length; i++) { // Procura nos dados se ja existe pelo menos uma tarefa para o dia
+        if(dados[i].dia == dia){
+          comp.id = dados[i].tarefas[dados[dados.length - 1].tarefas.length - 1].id + 1;
+          dados[i].tarefas.push(comp);
           for (var i = 0; i < callbackFun.length; i++) {
             callbackFun[i]();
           }
           return true;
         }
       }
-      dado.id = 0;
+      //Define como primeira tarefa para aquele dia selecionado e insere o dia selecionado nos dados
+      comp.id = 0;
       var obj = {
         dia: dia,
-        tarefas: [dado]
+        tarefas: [comp]
       }
       dados.push(obj);
       for (var i = 0; i < callbackFun.length; i++) {
