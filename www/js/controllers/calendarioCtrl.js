@@ -5,8 +5,12 @@ angular.module('sos_estudante.controllers', [])
 function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, calendarioAPI) {
 
   $scope.showConfirm = function() {
+    // Objeto criado que contém as informações selecionadas pelo usuario na criação de um compromisso
     $scope.data = {};
+    // Dia selecionado pelo usuário no calendário, vem através do serviço criado para o calendário para compartilhar informações entre controllers
     $scope.data.dia = calendarioAPI.retDataSelecionada();
+
+    // Objeto que contém informações do seletor de data
     var datePickerObj = {
         // disabledDates: [            //Optional
         //   new Date(2016, 2, 16),
@@ -33,6 +37,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       closeLabel: 'Cancelar'
     };
 
+    // Função que abre o seletor de data
     $scope.dataSelecao = function() {
       datePickerObj.callback = function(val) {
         var selectedDate = new Date(val);
@@ -42,6 +47,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       ionicDatePicker.openDatePicker(datePickerObj);
     }
 
+    // Função utilizada para formatar o numero
     function FormatarNumero(num, length) {
       var r = "" + num;
       while (r.length < length) {
@@ -50,6 +56,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       return r;
     }
 
+    // Função que chama o seletor de tempo para armazenar hora inicial
     $scope.horaIni = function() {
       ipObj.callback = function(val) {
         if (typeof (val) === 'undefined') {
@@ -65,6 +72,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       ionicTimePicker.openTimePicker(ipObj);
     }
 
+    // Função que chama o seletor de tempo para armazenar hora final
     $scope.horaFin = function() {
       ipObj.callback = function(val) {
         if (typeof (val) === 'undefined') {
@@ -78,6 +86,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       ionicTimePicker.openTimePicker(ipObj);
     }
 
+    // Popup para usuario preencher informações do compromisso
      var confirmPopup = $ionicPopup.confirm({
        title: 'Compromisso',
        templateUrl: '../../templates/calendarioPopup.html',
@@ -98,6 +107,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
          { text: 'Cancelar' }
        ]
      });
+    //  Função executada quando o popup é fechado
      confirmPopup.then(function(res) {
        if(res) {
          calendarioAPI.adcDados(res);
@@ -107,6 +117,8 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
        }
      });
    };
+
+  // Função criada para abrir o popup através do html
   $scope.addComprom = function() {
     $scope.showConfirm();
   }

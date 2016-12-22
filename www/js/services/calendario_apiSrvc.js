@@ -1,6 +1,9 @@
 angular.module('sos_estudante.services')
 .service('calendarioAPI', [function(){
+  // Variável que armazena qual data foi selecionada pelo usuario através do calendário
   var dataSelecionada = '';
+
+  // Simulaçao de tarefas criadas pelo usuário
   var dados = [
     {
       dia: '12 - Dec - 16',
@@ -19,20 +22,26 @@ angular.module('sos_estudante.services')
       tarefas: ['jogar','beber','cozinhar','desenhar','trocar chuveiro']
     }
   ];
+
   return {
+    // Função que retorna os dados fictícios
     retDados: function() {
       return dados;
     },
+    // Função para adicionar dados novos
     adcDados: function(dado) {
       dados.push(dado);
       console.log(dados);
     },
+    // Função para retornar data selecionada
     retDataSelecionada: function() {
       return dataSelecionada;
     },
+    // Função para definir data selecionada
     defDataSelecionada: function(value) {
       dataSelecionada = value;
     },
+    // Função para formatar a data de acordo com o número do mês
     formatarData: function(dia,mes,ano, startindex = 0){
       if(startindex != 0){
         switch (mes) {
