@@ -18,7 +18,7 @@ angular.module('ionicCalendarDisplay', [])
     scope: {
       dateformat: "="
     },
-    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarSharedInfo', function($scope, $filter, $ionicPopup, ionicTimePicker, calendarSharedInfo) {
+    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI) {
       $scope.buscar = true;
 
       $scope.cliqueLupa = function() {
@@ -26,21 +26,6 @@ angular.module('ionicCalendarDisplay', [])
       }
 
       $scope.tarefas = []
-
-      var dados = [
-        {
-          dia: '12 - Dec - 16',
-          tarefas: ['fazer prova','estudar']
-        },
-        {
-          dia: '14 - Dec - 16',
-          tarefas: ['fazer p3','comer']
-        },
-        {
-          dia: '16 - Dec - 16',
-          tarefas: ['jogar','beber','cozinhar','desenhar','trocar chuveiro']
-        },
-      ];
 
       // Objeto para configurar time picker
       var ipObj = {
@@ -173,7 +158,7 @@ angular.module('ionicCalendarDisplay', [])
 
       var trocarLista = function() {
         $scope.tarefas = [];
-        var compromisso = dados.find(condicao);
+        var compromisso = calendarioAPI.retDados().find(condicao);
         console.log(compromisso);
         if(compromisso !== undefined){
           compromisso.tarefas.forEach(function(tarefa) {
@@ -190,10 +175,10 @@ angular.module('ionicCalendarDisplay', [])
           var format = $scope.dateformat;
         }
         $scope.display = $filter('date')(timeStamp, format);
-        calendarSharedInfo.setSelectedDate($scope.display);
+        calendarioAPI.defDataSelecionada($scope.display);
         trocarLista();
         //$scope.showPopup($scope.display);
-        console.log($scope.display);
+        //console.log($scope.display);
       }
 
       //Onload Display Current Date
@@ -304,6 +289,18 @@ angular.module('ionicCalendarDisplay', [])
         $scope.displayCompleteDate();
       }
 
+      var temCompromisso = function(dia,mes,ano) {
+        var data = calendarioAPI.formatarData(dia,mes,ano,1);
+        // console.log(data);
+        for (var i = 0; i < calendarioAPI.retDados().length; i++) {
+          if(calendarioAPI.retDados()[i].dia == data){
+            console.log(data);
+            return true;
+          }
+        }
+        return false;
+      }
+
       $scope.displayMonthCalendar = function() {
 
         /*Year Display Start*/
@@ -348,12 +345,16 @@ angular.module('ionicCalendarDisplay', [])
               if (j < startDay) {
                 $scope.datesDisp[i][j] = {
                   "type": "oldMonth",
-                  "date": (prevMonthLastDates - startDay + 1) + j
+                  "date": (prevMonthLastDates - startDay + 1) + j,
+                  "month": selectedMonth,
+                  "comCompr": true
                 };
               } else {
                 $scope.datesDisp[i][j] = {
                   "type": "currentMonth",
-                  "date": countDatingStart++
+                  "date": countDatingStart++,
+                  "month": selectedMonth + 1,
+                  "comCompr": true
                 };
               }
             }
@@ -362,17 +363,37 @@ angular.module('ionicCalendarDisplay', [])
               if (countDatingStart <= endingDateLimit) {
                 $scope.datesDisp[i][k] = {
                   "type": "currentMonth",
-                  "date": countDatingStart++
+                  "date": countDatingStart++,
+                  "month": selectedMonth + 1,
+                  "comCompr": true
                 };
               } else {
-                $scope.datesDisp[i][k] = {
-                  "type": "newMonth",
-                  "date": nextMonthStartDates++
-                };
+                if(selectedMonth+2 <= 12){
+                  $scope.datesDisp[i][k] = {
+                    "type": "newMonth",
+                    "date": nextMonthStartDates++,
+                    "month": selectedMonth + 2,
+                    "comCompr": true
+                  };
+                }else{
+                  $scope.datesDisp[i][k] = {
+                    "type": "newMonth",
+                    "date": nextMonthStartDates++,
+                    "month": 1,
+                    "comCompr": true
+                  };
+                }
               }
             }
           }
+        }
 
+        for (var i = 0; i < $scope.datesDisp.length; i++) {
+          let dateDisp = $scope.datesDisp[i];
+          for (var j = 0; j < dateDisp.length; j++) {
+            dateDisp[j].comCompr = temCompromisso(dateDisp[j].date,dateDisp[j].month,selectedYear);
+            // console.log(dateDisp[j]);
+          }
         }
       }
       $scope.displayMonthCalendar();
@@ -382,6 +403,7 @@ angular.module('ionicCalendarDisplay', [])
       '.ionic_Calendar .txtCenter {text-align:center;}' +
       '.ionic_Calendar .col.selMonth { background-color: #444; color:white; }' +
       '.ionic_Calendar .col.selDate { background-color: #444; color:white; }' +
+      '.ionic_Calendar .col.comCompr { color:red !important; }'+
       '.ionic_Calendar .col.selYear { background-color: #444; color:white;  }' +
       '.ionic_Calendar .col.fadeDateDisp, .col.fadeYear { background-color: #E9E9E9; color:#D5D5D5 }' +
       '.ionic_Calendar .DaysDisplay .col{ border: 1px solid #F3F3F3; padding-top: 10px; font-weight: bolder; height: 40px;}' +
@@ -410,7 +432,7 @@ angular.module('ionicCalendarDisplay', [])
         '		  <div class="col">Dom</div><div class="col">Seg</div><div class="col">Ter</div><div class="col">Qua</div><div class="col">Qui</div><div class="col">Sex</div><div class="col">Sab</div>' +
         '		</div>' +
         '		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{\'marginTop0\':$first}">' +
-        '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\')}"  ng-click="selectedDateClick(colVal)" >{{colVal.date}}</div> ' +
+        '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\'), \'comCompr\':(colVal.comCompr)}"  ng-click="selectedDateClick(colVal)" >{{colVal.date}}</div> ' +
         '		</div>' +
         '	</div>' +
         '	<div class="calendar_Month" ng-show="UICalendarDisplay.Month">' +

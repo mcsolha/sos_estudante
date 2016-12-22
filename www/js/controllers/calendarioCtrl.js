@@ -1,12 +1,12 @@
 angular.module('sos_estudante.controllers', [])
-.controller('calendRioCtrl', ['$scope', '$stateParams', 'ionicTimePicker', '$ionicPopup', 'ionicDatePicker', 'calendarSharedInfo',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('calendRioCtrl', ['$scope', '$stateParams', 'ionicTimePicker', '$ionicPopup', 'ionicDatePicker', 'calendarioAPI',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, calendarSharedInfo) {
+function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, calendarioAPI) {
 
   $scope.showConfirm = function() {
     $scope.data = {};
-    $scope.dataSelecionada = calendarSharedInfo.getSelectedDate();
+    $scope.data.dia = calendarioAPI.retDataSelecionada();
     var datePickerObj = {
         // disabledDates: [            //Optional
         //   new Date(2016, 2, 16),
@@ -36,10 +36,18 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
     $scope.dataSelecao = function() {
       datePickerObj.callback = function(val) {
         var selectedDate = new Date(val);
-
-        console.log(calendarSharedInfo.formatDate(selectedDate.getDate(),selectedDate.getMonth(),selectedDate.getFullYear()));
+        $scope.data.dia = calendarioAPI.formatarData(selectedDate.getDate(),selectedDate.getMonth(),selectedDate.getFullYear());
+        console.log();
       }
       ionicDatePicker.openDatePicker(datePickerObj);
+    }
+
+    function FormatNumberLength(num, length) {
+      var r = "" + num;
+      while (r.length < length) {
+          r = "0" + r;
+      }
+      return r;
     }
 
     $scope.horaIni = function() {
@@ -50,7 +58,8 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
           console.log(val);
           var selectedTime = new Date(val * 1000);
           // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-          $scope.data.horaIniSelected = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+
+          $scope.data.horaIniSelected = FormatNumberLength(selectedTime.getUTCHours(),2) + ':' + FormatNumberLength(selectedTime.getUTCMinutes(),2);
         }
       }
       ionicTimePicker.openTimePicker(ipObj);
@@ -63,7 +72,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
         } else {
           var selectedTime = new Date(val * 1000);
           // console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-          $scope.data.horaFinSelected = selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes();
+          $scope.data.horaFinSelected = FormatNumberLength(selectedTime.getUTCHours(),2) + ':' + FormatNumberLength(selectedTime.getUTCMinutes(),2);;
         }
       }
       ionicTimePicker.openTimePicker(ipObj);
@@ -76,7 +85,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
        buttons: [
          {
            text: '<b>Salvar</b>',
-           type: 'button-positive',
+           type: 'button-dark',
            onTap: function(e) {
              if(typeof($scope.data.horaIniSelected) === 'undefined' && typeof($scope.data.horaFinSelected) === 'undefined') {
                //don't allow the user to close unless he enters wifi password
@@ -91,7 +100,8 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
      });
      confirmPopup.then(function(res) {
        if(res) {
-         console.log('You are sure');
+         calendarioAPI.adcDados(res);
+         console.log(res);
        } else {
          console.log('You are not sure');
        }
