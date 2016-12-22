@@ -268,7 +268,6 @@ angular.module('ionicCalendarDisplay', [])
       $scope.selectedDateClick = function(date) {
         $scope.displayDate = date.date;
         selectedDate = date.date;
-        console.log(selectedDate);
         if (date.type == 'newMonth') {
           var mnthDate = new Date(selectedYear, selectedMonth, 32)
           selectedMonth = mnthDate.getMonth();
@@ -288,7 +287,6 @@ angular.module('ionicCalendarDisplay', [])
         // console.log(data);
         for (var i = 0; i < calendarioAPI.retDados().length; i++) {
           if(calendarioAPI.retDados()[i].dia == data){
-            console.log(data);
             return true;
           }
         }
@@ -391,6 +389,7 @@ angular.module('ionicCalendarDisplay', [])
         }
       }
       $scope.displayMonthCalendar();
+      calendarioAPI.callbackFunction($scope.displayMonthCalendar,$scope.displayCompleteDate);
     }],
     template: '<style>' +
       '.ionic_Calendar .calendar_Date .row.Daysheading {text-align:center;}' +
@@ -457,7 +456,7 @@ angular.module('ionicCalendarDisplay', [])
         '</div>' +
         '<ion-list show-delete="true">' +
           '<ion-item ng-repeat = "item in tarefas" class="item-left">' +
-            '<h2>{{item}}</h2>' +
+            '<h2 style="word-wrap: break-word; white-space:normal;">{{item.titulo}}: {{item.horaIniSelected}} - {{item.horaFinSelected}}</h2>' +
             '<ion-delete-button class="ion-minus-circled dark" ng-click="items.splice($index, 1)">' +
             '</ion-delete-button>' +
           '</ion-item>' +

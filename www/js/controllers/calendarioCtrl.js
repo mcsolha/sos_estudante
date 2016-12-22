@@ -42,7 +42,6 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
       datePickerObj.callback = function(val) {
         var selectedDate = new Date(val);
         $scope.data.dia = calendarioAPI.formatarData(selectedDate.getDate(),selectedDate.getMonth(),selectedDate.getFullYear());
-        console.log();
       }
       ionicDatePicker.openDatePicker(datePickerObj);
     }
@@ -62,7 +61,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
         if (typeof (val) === 'undefined') {
           console.log('Time not selected');
         } else {
-          console.log(val);
+          // console.log(val);
           var tempoSelecionado = new Date(val * 1000);
           // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
 
@@ -111,7 +110,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
      confirmPopup.then(function(res) {
        if(res) {
          calendarioAPI.adcDados(res);
-         console.log(res);
+        //  console.log(res);
        } else {
          console.log('You are not sure');
        }
