@@ -1,5 +1,5 @@
 angular.module('sos_estudante.services')
-.service('calendarioAPI', ['compromissoFctr', function(Compromisso){
+.service('calendarioAPI', ['compromissoFctr', function(compromissoFctr){
   var callbackFun = [];
 
   // Variável que armazena qual data foi selecionada pelo usuario através do calendário
@@ -10,13 +10,17 @@ angular.module('sos_estudante.services')
     {
       dia: '12 - Dec - 16',
       tarefas: [
-        new Compromisso(0,'comer','12:00','13:00'),
-        new Compromisso(1,'papar','12:00','14:00'),
-        new Compromisso(2,'jantar','12:00','16:00'),
-        new Compromisso(3,'Fazer as listas de Banco de Dados 2 e terminar todos os trabalhos incluindo o de Eng Software 2','12:00','13:00')
+        new compromissoFctr.Compromisso(0,'comer','12:00','13:00'),
+        new compromissoFctr.Compromisso(1,'papar','12:00','14:00'),
+        new compromissoFctr.Compromisso(2,'jantar','12:00','16:00'),
+        new compromissoFctr.Compromisso(3,'Fazer as listas de Banco de Dados 2 e terminar todos os trabalhos incluindo o de Eng Software 2','12:00','13:00')
       ]
     }
   ];
+
+  var ordenarCompromissos = function() {
+
+  }
 
   return {
     // Funções chamadas para atualizar tela
