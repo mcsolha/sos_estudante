@@ -13,3 +13,33 @@
 .ionic_Calendar .marginTop0 { margin-top: 0px !important;}
 .ionic_Calendar .paddingBottom0 { padding-bottom: 0px !important;}
 .ionic_Calendar .Daysheading_Label .col { padding-bottom: 0px !important;}
+
+/*@keyframes slidedown {
+  0% {
+    top: 0px;
+  }
+  25% {
+    top: 10px;
+  }
+  50% {
+    top: 20px;
+  }
+  75% {
+    top: 30px;
+  }
+  100% {
+    top: 45px;
+  }
+}*/
+
+.more-menu{
+  /*border: 5px solid #444;*/
+  position: relative;
+  margin-left: auto;
+  margin-right: 0;
+  width: 200px;
+  height: 100px;
+  top: 45px;
+  /*animation-name: slidedown;
+  animation-duration: 2s;*/
+}

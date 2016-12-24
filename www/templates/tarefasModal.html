@@ -1,0 +1,31 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <a class="button button-clear ion-close button-dark" ng-click="closeModal()"></a>
+    <h1 class="title" style="text-align:center;" ng-if="!buscar">Compromissos</h1>
+    <a class="button button-clear ion-search button-dark" ng-click="buscar = !buscar"></a>
+    <label class="item item-input" style="width:100%;text-align=center;" ng-if="buscar">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="Search">
+    </label>
+    <a class="button button-clear ion-more button-dark" ng-click="opcoes = !opcoes"></a>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list show-delete="remover">
+      <ion-item ng-repeat = "item in tarefas" class="item-left">
+        <h2 style="word-wrap: break-word; white-space:normal;">{{item.titulo}}: {{item.horaIniSelected}} - {{item.horaFinSelected}}</h2>
+        <ion-delete-button class="ion-minus-circled dark" ng-click="tarefas.splice($index, 1)">
+        </ion-delete-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <div class="more-menu" ng-show="opcoes">
+    <a class="item item-icon-right" style="background-color:#c1c1c1;" ng-click="$parent.remover = !$parent.remover">
+        <i class="icon ion-trash-b"></i>
+        Remover
+    </a>
+    <a class="item item-icon-right" style="background-color:#c1c1c1;" ng-click="">
+        <i class="icon ion-chevron-up"></i>
+        Reordenar
+    </a>
+  </div>
+</ion-modal-view>

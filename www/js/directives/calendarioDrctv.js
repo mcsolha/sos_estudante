@@ -18,7 +18,14 @@ angular.module('ionicCalendarDisplay', [])
     scope: {
       dateformat: "="
     },
-    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI) {
+    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', '$ionicModal',
+    function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI, $ionicModal) {
+      $scope.opcoes = false;
+
+      $scope.remover = false;
+
+      $scope.buscar = false;
+      // Array que contém as tarefas do dia selecionado
       $scope.tarefas = []
 
       // Objeto para configurar time picker
@@ -161,6 +168,21 @@ angular.module('ionicCalendarDisplay', [])
         }
       }
 
+      $ionicModal.fromTemplateUrl('../../templates/tarefasModal.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modal = modal;
+        });
+        //ABRE MODAL
+      $scope.openModal = function() {
+        $scope.modal.show();
+      };
+      //FECHA MODAL
+      $scope.closeModal = function() {
+        $scope.modal.hide();
+      };
+
       $scope.displayCompleteDate = function() {
         var timeStamp = new Date(selectedYear, selectedMonth, selectedDate).getTime();
         if (angular.isUndefined($scope.dateformat)) {
@@ -171,12 +193,14 @@ angular.module('ionicCalendarDisplay', [])
         $scope.display = $filter('date')(timeStamp, format);
         calendarioAPI.defDataSelecionada($scope.display);
         trocarLista();
+        if($scope.tarefas.length > 0)
+          $scope.openModal();
         //$scope.mostrarPopup($scope.display);
         //console.log($scope.display);
       }
 
       //Onload Display Current Date
-      $scope.displayCompleteDate();
+      //$scope.displayCompleteDate();
 
       $scope.UIdisplayDatetoMonth = function() {
         $scope.UICalendarDisplay.Date = false;
@@ -389,7 +413,11 @@ angular.module('ionicCalendarDisplay', [])
         }
       }
       $scope.displayMonthCalendar();
+
+      // Define funções que atualizaram a tela
       calendarioAPI.callbackFunction($scope.displayMonthCalendar,$scope.displayCompleteDate);
+
+
     }],
     template: '<style>' +
       '.ionic_Calendar .calendar_Date .row.Daysheading {text-align:center;}' +
