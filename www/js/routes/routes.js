@@ -36,13 +36,6 @@ angular.module('sos_estudante.routes', [])
     abstract:true
   })
 
-//state da Nova Matéria
-  .state('tabsController.novaMateria', {
-    url:'/novaMateria',
-    templateUrl:'templates/novaMateria.html',
-    abstract: true
-  })
-
 $urlRouterProvider.otherwise('/page1/materias')
 
 
