@@ -1,10 +1,113 @@
 <ion-modal-view>
-   <ion-header-bar>
-      <h1 class = "title">Modal Title</h1>
-   </ion-header-bar>
+   <div class="bar bar-header">
+     <!--Botão pra fechar o modal-->
+     <button class="button icon ion-close-round" ng-click="closeModal()"></button>
+      <h1 class = "title">Nova Matéria</h1>
+   </div>
+   <!--CORPO-->
+   <ion-content class="has-header">
+     <div class="list">
+       <label class="item item-input item-stacked-label">
+         <span class="input-label">Nome da Matéria</span>
+         <input type="text" placeholder="Redes">
+       </label>
+       <label class="item item-input item-stacked-label">
+         <span class="input-label">Nome do Professor</span>
+         <input type="text" placeholder="Kelton">
+       </label>
 
-   <ion-content>
-      <button class = "button icon icon-left ion-ios-close-outline"
-         ng-click = "closeModal()">Close Modal</button>
+       <!--COMEÇO FUNÇÃO DA MÉDIA FINAL-->
+       <label class="item item-input">
+         <div class="row" id="textFuncMedia">
+           MF=
+           <div class="col">
+             <label class="item item-input">
+               <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+             </label>
+           </div>*MP
+           <div class="col">
+             <label class="item item-input">
+               <input type="number" step="0.1" max="1" min="0" placeholder="0.1">
+             </label>
+           </div>*MT
+           <div class="col">
+             <label class="item item-input">
+               <input type="number" step="0.1" max="1" min="0" placeholder="0">
+             </label>
+           </div>*ME
+        </div>
+      </label>
+      <!--FIM DA FUNÇÃO DA MÉDIA FINAL-->
+      <label class="item item-input">
+        <div class="row">
+          Nota Mínima de aprovação:
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          Quantidade de Provas:
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="2">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          Quantidade de Trabalhos:
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="1">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          Quantidade de Exercicios:
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="5">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          Quantidade de Aulas:
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="60">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          Porcentagem máxima de faltas:
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="30">
+            </label>
+          </div>
+        </div>
+      </label>
+      <!--Botao para editar as notas -->
+      <label class="item item-input">
+        <button class="button button-block button-dark">Editar Notas</button>
+      </label>
+     </div>
+
    </ion-content>
 </ion-modal-view>
