@@ -1,0 +1,28 @@
+<ion-view title="Login">
+  <ion-content>
+    <form name="formLogin">
+		<div class="list">
+
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">Email</span>
+		    <input type="email" placeholder="Email"  name="email" ng-model="login.email" ng-required="true">
+		    <span class="assertive" ng-show="formLogin.email.$invalid && formLogin.email.$dirty">Email inválido!</span>
+
+		  </label>
+
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">Senha</span>
+		    <input type="password" placeholder="Senha" name="senha" ng-model="login.senha" ng-required="true">
+		    <span class="assertive" ng-show="formLogin.senha.$invalid && formLogin.senha.$dirty">Senha invalida!</span>
+
+		  </label>
+
+
+		</div>
+		</form>
+		<button class="button button-full button-positive" ng-disabled="formLogin.$invalid" ng-click="loginUsuario(login)">Entrar</button>
+    <button class="button button-clear button-full button-small button-positive">
+      Cadastre-se
+    </button>
+  </ion-content>
+</ion-view>

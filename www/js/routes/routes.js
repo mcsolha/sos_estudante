@@ -36,7 +36,18 @@ angular.module('sos_estudante.routes', [])
     abstract:true
   })
 
-$urlRouterProvider.otherwise('/page1/materias')
+  .state('login',{
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  .state('cadastro',{
+    url: '/cadastro',
+    templateUrl: 'templates/cadastro.html',
+    controller: 'cadastroCtrl'
+  })
+$urlRouterProvider.otherwise('login')
 
 
 

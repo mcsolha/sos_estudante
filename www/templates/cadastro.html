@@ -1,0 +1,30 @@
+<ion-view view-title="Cadastro">
+  <ion-content>
+		<form name="formCadastro">
+		<div class="list">
+		  <label class="item item-input item-floating-label" >
+		    <span class="input-label">Nome</span>
+		    <input type="text" placeholder="Nome" name="nome" ng-model="cadastro.nome" ng-required="true">
+		    <span class="assertive" ng-show="formCadastro.nome.$invalid && formCadastro.nome.$dirty">Nome inválido!</span>
+		  </label>
+
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">Email</span>
+		    <input type="email" placeholder="Email"  name="email" ng-model="cadastro.email" ng-required="true">
+		    <span class="assertive" ng-show="formCadastro.email.$invalid && formCadastro.email.$dirty">Email inválido!</span>
+
+		  </label>
+
+		  <label class="item item-input item-floating-label">
+		    <span class="input-label">Senha</span>
+		    <input type="password" placeholder="Senha"  name="senha" ng-model="cadastro.senha" ng-required="true">
+		    <span class="assertive" ng-show="formCadastro.senha.$invalid && formCadastro.senha.$dirty">Senha inválida!</span>
+
+		  </label>
+
+		</div>
+		</form>
+		<button class="button button-full button-positive" ng-disabled="formCadastro.$invalid" ng-click="cadastroUsuario(cadastro)">Cadastrar</button>
+  </ion-content>
+
+  </ion-view>
