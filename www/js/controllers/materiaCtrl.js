@@ -29,7 +29,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
     // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
         title: 'Notas',
-        //template: '<input type="password" ng-model="data.wifi">'
+        templateUrl: '../templates/tabNotas.html',
         scope: $scope,
         buttons: [
           { text: 'Cancelar' },
