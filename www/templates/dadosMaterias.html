@@ -1,6 +1,104 @@
-<ion-pane>
-  <ion-header-bar class="bar-dark">
+<ion-modal-view ng-controller="dadosMateriaCtrl">
+
+  <!--Começo da header-->
+  <div class="bar bar-header bar-dark">
+    <button class="button  ion-close-round" ng-click="closeModal()"></button>
     <h1 class="title">Nome Materia</h1>
-  <ion-header-bar>
-  <p>Paragrafo Inicial</p>  
-</ion-pane>
+    <div class="buttons">
+      <button class="button  ion-edit"> </button>
+      <button class="button  ion-ios-filing"> </button>
+      <button class="button ion-ios-trash"></button>
+      <button class="button ion-android-more-horizontal"></button>
+    </div>
+  </div>
+  <!--fim da header-->
+
+  <!--Começo do content-->
+  <ion-content class="has-header">
+    <ion-list align-items = "center">
+        <ion-item id="nomeprof">
+          Nome Profe
+        </ion-item>
+
+        <ion-item class="horario">
+          <div class="row">
+            <p id = "titulohora">  Horário de Aula </p>
+          </div>
+
+          <div class="row">
+            <div class="col col-75">
+              Segunda-Feira
+            </div>
+            <div class="col">
+              14:00
+            </div>
+            <div class="col">
+              16:00
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col col-75">
+              Terça-Feira
+            </div>
+            <div class="col">
+              10:00
+            </div>
+            <div class="col">
+              12:00
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item>
+          <p id="criterio">
+            MF = 0.7
+            <i href="#" class="ion-ios-medical"> </i>
+            MP
+            <i href="#" class="ion-plus"> </i>
+            0.2
+            <i href="#" class="ion-ios-medical"> </i>
+            MT
+            <i href="#" class="ion-plus"> </i>
+            0.1
+            <i href="#" class="ion-ios-medical"> </i>
+            ME
+          </p>
+        </ion-item>
+
+          <ion-item class="faltas">
+            <p id = "faltas">
+              Faltas Disponiveis: 9
+            </p>
+          </ion-item>
+      </ion-list>
+
+      <ion-item>
+      <table class= "tabelaNotas" style="width:100%" align='center'>
+        <caption id = capTabelaNotas class="tabelaNotas"> Notas</notas>
+              <tr>
+                  <th class ="tabelaNotas" align='center'>Provas</th>
+                  <th class ="tabelaNotas" align='center'>Exercícios</th>
+                  <th class ="tabelaNotas" align='center'>Trabalhos</th>
+              </tr>
+              <tr>
+                  <td class ="tabelaNotas" align='center'>6.8</td>
+                  <td class ="tabelaNotas" align='center'>7.9</td>
+                  <td class ="tabelaNotas" align='center'>6.9</td>
+              </tr>
+              <tr>
+                  <td class ="tabelaNotas" align='center'>9.8</td>
+                  <td class ="tabelaNotas" align='center'>4.9</td>
+                  <td class ="tabelaNotas" align='center'>3.3</td>
+              </tr>
+              <tr>
+                  <td class ="tabelaNotas" align='center'>7.8</td>
+                  <td class ="tabelaNotas" align='center'>9.7</td>
+                  <td class ="tabelaNotas" align='center'>4.9</td>
+              </tr>
+      </table>
+    </ion-item>
+    <button class="button button-block button-dark">Estimar Notas</button>
+  </ion-content>
+    <!--fim do content-->
+</ion-modal-view>

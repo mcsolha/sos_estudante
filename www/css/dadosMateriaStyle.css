@@ -1,0 +1,28 @@
+#nomeprof{
+  font-size: 15px;
+};
+
+#titulohora{
+  margin: 5px;
+  padding: 15px;
+  font-style: italic;
+}
+
+#criterio{
+  margin:  5px;
+  align-items: center;
+  font-size: 15px
+}
+
+#faltas{
+  font-size: 15px;
+  margin:  5px;
+}
+
+#capTabelaNotas{
+  background-color: gray;
+  color: white;
+}
+.tabelaNotas{
+   border: 1px solid black;
+ }
