@@ -8,21 +8,21 @@
   font-style: italic;
 }
 
-#criterio{
-  margin:  5px;
-  align-items: center;
-  font-size: 15px
-}
-
-#faltas{
-  font-size: 15px;
-  margin:  5px;
-}
-
 #capTabelaNotas{
   background-color: gray;
   color: white;
 }
+
+.faltas{
+  font-size: 15px;
+  padding: 10px;
+}
+.criterio{
+  margin:  5px;
+  align-items: center;
+  font-size: 15px;
+}
+
 .tabelaNotas{
    border: 1px solid black;
  }
