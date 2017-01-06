@@ -1,11 +1,11 @@
 angular.module('sos_estudante.controllers')
 
-.controller('dadosMateriaCtrl', ['$scope', '$stateParams', '$ionicModal',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dadosMateriaCtrl', ['$scope', '$stateParams', '$ionicModal','$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicModal) {
+function ($scope, $stateParams, $ionicModal, $ionicPopup) {
 
-  //MODAL DA NOVA MATÉRIA
+  //MODAL DA estimativas
     $ionicModal.fromTemplateUrl('../templates/estimativas.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -13,14 +13,25 @@ function ($scope, $stateParams, $ionicModal) {
         $scope.modal = modal;
       });
       //ABRE MODAL
-    $scope.openModal = function() {
+    $scope.openModalEst = function() {
       $scope.modal.show();
     };
     //FECHA MODAL
-    $scope.closeModal = function() {
+    $scope.closeModalEst = function() {
       $scope.modal.hide();
     };
 
-  }
+    $scope.onshowPopUpFaltas = function(){
+      $ionicPopup.show({
+        title: "Incluir Faltas",
+        scope: $scope,
+        template:"<label>Quantidade de Faltas</label>",
+        buttons:[
+          {text: "Salvar"},
+          {text: "Cancelar"}
+        ]
+      });
+    }
+}
 
-]);
+])
