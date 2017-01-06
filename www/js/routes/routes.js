@@ -36,6 +36,7 @@ angular.module('sos_estudante.routes', [])
     abstract:true
   })
 
+
 $urlRouterProvider.otherwise('/page1/materias')
 
 
