@@ -5,7 +5,7 @@ angular.module('sos_estudante.controllers')
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup) {
 
-  //MODAL DA estimativas
+   //Inicio MODAL DA estimativas
     $ionicModal.fromTemplateUrl('../templates/estimativas.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -20,7 +20,9 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
     $scope.closeModalEst = function() {
       $scope.modal.hide();
     };
+    //Fim modal Estimativas
 
+    //Inicio POPUP Faltas
     $scope.onshowPopUpFaltas = function(){
       $scope.maisFaltas = 1;
       $ionicPopup.show({
@@ -33,6 +35,15 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
         ],
       });
     }
+    //Fim POPup faltas
+
+    //Controle aparecimento moreMenu
+    $scope.moreMenu = false;
+
+    $scope.onShowMoreMenu = function(){
+      $scope.moreMenu = !$scope.moreMenu;
+    }
+
 }
 
 ])

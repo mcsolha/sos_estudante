@@ -17,6 +17,14 @@
   border:  0.5px solid black;
 }
 
+#moreMenu{
+  padding: 0px;
+  border: none;
+  background-color: #4d4d4d;
+  position: fixed;
+  left:60%;
+}
+
 .faltas{
   font-size: 15px;
   padding: 10px;
