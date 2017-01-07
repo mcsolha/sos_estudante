@@ -22,14 +22,15 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
     };
 
     $scope.onshowPopUpFaltas = function(){
+      $scope.maisFaltas = 1;
       $ionicPopup.show({
-        title: "Incluir Faltas",
+        title: 'Incluir Faltas',
+        templateUrl:'../templates/faltasPopup.html',
         scope: $scope,
-        template:"<label>Quantidade de Faltas</label>",
         buttons:[
           {text: "Salvar"},
           {text: "Cancelar"}
-        ]
+        ],
       });
     }
 }
