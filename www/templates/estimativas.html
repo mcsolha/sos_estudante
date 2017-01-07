@@ -43,10 +43,13 @@
                 </tr>
         </table>
     </div>
-    <div class="notaFinalDesejada">
-      <label> Nota Final Desejada:
-        <input  ng-model="notaDesejada" ></input>
-      </label>
+    <div id="notaFinalDesejada" class="row" >
+      <div  class="col">
+          Nota Final Desejada:
+      </div>
+      <div class ="col" >
+        <input id ="spinNota" type="number" min = "0" max="10" step = "0.05" ng-model="notaDesejada" ></input>
+      </div>
     </div>
     <button class="button button-block button-dark">Estimar</button>
   </ion-content>
