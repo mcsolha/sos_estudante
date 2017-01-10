@@ -1,0 +1,24 @@
+<div>
+  <div class="list list-inset">
+    <!-- Componentes que formam o input com o icone para preencher titulo -->
+    <a class="item item-icon-left">
+      <i class="icon ion-pricetag"></i>
+      <input id="titulo-comp" type="text" placeholder="Título" ng-model="data.titulo">
+    </a>
+    <!-- Componentes que formam o input com o icone para preencher hora inicial -->
+    <a class="item item-icon-left" ng-click="horaIni()">
+      <i class="icon ion-android-time"></i>
+      Hora inicial: {{data.horaIniSelected}}
+    </a>
+    <!-- Componentes que formam o input com o icone para preencher hora final -->
+    <a class="item item-icon-left" ng-click="horaFin()">
+      <i class="icon ion-android-alarm-clock"></i>
+      Hora final: {{data.horaFinSelected}}
+    </a>
+    <!-- Componentes que formam o input com o icone para preencher data -->
+    <a class="item item-icon-left" ng-click="dataSelecao()">
+      <i class="icon ion-calendar"></i>
+      Data: {{data.dia}}
+    </a>
+  </div>
+</div>

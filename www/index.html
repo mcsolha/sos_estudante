@@ -9,6 +9,9 @@
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
@@ -19,6 +22,8 @@
 
     <link href="css/ionic.app.css" rel="stylesheet">
     <link href="./css/novaMateriaStyle.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/calendar.css" rel="stylesheet">
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
@@ -63,9 +68,11 @@
 
 
     <script src="js/directives/blankDrctv.js"></script>
+    <script src="js/directives/calendarioDrctv.js"></script>
 
-    <script src="js/services/blankFctr.js"></script>
+    <script src="js/services/compromissoFctr.js"></script>
     <script src="js/services/blankSrvc.js"></script>
+    <script src="js/services/calendario_apiSrvc.js"></script>
 
     <!-- Only required for Tab projects w/ pages in multiple tabs
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
@@ -75,7 +82,7 @@
   <body ng-app="sos_estudante" animation="slide-left-right-ios7">
   <div>
   <div>
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-stable" >
       <ion-nav-back-button></ion-nav-back-button>
     </ion-nav-bar>
     <ion-nav-view></ion-nav-view>
