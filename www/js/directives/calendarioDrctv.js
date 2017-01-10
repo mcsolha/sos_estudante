@@ -68,7 +68,7 @@ angular.module('ionicCalendarDisplay', [])
           ionicTimePicker.openTimePicker(tempoConfig);
         }
         var popup = $ionicPopup.show({
-          templateUrl: '../../templates/calendarioPopup.html',
+          templateUrl: './templates/calendarioPopup.html',
           title: 'Compromisso',
           scope: $scope,
           buttons: [

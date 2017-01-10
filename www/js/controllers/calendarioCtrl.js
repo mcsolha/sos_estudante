@@ -88,7 +88,7 @@ function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, c
     // Popup para usuario preencher informações do compromisso
      var confirmPopup = $ionicPopup.confirm({
        title: 'Compromisso',
-       templateUrl: '../../templates/calendarioPopup.html',
+       templateUrl: './templates/calendarioPopup.html',
        scope: $scope,
        buttons: [
          {

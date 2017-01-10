@@ -6,7 +6,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
 
   //////////////MODAL
   //MODAL DA NOVA MATÉRIA
-  $ionicModal.fromTemplateUrl('../templates/novaMateria.html', {
+  $ionicModal.fromTemplateUrl('./templates/novaMateria.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
@@ -22,7 +22,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
   };
   //////////FIM MODAL
 
-  $ionicModal.fromTemplateUrl('../templates/dadosMaterias.html', {
+  $ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
@@ -43,7 +43,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
     // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
         title: 'Notas',
-        templateUrl: '../templates/tabNotas.html',
+        templateUrl: './templates/tabNotas.html',
         scope: $scope,
         buttons: [
           { text: 'Cancelar' },

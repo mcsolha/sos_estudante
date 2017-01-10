@@ -6,7 +6,7 @@ angular.module('sos_estudante.controllers')
 function ($scope, $stateParams, $ionicModal, $ionicPopup) {
 
    //Inicio MODAL DA estimativas
-    $ionicModal.fromTemplateUrl('../templates/estimativas.html', {
+    $ionicModal.fromTemplateUrl('./templates/estimativas.html', {
         scope: $scope,
         animation: 'slide-in-up'
       }).then(function(modal) {
@@ -27,7 +27,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
       $scope.maisFaltas = 1;
       $ionicPopup.show({
         title: 'Incluir Faltas',
-        templateUrl:'../templates/faltasPopup.html',
+        templateUrl:'./templates/faltasPopup.html',
         scope: $scope,
         buttons:[
           {text: "Salvar"},
