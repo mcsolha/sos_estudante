@@ -1,0 +1,57 @@
+<ion-modal-view>
+  <!--Começo da header-->
+  <div class="bar bar-header bar-dark">
+    <button class="button  ion-close-round" ng-click="closeModalEst()"></button>
+    <h1 class="title">Estimativas</h1>
+  </div>
+  <!--fim da header-->
+
+  <!--Começo do content-->
+  <ion-content class="has-header">
+      <div id= "tabestimativas">
+        <table class= "tabelaNotas" style="width:100%" align='center'>
+          <caption id = capTabelaNotas class="tabelaNotas"> Notas</notas>
+                <tr>
+                    <th class ="tabelaNotas" align='center'>Provas</th>
+                    <th class ="tabelaNotas" align='center'>Exercícios</th>
+                    <th class ="tabelaNotas" align='center'>Trabalhos</th>
+                </tr>
+                <tr>
+                    <td class ="tabelaNotas" align='center'>6.8</td>
+                    <td class ="tabelaNotas" align='center'>7.9</td>
+                    <td class ="tabelaNotas" align='center'>6.9</td>
+                </tr>
+                <tr>
+                    <td class ="tabelaNotas" align='center'>9.8</td>
+                    <td class ="tabelaNotas" align='center'>4.9</td>
+                    <td class ="tabelaNotas" align='center'>3.3</td>
+                </tr>
+                <tr>
+                    <td class ="tabelaNotas" align='center'>7.8</td>
+                    <td class ="tabelaNotas" align='center'>9.7</td>
+                    <td class ="tabelaNotas" align='center'>4.9</td>
+                </tr>
+                <tr>
+                    <td class ="tabelaNotas" align='center'>7.8</td>
+                    <td class ="tabelaNotas" align='center'>9.7</td>
+                    <td class ="tabelaNotas" align='center'>4.9</td>
+                </tr>
+                <tr>
+                    <td class ="tabelaNotas" align='center'>7.8</td>
+                    <td class ="tabelaNotas" align='center'>9.7</td>
+                    <td class ="tabelaNotas" align='center'>4.9</td>
+                </tr>
+        </table>
+    </div>
+    <div id="notaFinalDesejada" class="row" >
+      <div  class="col">
+          Nota Final Desejada:
+      </div>
+      <div class ="col" >
+        <input id ="spinNota" type="number" min = "0" max="10" step = "0.05" ng-model="notaDesejada" ></input>
+      </div>
+    </div>
+    <button class="button button-block button-dark">Estimar</button>
+  </ion-content>
+  <!--fim do content-->
+</ion-modal-view>
