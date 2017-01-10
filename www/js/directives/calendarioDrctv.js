@@ -477,18 +477,6 @@ angular.module('ionicCalendarDisplay', [])
         '		</div>' +
         '	</div>' +
         '</div>' +
-        '<div class="item item-divider item-icon-right" ng-if="tarefas.length > 0">' +
-          '<div class="titulo">Compromissos</div>' +
-          '<i class="icon ion-search busca-lupa" ng-click="cliqueLupa()"></i>' +
-          '<input class="busca-box">' +
-        '</div>' +
-        '<ion-list show-delete="true">' +
-          '<ion-item ng-repeat = "item in tarefas" class="item-left">' +
-            '<h2 style="word-wrap: break-word; white-space:normal;">{{item.titulo}}: {{item.horaIniSelected}} - {{item.horaFinSelected}}</h2>' +
-            '<ion-delete-button class="ion-minus-circled dark" ng-click="items.splice($index, 1)">' +
-            '</ion-delete-button>' +
-          '</ion-item>' +
-        '</ion-list>' +
       '</div>'
   };
 });
