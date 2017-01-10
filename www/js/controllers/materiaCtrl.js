@@ -3,7 +3,19 @@ angular.module('sos_estudante.controllers')
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup) {
-
+  $scope.diasSemana = [{},{},{},{},{},{}];
+  for(i=0;i<6;i++){
+   $scope.diasSemana[i].class = "button-stable button-outline";
+  }
+  $scope.selecDia = function(i) {
+    console.log(i);
+    if ($scope.diasSemana[i].class === "button-stable button-outline"){
+      $scope.diasSemana[i].class = "button-dark";
+    }
+    else{
+      $scope.diasSemana[i].class = "button-stable button-outline";
+    }
+  }
   //////////////MODAL
   //MODAL DA NOVA MATÉRIA
   $ionicModal.fromTemplateUrl('./templates/novaMateria.html', {

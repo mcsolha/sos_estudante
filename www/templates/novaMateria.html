@@ -15,17 +15,18 @@
          <span class="input-label">Nome do Professor</span>
          <input type="text" placeholder="Kelton">
        </label>
-
        <!-- SEMANA -->
-      <div class="button-bar button-pill" id="borda">
-        <a class="button" id="borda">S</a>
-        <a class="button" id="borda">T</a>
-        <a class="button" id="borda">Q</a>
-        <a class="button" id="borda">Q</a>
-        <a class="button" id="borda">S</a>
-        <a class="button" id="borda">S</a>
-        <a class="button" id="borda">D</a>
-      </div>
+       <div style="padding:0 16px;">
+        <span class="input-label" style="width:auto;">Dias da semana</span>
+        <div class="button-bar" id="reservar-button-bar1">
+         <button ng-click="selecDia(0)" class=" button {{diasSemana[0].class}}  button-block" id="reservar-button-ter">S</button>
+         <button ng-click="selecDia(1)" class=" button {{diasSemana[1].class}}  button-block" id="reservar-button-quar">T</button>
+         <button ng-click="selecDia(2)" class=" button {{diasSemana[2].class}}  button-block" id="reservar-button-quin">Q</button>
+         <button ng-click="selecDia(3)" class=" button {{diasSemana[3].class}}  button-block" id="reservar-button-sex">Q</button>
+         <button ng-click="selecDia(4)" class=" button {{diasSemana[4].class}}  button-block" id="reservar-button-sex">S</button>
+         <button ng-click="selecDia(5)" class=" button {{diasSemana[5].class}}  button-block" id="reservar-button-sex">S</button>
+        </div>
+       </div>
       <div class="row">
         <div class="col col-50">
           <label class="item item-input item-stacked-label">
@@ -87,77 +88,49 @@
       </label>
       <!--FIM DA FUNÇÃO DA MÉDIA FINAL-->
 
-      <label class="item item-input">
-        <div class="row">
-          <div class="col col-70" id="txtMeio">
-            <h2> Nota Mínima de aprovação: </h2>
-          </div>
-          <div class="col col-30">
-            <label class="item item-input">
-              <input type="number" step="0.1" max="1" min="0" placeholder="0">
-            </label>
-          </div>
-        </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nota mínima de aprovação</span>
+        <label>
+          <input type="number" min="0" placeholder="1">
+        </label>
       </label>
 
-      <label class="item item-input">
-        <div class="row">
-            <h2 id="txtMeio"> Quantidade de Provas: </h2>
-          <div class="col">
-            <label class="item item-input">
-              <input type="number" min="0" placeholder="2">
-            </label>
-          </div>
-        </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Quantidade de provas</span>
+        <label>
+          <input type="number" min="0" placeholder="1">
+        </label>
       </label>
 
-      <label class="item item-input">
-        <div class="row">
-          <h2 id="txtMeio">Quantidade de Trabalhos: </h2>
-          <div class="col">
-            <label class="item item-input">
-              <input type="number" min="0" placeholder="1">
-            </label>
-          </div>
-        </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Quantidade de trabalhos</span>
+        <label>
+          <input type="number" min="0" placeholder="1">
+        </label>
       </label>
 
-      <label class="item item-input">
-        <div class="row">
-          <h2 id="txtMeio">Quantidade de Exercicios:</h2>
-          <div class="col">
-            <label class="item item-input">
-              <input type="number" min="0" placeholder="5">
-            </label>
-          </div>
-        </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Quantidade de exercícios</span>
+        <label>
+          <input type="number" min="0" placeholder="1">
+        </label>
       </label>
 
-      <label class="item item-input">
-        <div class="row">
-          <h2 id="txtMeio">Quantidade de Aulas: </h2>
-          <div class="col">
-            <label class="item item-input">
-              <input type="number" min="0" placeholder="60">
-            </label>
-          </div>
-        </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Quantidade de aulas</span>
+        <label>
+          <input type="number" min="0" placeholder="1">
+        </label>
       </label>
 
-      <label class="item item-input">
-        <div class="row">
-          <h2 id="txtMeio">Porcentagem máxima de faltas: </h2>
-          <div class="col">
-            <label class="item item-input">
-              <input type="number" min="0" placeholder="30">
-            </label>
-          </div>
-        </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Porcentagem máxima de faltas</span>
+        <label>
+          <input type="number" min="0" placeholder="1">
+        </label>
       </label>
       <!--Botao para editar as notas -->
-      <label class="item item-input">
-        <button class="button button-block button-dark" ng-click="showPopup()">Editar Notas</button>
-      </label>
+      <button class="button button-block button-dark" ng-click="showPopup()">Editar Notas</button>
      </div>
 
    </ion-content>
