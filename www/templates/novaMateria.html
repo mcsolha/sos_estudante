@@ -16,8 +16,8 @@
          <input type="text" placeholder="Kelton">
        </label>
        <!-- SEMANA -->
-       <div style="padding:0 16px;">
-        <span class="input-label" style="width:auto;">Dias da semana</span>
+       <div style="padding:6px 1px 5px 16px;">
+        <span class="input-label" style="width:auto;">Dias da Semana</span>
         <div class="button-bar" id="reservar-button-bar1">
          <button ng-click="selecDia(0)" class=" button {{diasSemana[0].class}}  button-block" id="reservar-button-ter">S</button>
          <button ng-click="selecDia(1)" class=" button {{diasSemana[1].class}}  button-block" id="reservar-button-quar">T</button>
@@ -26,66 +26,62 @@
          <button ng-click="selecDia(4)" class=" button {{diasSemana[4].class}}  button-block" id="reservar-button-sex">S</button>
          <button ng-click="selecDia(5)" class=" button {{diasSemana[5].class}}  button-block" id="reservar-button-sex">S</button>
         </div>
+        <div class="row">
+          <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaIni()">
+            Hora inicial:
+            <div style="float:right; padding-right: 10px;">
+              {{data.horaIniSelected}}
+            </div>
+          </a>
+          <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaFin()">
+            Hora final:
+            <div style="float:right; padding-right: 10px;">
+              {{data.horaFinSelected}}
+            </div>
+          </a>
+        </div>
        </div>
-      <div class="row">
-        <div class="col col-50">
-          <label class="item item-input item-stacked-label">
-            <span class="input-label">Hora Inicial</span>
-            <input type="time" placeholder="08:00">
-          </label>
-        </div>
-        <div class="col col-50">
-          <label class="item item-input item-stacked-label">
-            <span class="input-label">Hora Final</span>
-            <input type="time" placeholder="10:00">
-          </label>
-        </div>
-      </div>
        <!-- FIM SEMANA -->
 
        <!--COMEÇO FUNÇÃO DA MÉDIA FINAL-->
-       <label class="item item-input" id="funcMedia">
-           <h2 id="txtMeio"> Média Final: </h2>
-       </label>
+       <div class="item t1">
+          <span class="header-media">Média Final</span>
+          <div class="row">
+            <div class="col">
+              <span style="font-size:14px; color:#444;">MP</span>
+            </div>
+            <div class="col">
+              <i class="ion-plus"></i>
+            </div>
+            <div class="col">
+              <span style="font-size:14px; color:#444;">MT</span>
+            </div>
+            <div class="col">
+              <i class="ion-plus"></i>
+            </div>
+            <div class="col">
+              <span style="font-size:14px; color:#444;">ME</span>
+            </div>
+          </div>
+          <div class="row" style="width:auto; padding:0 10px;">
+            <div class="col">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+            </div>
+          </div>
+       </div>
        <!-- -->
-       <label class="item item-input" id="funcMedia">
-           <div class="row">
-             <div class="col col-70">
-               <label class="item item-input" id="funcMedia">
-                 <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
-               </label>
-             </div>
-             <div class="col col-30" id="txtMeio">
-               <h2> * Média de Prova + </h2>
-             </div>
-           </div>
-       </label>
-       <!-- -->
-       <label class="item item-input">
-           <div class="row">
-           <div class="col col-30">
-             <label class="item item-input" id="funcMedia">
-               <input type="number" step="0.1" max="1" min="0" placeholder="0.1">
-             </label>
-           </div>
-           <div class="col col-30" id="txtMeio">
-              <h2> * Média de Trabalho + </h2>
-           </div>
-         </div>
-      </label>
-      <!-- -->
-      <label class="item item-input">
-         <div class="row">
-           <div class="col col-50">
-             <label class="item item-input" id="funcMedia">
-               <input type="number" step="0.1" max="1" min="0" placeholder="0">
-             </label>
-           </div>
-           <div class="col col-50" id="txtMeio">
-             <h2> * Média de Exercício </h2>
-           </div>
-        </div>
-      </label>
       <!--FIM DA FUNÇÃO DA MÉDIA FINAL-->
 
       <label class="item item-input item-stacked-label">
