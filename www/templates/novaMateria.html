@@ -1,0 +1,164 @@
+<ion-modal-view>
+   <div class="bar bar-header">
+     <!--Botão pra fechar o modal-->
+     <button class="button icon ion-close-round" ng-click="closeModal()"></button>
+      <h1 class = "title">Nova Matéria</h1>
+   </div>
+   <!--CORPO-->
+   <ion-content class="has-header">
+     <div class="list">
+       <label class="item item-input item-stacked-label">
+         <span class="input-label">Nome da Matéria</span>
+         <input type="text" placeholder="Redes">
+       </label>
+       <label class="item item-input item-stacked-label">
+         <span class="input-label">Nome do Professor</span>
+         <input type="text" placeholder="Kelton">
+       </label>
+
+       <!-- SEMANA -->
+      <div class="button-bar button-pill" id="borda">
+        <a class="button" id="borda">S</a>
+        <a class="button" id="borda">T</a>
+        <a class="button" id="borda">Q</a>
+        <a class="button" id="borda">Q</a>
+        <a class="button" id="borda">S</a>
+        <a class="button" id="borda">S</a>
+        <a class="button" id="borda">D</a>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Hora Inicial</span>
+            <input type="time" placeholder="08:00">
+          </label>
+        </div>
+        <div class="col col-50">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Hora Final</span>
+            <input type="time" placeholder="10:00">
+          </label>
+        </div>
+      </div>
+       <!-- FIM SEMANA -->
+
+       <!--COMEÇO FUNÇÃO DA MÉDIA FINAL-->
+       <label class="item item-input" id="funcMedia">
+           <h2 id="txtMeio"> Média Final: </h2>
+       </label>
+       <!-- -->
+       <label class="item item-input" id="funcMedia">
+           <div class="row">
+             <div class="col col-70">
+               <label class="item item-input" id="funcMedia">
+                 <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+               </label>
+             </div>
+             <div class="col col-30" id="txtMeio">
+               <h2> * Média de Prova + </h2>
+             </div>
+           </div>
+       </label>
+       <!-- -->
+       <label class="item item-input">
+           <div class="row">
+           <div class="col col-30">
+             <label class="item item-input" id="funcMedia">
+               <input type="number" step="0.1" max="1" min="0" placeholder="0.1">
+             </label>
+           </div>
+           <div class="col col-30" id="txtMeio">
+              <h2> * Média de Trabalho + </h2>
+           </div>
+         </div>
+      </label>
+      <!-- -->
+      <label class="item item-input">
+         <div class="row">
+           <div class="col col-50">
+             <label class="item item-input" id="funcMedia">
+               <input type="number" step="0.1" max="1" min="0" placeholder="0">
+             </label>
+           </div>
+           <div class="col col-50" id="txtMeio">
+             <h2> * Média de Exercício </h2>
+           </div>
+        </div>
+      </label>
+      <!--FIM DA FUNÇÃO DA MÉDIA FINAL-->
+
+      <label class="item item-input">
+        <div class="row">
+          <div class="col col-70" id="txtMeio">
+            <h2> Nota Mínima de aprovação: </h2>
+          </div>
+          <div class="col col-30">
+            <label class="item item-input">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+            <h2 id="txtMeio"> Quantidade de Provas: </h2>
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="2">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          <h2 id="txtMeio">Quantidade de Trabalhos: </h2>
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="1">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          <h2 id="txtMeio">Quantidade de Exercicios:</h2>
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="5">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          <h2 id="txtMeio">Quantidade de Aulas: </h2>
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="60">
+            </label>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input">
+        <div class="row">
+          <h2 id="txtMeio">Porcentagem máxima de faltas: </h2>
+          <div class="col">
+            <label class="item item-input">
+              <input type="number" min="0" placeholder="30">
+            </label>
+          </div>
+        </div>
+      </label>
+      <!--Botao para editar as notas -->
+      <label class="item item-input">
+        <button class="button button-block button-dark" ng-click="showPopup()">Editar Notas</button>
+      </label>
+     </div>
+
+   </ion-content>
+</ion-modal-view>

@@ -47,8 +47,8 @@ angular.module('sos_estudante.routes', [])
     templateUrl: 'templates/cadastro.html',
     controller: 'cadastroCtrl'
   })
-$urlRouterProvider.otherwise('login')
 
+$urlRouterProvider.otherwise('login')
 
 
 });
