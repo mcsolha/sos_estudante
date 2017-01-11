@@ -42,3 +42,14 @@
 .dark{
   color: #444 !important;
 }
+
+.popover {
+    height: auto !important;
+}
+.popover ion-header-bar {
+    position: relative;
+}
+.popover ion-content {
+    top: 0;
+    position: relative;
+}
