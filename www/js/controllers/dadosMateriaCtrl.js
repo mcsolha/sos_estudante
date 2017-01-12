@@ -30,7 +30,8 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup) {
         templateUrl:'./templates/faltasPopup.html',
         scope: $scope,
         buttons:[
-          {text: "Salvar"},
+          {text: "Salvar",
+          type: 'button-dark'},
           {text: "Cancelar"}
         ],
       });
