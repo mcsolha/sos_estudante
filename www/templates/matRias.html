@@ -1,7 +1,7 @@
 <ion-view title="Matérias" id="page2">
   <ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-archive"></button>
-    <button class="button button-icon icon ion-plus"></button>
+    <button class="button button-icon icon ion-archive" ></button>
+    <button class="button button-icon icon ion-plus" ng-click="openModal()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <div class="list card" id="matRias-card21">
@@ -46,9 +46,6 @@
         </table>
       </div>
     </div>
-    <!-- TESTE DO MODAL NOVA MATERIA-->
-    <button class="button button-dark" ng-click="openModal()">Nova Materia Modal</button>
-    <!-- TESTE DO MODAL NOVA MATERIA-->
     <!--Botao para acesso de dadosMateria-->
     <button class="button button-dark" ng-click="openModalDados()">Dados Materia</button>
     <!--Botao para acesso de dadosMateria-->
