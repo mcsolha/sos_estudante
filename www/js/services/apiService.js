@@ -1,6 +1,6 @@
 angular.module('sos_estudante.services')
 .service('ApiService', function($http,$q){
-  var baseURL = "http://192.168.15.107:3000/";
+  var baseURL = "http://estudante.onthewifi.com/";
 
   var req = {
    method: 'GET',
