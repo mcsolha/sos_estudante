@@ -4,14 +4,15 @@ angular.module('sos_estudante.services')
 
   var req = {
    method: 'GET',
-   url: baseURL,
-   headers: {
-    'Access-Control-Allow-Origin': '*'
-   }
+   url: '/'
+  //  headers: {
+  //   'Access-Control-Allow-Origin': '*',
+  //   'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type',
+  //   'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'
+  //  }
   };
 
   this.callPost = function(data,resto){
-    console.log(req.headers);
     req.method = 'POST';
     req.data = data;
     var def = $q.defer();
