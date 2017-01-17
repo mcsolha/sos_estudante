@@ -18,8 +18,14 @@ angular.module('ionicCalendarDisplay', [])
     scope: {
       dateformat: "="
     },
-    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', '$ionicModal',
-    function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI, $ionicModal) {
+    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', '$ionicModal', '$ionicPopover',
+    function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI, $ionicModal, $ionicPopover) {
+      $ionicPopover.fromTemplateUrl('./templates/tarefasPopover.html', {
+        scope: $scope,
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
       $scope.opcoes = false;
 
       $scope.remover = false;
@@ -168,7 +174,7 @@ angular.module('ionicCalendarDisplay', [])
         }
       }
 
-      $ionicModal.fromTemplateUrl('../../templates/tarefasModal.html', {
+      $ionicModal.fromTemplateUrl('./templates/tarefasModal.html', {
           scope: $scope,
           animation: 'slide-in-up'
         }).then(function(modal) {
@@ -440,14 +446,15 @@ angular.module('ionicCalendarDisplay', [])
       '.titulo {float:left; padding: 5px 0;}'+
       '.busca-lupa:hover { color:#445; }' +
       '.busca-lupa:active { color:#d8d8d8; }'+
+      '.header-calendar {font-size: larger; padding-top: 0.6em;}' +
       '</style>' +
       '<div>' +
         '<div class="ionic_Calendar">' +
         '	<div class="calendar_Date" ng-show="UICalendarDisplay.Date">' +
-        '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
-        '		  <div class="col txtCenter" ><i class="icon ion-chevron-left" ng-click="selectedMonthPrevClick()"></i></div>' +
-        '		  <div class="col col-75 txtCenter" ng-click="UIdisplayDatetoMonth()">{{dislayMonth}} {{displayYear}}</div>' +
-        '		  <div class="col txtCenter"><i class="icon ion-chevron-right"  ng-click="selectedMonthNextClick()"></i></div>' +
+        '		<div class="row" style=" background-color: #3F3F3F;  color: white; height:4em;">' +
+        '		  <div class="col txtCenter header-calendar" ng-click="selectedMonthPrevClick()"><i class="icon ion-chevron-left"></i></div>' +
+        '		  <div class="col col-75 txtCenter header-calendar" ng-click="UIdisplayDatetoMonth()">{{dislayMonth}} {{displayYear}}</div>' +
+        '		  <div class="col txtCenter header-calendar" ng-click="selectedMonthNextClick()"><i class="icon ion-chevron-right"></i></div>' +
         '		</div>' +
         '		<div class="row Daysheading Daysheading_Label" style="background-color: #383737; color: white;">' +
         '		  <div class="col">Dom</div><div class="col">Seg</div><div class="col">Ter</div><div class="col">Qua</div><div class="col">Qui</div><div class="col">Sex</div><div class="col">Sab</div>' +
@@ -457,20 +464,20 @@ angular.module('ionicCalendarDisplay', [])
         '		</div>' +
         '	</div>' +
         '	<div class="calendar_Month" ng-show="UICalendarDisplay.Month">' +
-        '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
-        '		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedMonthYearPrevClick()"></i></div>' +
-        '		  <div class="col col-75 txtCenter" ng-click="UIdisplayMonthtoYear()">{{displayYear}}</div>' +
-        '		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedMonthYearNextClick()"></i></div>' +
+        '		<div class="row" style=" background-color: #3F3F3F;  color: white; height:4em;">' +
+        '		  <div class="col txtCenter header-calendar" ng-click="selectedMonthYearPrevClick()"><i class="icon ion-chevron-left" ></i></div>' +
+        '		  <div class="col col-75 txtCenter header-calendar" ng-click="UIdisplayMonthtoYear()">{{displayYear}}</div>' +
+        '		  <div class="col txtCenter header-calendar" ng-click="selectedMonthYearNextClick()"><i class="icon ion-chevron-right" ></i></div>' +
         '		</div>' +
         '		<div class="row txtCenter MonthsDisplay" ng-repeat = "rowVal in calMonths  track by $index" ng-class="{\'marginTop0\':$first}">' +
         '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index"  ng-class="(colVal.name == shortMonth) ? \'selMonth\' : \'NonSelMonth\'"  ng-click="selectedMonthClick(colVal.id)" >{{colVal.name}}</div>' +
         '		</div>' +
         '	</div>' +
         '	<div class="calendar_Year" ng-show="UICalendarDisplay.Year">' +
-        '		<div class="row" style=" background-color: #3F3F3F;  color: white;">' +
-        '		  <div class="col txtCenter"><i class="icon ion-chevron-left" ng-click="selectedDecadePrevClick()"></i></div>' +
-        '		  <div class="col col-75 txtCenter">{{startYearDisp+1}}-{{endYearDisp-1}}</div>' +
-        '		  <div class="col txtCenter"><i class="icon ion-chevron-right" ng-click="selectedDecadeNextClick()"></i></div>' +
+        '		<div class="row" style=" background-color: #3F3F3F;  color: white; height:4em;">' +
+        '		  <div class="col txtCenter header-calendar" ng-click="selectedDecadePrevClick()"><i class="icon ion-chevron-left" ></i></div>' +
+        '		  <div class="col col-75 txtCenter header-calendar">{{startYearDisp+1}}-{{endYearDisp-1}}</div>' +
+        '		  <div class="col txtCenter header-calendar" ng-click="selectedDecadeNextClick()"><i class="icon ion-chevron-right" ></i></div>' +
         '		</div>' +
         '		<div class="row txtCenter YearsDisplay" ng-repeat = "nx in []| rangecal:3" ng-class="{\'marginTop0\':$first}">' +
         '		  <div class="col" ng-repeat="n in [] | rangecal:4"  ng-class="{ \'fadeYear\': (((startYearDisp+nx+nx+nx+nx+n) == startYearDisp)||((startYearDisp+nx+nx+nx+nx+n) == endYearDisp)), \'selYear\': ((startYearDisp+nx+nx+nx+nx+n) == displayYear) }" ng-click="selectedYearClick((startYearDisp+nx+nx+nx+nx+n))">{{startYearDisp+nx+nx+nx+nx+n}}</div>' +
