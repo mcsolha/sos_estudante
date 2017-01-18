@@ -1,15 +1,16 @@
 <ion-modal-view>
   <!--Começo da header-->
-  <div class="bar bar-header bar-dark">
-    <button class="button  ion-close-round" ng-click="closeModalEst()"></button>
+  <ion-header-bar>
+    <a class="button button-icon ion-close-round" ng-click="closeModalEst()"></a>
     <h1 class="title">Estimativas</h1>
-  </div>
+  </ion-header-bar>
   <!--fim da header-->
 
   <!--Começo do content-->
   <ion-content class="has-header">
-      <div id= "tabestimativas">
-        <table class= "tabelaNotas" style="width:100%" align='center'>
+    <div class="list">
+      <div id= "tabestimativas" class="item">
+        <table class= "tabelaNotas" style="width:100%">
           <caption id = capTabelaNotas class="tabelaNotas"> Notas</notas>
                 <tr>
                     <th class ="tabelaNotas" align='center'>Provas</th>
@@ -43,18 +44,11 @@
                 </tr>
         </table>
     </div>
-    <!-- <div id="notaFinalDesejada" class="row" >
-      <div  class="col">
-          Nota Final Desejada:
-      </div>
-      <div class ="col">
-        <input id ="spinNota" type="number" min = "0" max="10" step = "0.05" ng-model="notaDesejada" ></input>
-      </div>
-    </div> -->
-    <label class="item item-input">
-      <span class="input-label">Nota Final Desejada:</span>
-      <input type="number">
-    </label>
+        <label class="item item-input">
+          <span class="input-label">Nota Final Desejada:</span>
+          <input id= "spinNota"  type="Number">
+        </label>
+    </div>
     <button class="button button-block button-dark">Estimar</button>
   </ion-content>
   <!--fim do content-->

@@ -87,8 +87,8 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
   $ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
       scope: $scope,
       animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modalDados = modal;
+    }).then(function(modalDados) {
+      $scope.modalDados = modalDados;
     });
     //ABRE MODAL
   $scope.openModalDados = function() {
