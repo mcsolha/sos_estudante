@@ -32,7 +32,7 @@ angular.module('sos_estudante.services')
     $http(req).success(function(data){
       def.resolve(data);
     }).error(function(data, status){
-      def.reject("error-do-api-call-" + status);
+      def.resolve(false);
     });
     return def.promise;
   }
