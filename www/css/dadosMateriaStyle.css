@@ -5,19 +5,12 @@
 }
 
 #faltasspin{
-  border:  0.5px solid black;
-}
-
-
-.faltas{
-  font-size: 15px;
-  padding: 10px;
+  border:  1px solid #ddd;
 }
 
 .criterio{
   margin:  5px;
   align-items: center;
-  font-size: 15px;
 }
 
 .tabelaNotas{
