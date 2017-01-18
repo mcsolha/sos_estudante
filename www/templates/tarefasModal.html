@@ -2,12 +2,14 @@
   <ion-header-bar>
     <a class="button button-icon button-clear ion-close button-dark" ng-click="closeModal()"></a>
     <h1 class="title" style="text-align:center;" ng-if="!buscar">Compromissos</h1>
-    <a class="button button-icon button-clear ion-search button-dark" ng-click="buscar = !buscar"></a>
     <label class="item item-input" style="width:100%;text-align=center;" ng-if="buscar">
       <i class="icon ion-search placeholder-icon"></i>
       <input type="text" placeholder="Search">
     </label>
-    <a class="button button-icon button-clear ion-more button-dark" ng-click="opcoes = !opcoes"></a>
+    <div class="buttons">
+      <button class="button button-icon ion-search" ng-click="buscar = !buscar"></button>
+      <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
+    </div>
   </ion-header-bar>
   <ion-content>
     <ion-list show-delete="remover">
