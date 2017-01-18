@@ -128,15 +128,15 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
      scope: $scope,
      animation: 'slide-in-up'
    }).then(function(modal) {
-     $scope.modal = modal;
+     $scope.modalEst = modal;
    });
    //ABRE MODAL
  $scope.openModalEst = function() {
-   $scope.modal.show();
+   $scope.modalEst.show();
  };
  //FECHA MODAL
  $scope.closeModalEst = function() {
-   $scope.modal.hide();
+   $scope.modalEst.hide();
  };
  //Fim modal Estimativas
 
