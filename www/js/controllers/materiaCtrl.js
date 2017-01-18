@@ -5,7 +5,7 @@ angular.module('sos_estudante.controllers')
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
   //Objeto a ser mandado para o banco de dados
   $scope.data = {};
-  //Scope dos dados da matéria
+  //Scope dos dados da nova matéria
   $scope.materia = {};
 
   // Função utilizada para formatar o numero
