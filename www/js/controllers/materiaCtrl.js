@@ -5,6 +5,8 @@ angular.module('sos_estudante.controllers')
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
   //Objeto a ser mandado para o banco de dados
   $scope.data = {};
+  //Scope dos dados da matéria
+  $scope.materia = {};
 
   // Função utilizada para formatar o numero
   function FormatarNumero(num, length) {
@@ -99,7 +101,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
     $scope.modalDados.hide();
   };
 
-  /////////POPUP
+  /////////POPUP de editar notas
   $scope.showPopup = function() {
     $scope.data = {};
     // An elaborate, custom popup
@@ -119,9 +121,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
      myPopup.close(); //close the popup after 3 seconds for some reason
   }, 3000);
   };
-  ///////FIM POPUP
-
-
+  ///////FIM POPUP de editar notas
 }
 
 ])
