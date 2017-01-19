@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "ionic-timepicker": "^0.6.0",
-    "ionic-datepicker": "^1.2.1"
+    "ionic-datepicker": "^1.2.1",
+    "angular-ladda": "^0.4.3"
   }
 }

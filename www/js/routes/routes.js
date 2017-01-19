@@ -33,7 +33,7 @@ angular.module('sos_estudante.routes', [])
     templateUrl: 'templates/tabsController.html',
     abstract:true
   })
-  
+
   .state('login',{
     url: '/login',
     templateUrl: 'templates/login.html',
@@ -45,6 +45,7 @@ angular.module('sos_estudante.routes', [])
     templateUrl: 'templates/cadastro.html',
     controller: 'cadastroCtrl'
   })
+
 
 $urlRouterProvider.otherwise('login')
 });

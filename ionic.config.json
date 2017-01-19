@@ -10,6 +10,10 @@
       "path": "/login/:email/:senha",
       "proxyUrl": "http://estudante.onthewifi.com/login/:email/:senha"
     }
+    {
+      "path": "/cadastro/usuario",
+      "proxyUrl": "http://estudante.onthewifi.com/cadastro/usuario"
+    }
   ],
   "gulpStartupTasks": ["sass", "watch"]
 }
