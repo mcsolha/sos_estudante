@@ -3,6 +3,13 @@ angular.module('sos_estudante.controllers')
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
+  $scope.number =10;
+
+  $scope.getNumber = function(number){
+    return new Array(number);
+  }
+
+
   //Objeto a ser mandado para o banco de dados
   $scope.data = {};
   //Scope dos dados da nova matéria
@@ -110,10 +117,10 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
         templateUrl: './templates/tabNotas.html',
         scope: $scope,
         buttons: [
-          { text: 'Cancelar' },
+          { text: '<b>Salvar',
+            type: 'button-dark'},
           {
-            text: '<b>Salvar</b>',
-            type: 'button-dark',
+            text: 'Cancelar',
           }
         ]
       });

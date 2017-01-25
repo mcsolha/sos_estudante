@@ -3,10 +3,10 @@ angular.module('sos_estudante.controllers')
 function ($scope, $stateParams, ApiService, $state) {
   $scope.login = {};
   $scope.loginUsuario = function() {
-    $scope.status = ApiService.callGet('login/'+$scope.login.email+'/'+$scope.login.senha).then(function(status) {
-      console.log(status);
+    // $scope.status = ApiService.callGet('login/'+$scope.login.email+'/'+$scope.login.senha).then(function(status) {
+      // console.log(status);
       //COMPARAR STATUS
       $state.go('tabsController.matRias'); //NAVEGAR DE PÁGINA
-    });
+    // });
   }
 }]);

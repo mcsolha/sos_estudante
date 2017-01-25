@@ -11,20 +11,22 @@
   </div>
 </div>
 <!--Tabela -->
-<div class="row">
-  <div class="col">
-    <label class="item item-input item-stacked-label">
-      <input type="number" min="0" step="0.1" placeholder="8"> </input>
-    </label>
-  </div>
-  <div class="col">
-    <label class="item item-input item-stacked-label">
-      <input type="number" min="0" step="0.1" placeholder="3"> </input>
-    </label>
-  </div>
-  <div class="col">
-    <label class="item item-input item-stacked-label">
-      <input type="number" min="0" step="0.1" placeholder="6"> </input>
-    </label>
+<div class="tab-notas">
+  <div class="row" ng-repeat="n in getNumber(number) track by $index">
+    <div class="col">
+      <label class="item item-input item-stacked-label">
+        <input type="number" min="0" max="10" step="0.1" placeholder="8"> </input>
+      </label>
+    </div>
+    <div class="col">
+      <label class="item item-input item-stacked-label">
+        <input type="number" min="0" max="10" step="0.1" placeholder="3"> </input>
+      </label>
+    </div>
+    <div class="col">
+      <label class="item item-input item-stacked-label">
+        <input type="number" min="0" max="10" step="0.1" placeholder="6"> </input>
+      </label>
+    </div>
   </div>
 </div>
