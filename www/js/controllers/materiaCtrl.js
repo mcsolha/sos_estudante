@@ -121,6 +121,29 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
   };
   ///////FIM POPUP
 
+  //preenchendo conteudo dos cards
+  $scope.materias = [{
+    nome:"Redes",
+    dia:"Quinta",
+    hora:"14:00",
+    fim:"18:00"
+  },{
+    nome:"Engenharia de Software 2",
+    dia:"Segunda",
+    hora:"10:00",
+    fim:"12:00"
+  },{
+    nome:"Inteligência Artificial",
+    dia:"Segunda",
+    hora:"08:00",
+    fim:"10:00"
+  },{
+    nome:"Computação Gráfica",
+    dia:"Sexta",
+    hora:"08:00",
+    fim:"12:00"
+  }];
+
 
 }
 

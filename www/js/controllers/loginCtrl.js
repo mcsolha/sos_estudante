@@ -7,12 +7,12 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout) {
     $scope.status = ApiService.callGet('login/'+$scope.login.email+'/'+$scope.login.senha).then(function(status) {
       console.log(status);
       $scope.loading = false;
-      if (status){
+      //if (status){
         $state.go('tabsController.matRias'); //NAVEGAR DE PÁGINA
-      }
-      else{
-          $scope.showAlert();
-      }
+      //}
+    //  else{
+    //      $scope.showAlert();
+      //}
     });
   }
     // POP UP
