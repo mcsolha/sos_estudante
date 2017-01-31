@@ -16,7 +16,7 @@ angular.module('sos_estudante.services')
     req.method = 'POST';
     req.data = data;
     var def = $q.defer();
-    req.url = baseURL + resto;
+    req.url += resto;
     $http(req).success(function(data){
       def.resolve(data);
     }).error(function(data, status){
@@ -32,7 +32,7 @@ angular.module('sos_estudante.services')
     $http(req).success(function(data){
       def.resolve(data);
     }).error(function(data, status){
-      def.reject("error-do-api-call-" + status);
+      def.resolve(false);
     });
     return def.promise;
   }
