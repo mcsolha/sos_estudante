@@ -5,3 +5,7 @@
 #spinNota{
   border: 1px solid #ddd;
 }
+
+#notaDes{
+  padding: 16px 6px 15px 5px;
+}
