@@ -99,7 +99,8 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
       $scope.modalDados = modalDados;
     });
     //ABRE MODAL
-  $scope.openModalDados = function() {
+  $scope.openModalDados = function(materia,index) {
+    $scope.materiaSelec = materia;
     $scope.modalDados.show();
   };
   //FECHA MODAL
@@ -127,7 +128,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
      myPopup.close(); //close the popup after 3 seconds for some reason
   }, 3000);
   };
-  
+
 //////////////////////////Inicio Dados Materia////////////////////////////////
 //Inicio MODAL DA estimativas
  $ionicModal.fromTemplateUrl('./templates/estimativas.html', {
