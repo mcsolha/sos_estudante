@@ -1,42 +1,29 @@
 <ion-modal-view ng-controller="dadosMateriaCtrl">
 
   <!--Começo da header-->
-  <div class="bar bar-header bar-dark">
-      <button class="button  ion-close-round" ng-click="closeModalDados()"></button>
+  <ion-header-bar>
+      <a class="button button-icon ion-close-round" ng-click="closeModalDados()"></a>
 
       <h1 class="title">Nome Materia</h1>
 
       <div class="buttons">
-        <button class="button ion-edit"> </button>
-        <button class="button ion-ios-filing"> </button>
-        <button class="button ion-ios-trash"></button>
-        <button class="button ion-android-more-horizontal" ng-click="onShowMoreMenu()"></button>
+        <button class="button button-icon ion-edit"> </button>
+        <button class="button button-icon ion-more" ng-click="popoverDados.show($event)"></button>
       </div>
-
-      <ion-tool-bar >
-        <ion-list>
-          <ion-item id="moreMenu" ng-show= "moreMenu">
-            <div class="col">
-                <button class="button button-block">Editar Notas</button>
-                <button class="button button-block" ng-click = "onshowPopUpFaltas()">Adicionar Faltas</button>
-            </div>
-          </ion-item>
-        </ion-list>
-      </ion-tool-bar>
-  </div>
+  </ion-header-bar>
 
 
   <!--Começo do content-->
   <ion-content class="has-header">
 
-    <ion-list align-items = "center">
-        <ion-item id="nomeprof">
+    <ion-list>
+        <ion-item>
           Nome Profe
         </ion-item>
 
         <ion-item class="horario">
           <div class="row">
-            <p id = "titulohora">  Horário de Aula </p>
+            <p>  Horário de Aula </p>
           </div>
 
           <div class="row">

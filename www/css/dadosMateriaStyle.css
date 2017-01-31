@@ -1,12 +1,3 @@
-#nomeprof{
-  font-size: 15px;
-};
-
-#titulohora{
-  margin: 5px;
-  padding: 15px;
-  font-style: italic;
-}
 
 #capTabelaNotas{
   background-color: gray;
@@ -17,18 +8,12 @@
   border:  0.5px solid black;
 }
 
-#moreMenu{
-  padding: 0px;
-  border: none;
-  background-color: #4d4d4d;
-  position: fixed;
-  left:60%;
-}
 
 .faltas{
   font-size: 15px;
   padding: 10px;
 }
+
 .criterio{
   margin:  5px;
   align-items: center;
