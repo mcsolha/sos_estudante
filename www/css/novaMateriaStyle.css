@@ -10,3 +10,46 @@
 .header-media{
   display: inline-block;
 }
+
+/*Tabela de Notas*/
+.popup-body label.item.item-input.item-stacked-label {
+padding: 5px 0;
+/* background-color: red; */
+}
+
+.popup-body input[type="number"] {
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+}
+
+.tab-notas{
+  border-bottom-width: 1px !important;
+  border-bottom: #444444;
+  border-bottom-style: solid;
+  border-right: 0px;
+  /*padding: 1px;*/
+}
+
+.tab-notas .row{
+  border: 1px solid #444444;
+  border-bottom: 0px;
+  margin: 0px !important;
+}
+
+.tab-notas .row,
+.tab-notas .row .col{
+  padding: 0;
+}
+
+.tab-notas .col .item.item-input.item-stacked-label{
+  padding: 0;
+  border: 0;
+  border-right: 1px solid #444444;
+}
+
+.popup-body .row,
+.popup-body .row .col{
+  padding: 0;
+  text-align: center;
+}

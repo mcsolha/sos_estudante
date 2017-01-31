@@ -7,13 +7,13 @@
    <!--CORPO-->
    <ion-content class="has-header">
      <div class="list">
-       <label class="item item-input item-stacked-label">
-         <span class="input-label">Nome da Matéria</span>
-         <input type="text" placeholder="Redes">
+       <label class="item item-input item-stacked-label" >
+         <span class="input-label" >Nome da Matéria</span>
+         <input type="text" placeholder="Redes" ng-model="materia.nome">
        </label>
        <label class="item item-input item-stacked-label">
          <span class="input-label">Nome do Professor</span>
-         <input type="text" placeholder="Kelton">
+         <input type="text" placeholder="Kelton" ng-model="materia.prof">
        </label>
        <!-- SEMANA -->
        <div style="padding:6px 1px 5px 16px;">
@@ -33,7 +33,7 @@
               {{data.horaIniSelected}}
             </div>
           </a>
-          <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaFin()">
+          <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaFin()" ng-model="materia.hFim">
             Hora final:
             <div style="float:right; padding-right: 10px;">
               {{data.horaFinSelected}}
@@ -65,19 +65,19 @@
           </div>
           <div class="row" style="width:auto; padding:0 10px;">
             <div class="col">
-              <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0.9" ng-model="materia.mp">
             </div>
             <div class="col">
 
             </div>
             <div class="col">
-              <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0.9" ng-model="materia.mt">
             </div>
             <div class="col">
 
             </div>
             <div class="col">
-              <input type="number" step="0.1" max="1" min="0" placeholder="0.9">
+              <input type="number" step="0.1" max="1" min="0" placeholder="0.9" ng-model="materia.me">
             </div>
           </div>
        </div>
@@ -87,47 +87,57 @@
       <label class="item item-input item-stacked-label">
         <span class="input-label">Nota mínima de aprovação</span>
         <label>
-          <input type="number" min="0" placeholder="1">
+          <input type="number" min="0" placeholder="1" ng-model="materia.notaMinima">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de provas</span>
         <label>
-          <input type="number" min="0" placeholder="1">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeProva">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de trabalhos</span>
         <label>
-          <input type="number" min="0" placeholder="1">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeTrab">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de exercícios</span>
         <label>
-          <input type="number" min="0" placeholder="1">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeEx">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de aulas</span>
         <label>
-          <input type="number" min="0" placeholder="1">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeAula">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Porcentagem máxima de faltas</span>
         <label>
-          <input type="number" min="0" placeholder="1">
+          <input type="number" min="0" placeholder="1" ng-model="materia.porcFalta">
         </label>
       </label>
-      <!--Botao para editar as notas -->
-      <button class="button button-block button-dark" ng-click="showPopup()">Editar Notas</button>
+      <label>
+        {{materia}}
+        </label>
+      <!--Botao para editar as notas e salvar -->
+      <div class="row">
+        <div class="col">
+          <button class="button button-block button-dark" ng-click="showPopup()">Editar Notas</button>
+        </div>
+        <div class="col">
+          <button class="button button-block button-dark">Salvar</button>
+        </div>
+      </div>
+      <!--Fim botoes -->
      </div>
-
    </ion-content>
 </ion-modal-view>

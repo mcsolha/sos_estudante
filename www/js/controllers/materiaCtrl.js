@@ -3,8 +3,17 @@ angular.module('sos_estudante.controllers')
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
+  $scope.number =10;
+
+  $scope.getNumber = function(number){
+    return new Array(number);
+  }
+
+
   //Objeto a ser mandado para o banco de dados
   $scope.data = {};
+  //Scope dos dados da nova matéria
+  $scope.materia = {};
 
   // Função utilizada para formatar o numero
   function FormatarNumero(num, length) {
@@ -99,7 +108,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
     $scope.modalDados.hide();
   };
 
-  /////////POPUP
+  /////////POPUP de editar notas
   $scope.showPopup = function() {
     $scope.data = {};
     // An elaborate, custom popup
@@ -108,10 +117,10 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
         templateUrl: './templates/tabNotas.html',
         scope: $scope,
         buttons: [
-          { text: 'Cancelar' },
+          { text: '<b>Salvar',
+            type: 'button-dark'},
           {
-            text: '<b>Salvar</b>',
-            type: 'button-dark',
+            text: 'Cancelar',
           }
         ]
       });
@@ -119,9 +128,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker) {
      myPopup.close(); //close the popup after 3 seconds for some reason
   }, 3000);
   };
-  ///////FIM POPUP
-
-
+  ///////FIM POPUP de editar notas
 }
 
 ])
