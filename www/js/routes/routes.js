@@ -46,6 +46,12 @@ angular.module('sos_estudante.routes', [])
     controller: 'cadastroCtrl'
   })
 
+  .state('materiasarch',{
+    url: '/materiasarch',
+    templateUrl: 'templates/materiasarch.html',
+    controller: 'matRiasCtrl'
+  })
+
 
 $urlRouterProvider.otherwise('login')
 });

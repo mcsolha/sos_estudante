@@ -1,11 +1,11 @@
 <ion-view title="Matérias" id="page2">
   <ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-archive" ></button>
+    <a class="button button-icon icon ion-filing" href="#materiasarch"></a>
     <button class="button button-icon icon ion-plus-round" ng-click="openModal()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
       <div class="list">
-      <div class="card" ng-repeat="materia in materias" ng-click="openModalDados(materia,$index)">
+      <div class="card" ng-repeat="materia in materias | filter: { arquivado: 'false' }" ng-click="openModalDados(materia,$index)">
         <h3>{{materia.nome}}</h3>
         <div class="row">
           <h4 class="col">{{materia.dia}}</h4>

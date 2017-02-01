@@ -167,23 +167,28 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     nome:"Redes",
     dia:"Quinta",
     hora:"14:00",
-    fim:"18:00"
+    fim:"18:00",
+    arquivado:"false"
   },{
     nome:"Engenharia de Software 2",
     dia:"Segunda",
     hora:"10:00",
-    fim:"12:00"
+    fim:"12:00",
+    arquivado:"true"
   },{
     nome:"Inteligência Artificial",
     dia:"Segunda",
     hora:"08:00",
-    fim:"10:00"
+    fim:"10:00",
+    arquivado:"false"
   },{
     nome:"Computação Gráfica",
     dia:"Sexta",
     hora:"08:00",
-    fim:"12:00"
+    fim:"12:00",
+    arquivado:"false"
   }];
+
 
  //Começo do popOver
  $ionicPopover.fromTemplateUrl('./templates/dadosMatPopOver.html', {
