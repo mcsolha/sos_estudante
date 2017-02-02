@@ -7,6 +7,7 @@
   "dependencies": {
     "ionic-timepicker": "^0.6.0",
     "ionic-datepicker": "^1.2.1",
-    "angular-ladda": "^0.4.3"
+    "angular-ladda": "^0.4.3",
+    "pouchdb": "^6.1.1"
   }
 }
