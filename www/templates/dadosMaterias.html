@@ -75,20 +75,20 @@
             <!--Tabela -->
 
             <div class="tab-notas">
-              <div class="row" ng-repeat="n in getNumber(number) track by $index">
-                <div class="col">
+              <div class="row" ng-repeat="n in tamanhoTabela track by $index">
+                <div class="col" ng-repeat = "prova in materiaSelec.notaProvas">
                   <label class="item item-input item-stacked-label" >
-                    <input type="number" min="0" max="10"  ng-disabled="true"></input>
+                    <input type="number" min="0" max="10"  ng-disabled="true">{{prova}}</input>
                   </label>
                 </div>
-                <div class="col">
+                <div class="col" ng-repeat = "trab in materiaSelec.notaTrabalhos">
                   <label class="item item-input item-stacked-label">
-                    <input type="number" min="0" max="10"  ng-disabled="true"> </input>
+                    <input type="number" min="0" max="10"  ng-disabled="true">{{trab}}</input>
                   </label>
                 </div>
-                <div class="col">
+                <div class="col" ng-repeat = "exer in materiaSelec.notaExercicios">
                   <label class="item item-input item-stacked-label">
-                    <input type="number" min="0" max="10"  ng-disabled="true"> </input>
+                    <input type="number" min="0" max="10"  ng-disabled="true"> {{exer}}</input>
                   </label>
                 </div>
               </div>

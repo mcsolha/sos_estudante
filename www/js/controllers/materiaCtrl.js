@@ -14,8 +14,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   //Scope dos dados da nova matéria
   $scope.materia = {};
 
-
-  // Função utilizada para formatar o numero
+    // Função utilizada para formatar o numero
   function FormatarNumero(num, length) {
     var r = "" + num;
     while (r.length < length) {
@@ -91,9 +90,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
-  //////////FIM MODAL
-
-
+  //////////FIM MODAL//
 
   /////////POPUP de editar notas
   $scope.showPopup = function() {
@@ -126,7 +123,8 @@ $ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
   //ABRE MODAL
 $scope.openModalDados = function(materia,index) {
   $scope.materiaSelec = materia;
-  $scope.faltasDisp = 5;
+  $scope.faltasDisp = calculaFaltas();
+  $scope.tamanhoTabela = tamTabela();
   $scope.modalDados.show();
 };
 //FECHA MODAL
@@ -134,6 +132,20 @@ $scope.closeModalDados = function() {
   $scope.modalDados.hide();
 };
 
+function tamTabela(){
+  var maior = $scope.materiaSelec.notaProvas.length;
+ if ($scope.materiaSelec.notaTrabalhos.length > maior)
+   maior = $scope.materiaSelec.notaTrabalhos.length;
+ if($scope.materiaSelec.notaExercicios.length >  maior)
+   maior = $scope.materiaSelec.notaExercicios.length;
+   return new Array(maior);
+}
+
+function calculaFaltas(){
+    var p = $scope.materiaSelec.faltas.porcFaltas/100;
+    var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
+    return disponivel;
+}
 
 //Inicio MODAL DA estimativas
  $ionicModal.fromTemplateUrl('./templates/estimativas.html', {
@@ -155,7 +167,7 @@ $scope.closeModalDados = function() {
  //Inicio POPUP Faltas
  $scope.onshowPopUpFaltas = function(){
    $scope.maisFaltas = 1;
-   $ionicPopup.show({
+   var fPopUp = $ionicPopup.show({
      title: 'Incluir Faltas',
      templateUrl:'./templates/faltasPopup.html',
      scope: $scope,
@@ -165,7 +177,10 @@ $scope.closeModalDados = function() {
        {text: "Cancelar"}
      ],
    });
- }
+   $timeout(function() {
+    fPopUp.close(); //close the popup after 3 seconds for some reason
+  },3000);
+};
  //Fim POPup faltas
 
   //preenchendo conteudo dos cards
@@ -204,6 +219,11 @@ $scope.closeModalDados = function() {
     notaProvas : [7.5, 4.5, 5.5],
     notaTrabalhos : [8.0, 9.5],
     notaExercicios : [7.5, 6.8, 9.0, 7.4],
+    faltas: {
+      totalAulas: 60,
+      porcFaltas: 30,
+      qtdeFaltas: 2
+    },
     arquivado:"false"
   },{
     nome:"Engenharia de Software 2",
@@ -232,11 +252,17 @@ $scope.closeModalDados = function() {
  }).then(function(popover) {
    $scope.popoverDados = popover;
  });
+ //Fim do popOver
 
  $scope.arquiva = function(){
+   for (var i = 0; i < $scope.materias.length; i++) {
+     if($scope.materiaSelec.nome ==  $scope.materias[i].nome){
+       $scope.materias[i].arquivado = true;
+     }
+   }
 
  }
- //Fim do popOver
+
 //////////////////////////Fim Dados Materia////////////////////////////////
 }
 
