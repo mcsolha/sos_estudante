@@ -64,36 +64,48 @@
             <i href="#" class="ion-ios-medical"> </i>
             ME
           </div>
-        </div>
-
-          <div class="item">
-              <div>Faltas Disponíveis: 10</div>
           </div>
 
-      <div class="item">
-      <table class= "tabelaNotas" style="width:100%" align='center'>
-        <caption id = capTabelaNotas class="tabelaNotas"> Notas</notas>
-              <tr>
-                  <th class ="tabelaNotas" align='center'>Provas</th>
-                  <th class ="tabelaNotas" align='center'>Exercícios</th>
-                  <th class ="tabelaNotas" align='center'>Trabalhos</th>
-              </tr>
-              <tr>
-                  <td class ="tabelaNotas" align='center'>6.8</td>
-                  <td class ="tabelaNotas" align='center'>7.9</td>
-                  <td class ="tabelaNotas" align='center'>6.9</td>
-              </tr>
-              <tr>
-                  <td class ="tabelaNotas" align='center'>9.8</td>
-                  <td class ="tabelaNotas" align='center'>4.9</td>
-                  <td class ="tabelaNotas" align='center'>3.3</td>
-              </tr>
-              <tr>
-                  <td class ="tabelaNotas" align='center'>7.8</td>
-                  <td class ="tabelaNotas" align='center'>9.7</td>
-                  <td class ="tabelaNotas" align='center'>4.9</td>
-              </tr>
-      </table>
+            <div class="item">
+                <div>Faltas Disponíveis: 10</div>
+            </div>
+
+        <div class="item tabela-body">
+
+          <!--"Titulos" colunas-->
+            <div class="row">
+              <div class="col">
+                Provas
+              </div>
+              <div class="col">
+                Trabalhos
+              </div>
+              <div class="col">
+                Exercicios
+              </div>
+            </div>
+            <!--Tabela -->
+
+            <div class="tab-notas">
+              <div class="row" ng-repeat="n in getNumber(number) track by $index">
+                <div class="col">
+                  <label class="item item-input item-stacked-label">
+                    <input type="number" min="0" max="10" placeholder="8" ng-disabled="true"> </input>
+                  </label>
+                </div>
+                <div class="col">
+                  <label class="item item-input item-stacked-label">
+                    <input type="number" min="0" max="10"  placeholder="3" ng-disabled="true"> </input>
+                  </label>
+                </div>
+                <div class="col">
+                  <label class="item item-input item-stacked-label">
+                    <input type="number" min="0" max="10" placeholder="6" ng-disabled="true"> </input>
+                  </label>
+                </div>
+              </div>
+            </div>
+
     </div>
   </div>
 

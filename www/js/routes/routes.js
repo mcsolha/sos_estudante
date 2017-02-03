@@ -53,5 +53,6 @@ angular.module('sos_estudante.routes', [])
   })
 
 
+
 $urlRouterProvider.otherwise('login')
 });

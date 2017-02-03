@@ -16,3 +16,20 @@
 .tabelaNotas{
    border: 1px solid black;
  }
+
+ /*Tabela de Notas*/
+ .tabela-body label.item.item-input.item-stacked-label {
+ padding: 5px 0;
+ }
+
+ .tabela-body input[type="number"] {
+     background-color: transparent;
+     padding: 0;
+     text-align: center;
+ }
+
+ .tabela-body .row,
+ .tabela-body .row .col{
+   padding: 0;
+   text-align: center !important; 
+ }
