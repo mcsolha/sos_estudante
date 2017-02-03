@@ -14,6 +14,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   //Scope dos dados da nova matéria
   $scope.materia = {};
 
+
   // Função utilizada para formatar o numero
   function FormatarNumero(num, length) {
     var r = "" + num;
@@ -92,21 +93,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   };
   //////////FIM MODAL
 
-  $ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modalDados) {
-      $scope.modalDados = modalDados;
-    });
-    //ABRE MODAL
-  $scope.openModalDados = function(materia,index) {
-    $scope.materiaSelec = materia;
-    $scope.modalDados.show();
-  };
-  //FECHA MODAL
-  $scope.closeModalDados = function() {
-    $scope.modalDados.hide();
-  };
+
 
   /////////POPUP de editar notas
   $scope.showPopup = function() {
@@ -130,6 +117,24 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   };
 
 //////////////////////////Inicio Dados Materia////////////////////////////////
+$ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modalDados) {
+    $scope.modalDados = modalDados;
+  });
+  //ABRE MODAL
+$scope.openModalDados = function(materia,index) {
+  $scope.materiaSelec = materia;
+  $scope.faltasDisp = 5;
+  $scope.modalDados.show();
+};
+//FECHA MODAL
+$scope.closeModalDados = function() {
+  $scope.modalDados.hide();
+};
+
+
 //Inicio MODAL DA estimativas
  $ionicModal.fromTemplateUrl('./templates/estimativas.html', {
      scope: $scope,
@@ -162,12 +167,43 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
    });
  }
  //Fim POPup faltas
+
   //preenchendo conteudo dos cards
   $scope.materias = [{
     nome:"Redes",
     dia:"Quinta",
     hora:"14:00",
     fim:"18:00",
+    professor: "Kelton",
+    dataAula: [{
+      diasSemana: "Segunda",
+      horaIni: {
+        hora: 10,
+        min:  30
+      },
+      horaFin: {
+        hora: 12,
+        min:  30
+      }
+    },{
+    diasSemana : "Terça",
+    horaIni : {
+      hora: 14,
+      min:  30
+    },
+    horaFin : {
+      hora: 18,
+      min:  30
+    }
+  }],
+    criterio :{
+      mp : 0.8,
+      mt : 0.1,
+      me : 0.1
+    },
+    notaProvas : [7.5, 4.5, 5.5],
+    notaTrabalhos : [8.0, 9.5],
+    notaExercicios : [7.5, 6.8, 9.0, 7.4],
     arquivado:"false"
   },{
     nome:"Engenharia de Software 2",
@@ -196,6 +232,10 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
  }).then(function(popover) {
    $scope.popoverDados = popover;
  });
+
+ $scope.arquiva = function(){
+
+ }
  //Fim do popOver
 //////////////////////////Fim Dados Materia////////////////////////////////
 }

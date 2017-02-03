@@ -3,7 +3,7 @@
   <!--Começo da header-->
   <ion-header-bar>
       <a class="button button-icon ion-close-round" ng-click="closeModalDados()"></a>
-      <h1 class="title">Nome Materia</h1>
+      <h1 class="title">{{materiaSelec.nome}}</h1>
       <div class="buttons">
         <button class="button button-icon ion-edit" ng-click="openModal()"> </button>
         <button class="button button-icon ion-more" ng-click="popoverDados.show($event)"></button>
@@ -16,7 +16,7 @@
 
     <div class="list">
         <div class="item">
-          Nome Profe
+           {{materiaSelec.professor}}
         </div>
 
         <div class="horario item">
@@ -24,27 +24,15 @@
             <div>  Horário de Aula </div>
           </div>
 
-          <div class="row">
-            <div class="col col-75">
-              Segunda-Feira
+          <div class="row" ng-repeat="data in materiaSelec.dataAula">
+            <div class="col col-75" >
+              {{data.diasSemana}}
             </div>
             <div class="col">
-              14:00
+              {{data.horaIni.hora}}:{{data.horaFin.min}}
             </div>
             <div class="col">
-              16:00
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col col-75">
-              Terça-Feira
-            </div>
-            <div class="col">
-              10:00
-            </div>
-            <div class="col">
-              12:00
+              {{data.horaFin.hora}}:{{data.horaFin.min}}
             </div>
           </div>
         </div>
@@ -52,22 +40,22 @@
         <div class="item">
           <div>Critério de Avaliação</div>
           <div class="criterio" align="center">
-            MF = 0.7
+            MF = {{materiaSelec.criterio.mp}}
             <i href="#" class="ion-ios-medical"> </i>
             MP
             <i href="#" class="ion-plus"> </i>
-            0.2
+            {{materiaSelec.criterio.mt}}
             <i href="#" class="ion-ios-medical"> </i>
             MT
             <i href="#" class="ion-plus"> </i>
-            0.1
+            {{materiaSelec.criterio.me}}
             <i href="#" class="ion-ios-medical"> </i>
             ME
           </div>
           </div>
 
             <div class="item">
-                <div>Faltas Disponíveis: 10</div>
+                <div>Faltas Disponíveis: {{faltasDisp}}</div>
             </div>
 
         <div class="item tabela-body">
@@ -89,18 +77,18 @@
             <div class="tab-notas">
               <div class="row" ng-repeat="n in getNumber(number) track by $index">
                 <div class="col">
-                  <label class="item item-input item-stacked-label">
-                    <input type="number" min="0" max="10" placeholder="8" ng-disabled="true"> </input>
+                  <label class="item item-input item-stacked-label" >
+                    <input type="number" min="0" max="10"  ng-disabled="true"></input>
                   </label>
                 </div>
                 <div class="col">
                   <label class="item item-input item-stacked-label">
-                    <input type="number" min="0" max="10"  placeholder="3" ng-disabled="true"> </input>
+                    <input type="number" min="0" max="10"  ng-disabled="true"> </input>
                   </label>
                 </div>
                 <div class="col">
                   <label class="item item-input item-stacked-label">
-                    <input type="number" min="0" max="10" placeholder="6" ng-disabled="true"> </input>
+                    <input type="number" min="0" max="10"  ng-disabled="true"> </input>
                   </label>
                 </div>
               </div>
