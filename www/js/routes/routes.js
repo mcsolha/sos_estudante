@@ -52,7 +52,12 @@ angular.module('sos_estudante.routes', [])
     controller: 'matRiasCtrl'
   })
 
-
+  .state('dadosMateria',{
+    url: '/dadosMateria',
+    params: {materia: null},
+    templateUrl: 'templates/dadosMaterias.html',
+    controller : 'dadoMateriasCtrl'
+  })
 
 $urlRouterProvider.otherwise('login')
 });

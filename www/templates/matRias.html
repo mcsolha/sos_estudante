@@ -5,7 +5,7 @@
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
       <div class="list">
-      <div class="card" ng-repeat="materia in materias | filter: { arquivado: 'false' }" ng-click="openModalDados(materia,$index)">
+      <div class="card" ng-repeat="materia in materias | filter: { arquivado: 'false' }" ng-click="abreDados(materia)">
         <h3>{{materia.nome}}</h3>
         <div class="row">
           <h4 class="col">{{materia.dia}}</h4>

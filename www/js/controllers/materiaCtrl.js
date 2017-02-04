@@ -1,8 +1,8 @@
 angular.module('sos_estudante.controllers')
-.controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover) {
+function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover,$state) {
 
   $scope.number =10;
 
@@ -114,74 +114,78 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   };
 
 //////////////////////////Inicio Dados Materia////////////////////////////////
-$ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modalDados) {
-    $scope.modalDados = modalDados;
-  });
-  //ABRE MODAL
-$scope.openModalDados = function(materia,index) {
-  $scope.materiaSelec = materia;
-  $scope.faltasDisp = calculaFaltas();
-  $scope.tamanhoTabela = tamTabela();
-  $scope.modalDados.show();
-};
-//FECHA MODAL
-$scope.closeModalDados = function() {
-  $scope.modalDados.hide();
-};
-
-function tamTabela(){
-  var maior = $scope.materiaSelec.notaProvas.length;
- if ($scope.materiaSelec.notaTrabalhos.length > maior)
-   maior = $scope.materiaSelec.notaTrabalhos.length;
- if($scope.materiaSelec.notaExercicios.length >  maior)
-   maior = $scope.materiaSelec.notaExercicios.length;
-   return new Array(maior);
+$scope.abreDados = function(materia){
+  console.log(materia);
+  $state.go('dadosMateria',{materia: materia})
 }
+// $ionicModal.fromTemplateUrl('./templates/dadosMaterias.html', {
+//     scope: $scope,
+//     animation: 'slide-in-up'
+//   }).then(function(modalDados) {
+//     $scope.modalDados = modalDados;
+//   });
+//   //ABRE MODAL
+// $scope.openModalDados = function(materia,index) {
+//   $scope.materiaSelec = materia;
+//   $scope.faltasDisp = calculaFaltas();
+//   $scope.tamanhoTabela = tamTabela();
+//   $scope.modalDados.show();
+// };
+// //FECHA MODAL
+// $scope.closeModalDados = function() {
+//   $scope.modalDados.hide();
+// };
 
-function calculaFaltas(){
-    var p = $scope.materiaSelec.faltas.porcFaltas/100;
-    var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
-    return disponivel;
-}
+// function tamTabela(){
+//   var maior = $scope.materiaSelec.notaProvas.length;
+//  if ($scope.materiaSelec.notaTrabalhos.length > maior)
+//    maior = $scope.materiaSelec.notaTrabalhos.length;
+//  if($scope.materiaSelec.notaExercicios.length >  maior)
+//    maior = $scope.materiaSelec.notaExercicios.length;
+//    return new Array(maior);
+// }
+//
+// function calculaFaltas(){
+//     var p = $scope.materiaSelec.faltas.porcFaltas/100;
+//     var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
+//     return disponivel;
+// }
 
-//Inicio MODAL DA estimativas
- $ionicModal.fromTemplateUrl('./templates/estimativas.html', {
-     scope: $scope,
-     animation: 'slide-in-up'
-   }).then(function(modal) {
-     $scope.modalEst = modal;
-   });
-   //ABRE MODAL
- $scope.openModalEst = function() {
-   $scope.modalEst.show();
- };
- //FECHA MODAL
- $scope.closeModalEst = function() {
-   $scope.modalEst.hide();
- };
- //Fim modal Estimativas
+// //Inicio MODAL DA estimativas
+//  $ionicModal.fromTemplateUrl('./templates/estimativas.html', {
+//      scope: $scope,
+//      animation: 'slide-in-up'
+//    }).then(function(modal) {
+//      $scope.modalEst = modal;
+//    });
+//    //ABRE MODAL
+//  $scope.openModalEst = function() {
+//    $scope.modalEst.show();
+//  };
+//  //FECHA MODAL
+//  $scope.closeModalEst = function() {
+//    $scope.modalEst.hide();
+//  };
+//  //Fim modal Estimativas
 
- //Inicio POPUP Faltas
- $scope.onshowPopUpFaltas = function(){
-   $scope.maisFaltas = 1;
-   var fPopUp = $ionicPopup.show({
-     title: 'Incluir Faltas',
-     templateUrl:'./templates/faltasPopup.html',
-     scope: $scope,
-     buttons:[
-       {text: "Salvar",
-       type: 'button-dark'},
-       {text: "Cancelar"}
-     ],
-   });
-   $timeout(function() {
-    fPopUp.close(); //close the popup after 3 seconds for some reason
-  },3000);
-};
- //Fim POPup faltas
+//  //Inicio POPUP Faltas
+//  $scope.onshowPopUpFaltas = function(){
+//    $scope.maisFaltas = 1;
+//    var fPopUp = $ionicPopup.show({
+//      title: 'Incluir Faltas',
+//      templateUrl:'./templates/faltasPopup.html',
+//      scope: $scope,
+//      buttons:[
+//        {text: "Salvar",
+//        type: 'button-dark'},
+//        {text: "Cancelar"}
+//      ],
+//    });
+//    $timeout(function() {
+//     fPopUp.close(); //close the popup after 3 seconds for some reason
+//   },3000);
+// };
+//  //Fim POPup faltas
 
   //preenchendo conteudo dos cards
   $scope.materias = [{
@@ -191,7 +195,7 @@ function calculaFaltas(){
     fim:"18:00",
     professor: "Kelton",
     dataAula: [{
-      diasSemana: "Segunda",
+      diaSemana: "Segunda",
       horaIni: {
         hora: 10,
         min:  30
@@ -201,7 +205,7 @@ function calculaFaltas(){
         min:  30
       }
     },{
-    diasSemana : "Terça",
+    diaSemana : "Terça",
     horaIni : {
       hora: 14,
       min:  30
@@ -246,22 +250,22 @@ function calculaFaltas(){
   }];
 
 
- //Começo do popOver
- $ionicPopover.fromTemplateUrl('./templates/dadosMatPopOver.html', {
-   scope: $scope,
- }).then(function(popover) {
-   $scope.popoverDados = popover;
- });
- //Fim do popOver
-
- $scope.arquiva = function(){
-   for (var i = 0; i < $scope.materias.length; i++) {
-     if($scope.materiaSelec.nome ==  $scope.materias[i].nome){
-       $scope.materias[i].arquivado = true;
-     }
-   }
-
- }
+ // //Começo do popOver
+ // $ionicPopover.fromTemplateUrl('./templates/dadosMatPopOver.html', {
+ //   scope: $scope,
+ // }).then(function(popover) {
+ //   $scope.popoverDados = popover;
+ // });
+ // //Fim do popOver
+ //
+ // $scope.arquiva = function(){
+ //   for (var i = 0; i < $scope.materias.length; i++) {
+ //     if($scope.materiaSelec.nome ==  $scope.materias[i].nome){
+ //       $scope.materias[i].arquivado = true;
+ //     }
+ //   }
+ //
+ // }
 
 //////////////////////////Fim Dados Materia////////////////////////////////
 }
