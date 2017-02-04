@@ -19,26 +19,34 @@
        <div style="padding:6px 1px 5px 16px;">
         <span class="input-label" style="width:auto;">Dias da Semana</span>
         <div class="button-bar" id="reservar-button-bar1">
-         <button ng-click="selecDia(0)" class=" button {{diasSemana[0].class}}  button-block" id="reservar-button-ter">S</button>
-         <button ng-click="selecDia(1)" class=" button {{diasSemana[1].class}}  button-block" id="reservar-button-quar">T</button>
-         <button ng-click="selecDia(2)" class=" button {{diasSemana[2].class}}  button-block" id="reservar-button-quin">Q</button>
-         <button ng-click="selecDia(3)" class=" button {{diasSemana[3].class}}  button-block" id="reservar-button-sex">Q</button>
-         <button ng-click="selecDia(4)" class=" button {{diasSemana[4].class}}  button-block" id="reservar-button-sex">S</button>
-         <button ng-click="selecDia(5)" class=" button {{diasSemana[5].class}}  button-block" id="reservar-button-sex">S</button>
+         <button ng-click="selecDia(0,'Segunda')" class=" button {{diasSemana[0].class}}  button-block" id="reservar-button-seg" ng-model="materia.diasSemana" ng-value="'segunda'">S</button>
+         <button ng-click="selecDia(1,'Terça')" class=" button {{diasSemana[1].class}}  button-block" id="reservar-button-ter" ng-model="materia.diasSemana" ng-value="'terça'">T</button>
+         <button ng-click="selecDia(2,'Quarta')" class=" button {{diasSemana[2].class}}  button-block" id="reservar-button-qua" ng-model="materia.diasSemana" ng-value="'quarta'">Q</button>
+         <button ng-click="selecDia(3,'Quinta')" class=" button {{diasSemana[3].class}}  button-block" id="reservar-button-qui" ng-model="materia.diasSemana" ng-value="'quinta'">Q</button>
+         <button ng-click="selecDia(4,'Sexta')" class=" button {{diasSemana[4].class}}  button-block" id="reservar-button-sex" ng-model="materia.diasSemana" ng-value="'sexta'">S</button>
+         <button ng-click="selecDia(5,'Sábado')" class=" button {{diasSemana[5].class}}  button-block" id="reservar-button-sab" ng-model="materia.diasSemana" ng-value="'sabado'">S</button>
         </div>
         <div class="row">
-          <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaIni()">
-            Hora inicial:
-            <div style="float:right; padding-right: 10px;">
-              {{data.horaIniSelected}}
-            </div>
-          </a>
-          <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaFin()" ng-model="materia.hFim">
-            Hora final:
-            <div style="float:right; padding-right: 10px;">
-              {{data.horaFinSelected}}
-            </div>
-          </a>
+
+        </div>
+        <div ng-repeat="item in materia.dataAula">
+          <div class="row">
+            {{materia.dataAula[$index].diaSemana}}
+          </div>
+          <div class="row">
+            <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaIni($index)">
+              Hora inicial:
+              <div style="float:right; padding-right: 10px;">
+                {{materia.dataAula[$index].horaIni.string}}
+              </div>
+            </a>
+            <a class="col col-50" style="color:#444; font-size:16px;" ng-click="horaFin($index)">
+              Hora final:
+              <div style="float:right; padding-right: 10px;">
+                {{materia.dataAula[$index].horaFin.string}}
+              </div>
+            </a>
+          </div>
         </div>
        </div>
        <!-- FIM SEMANA -->
@@ -125,6 +133,12 @@
           <input type="number" min="0" placeholder="1" ng-model="materia.porcFalta">
         </label>
       </label>
+
+      <label>
+        {{materia}}
+      </label>
+
+
       <!--Botao para editar as notas e salvar -->
       <div class="row">
         <div class="col">

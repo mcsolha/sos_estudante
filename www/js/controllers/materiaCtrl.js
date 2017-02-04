@@ -4,15 +4,19 @@ angular.module('sos_estudante.controllers')
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover) {
 
-  $scope.number =10;
-
+ //parte para mostrar a quantidade certa na tabela de notas
+  $scope.number = 5;
   $scope.getNumber = function(number){
     return new Array(number);
   }
+  //fim da tabela de notas
+
   //Objeto a ser mandado para o banco de dados
-  $scope.data = {};
+  $scope.data = {horaIni:[]};
   //Scope dos dados da nova matéria
-  $scope.materia = {};
+  $scope.materia = {
+    dataAula: []
+  };
 
   // Função utilizada para formatar o numero
   function FormatarNumero(num, length) {
@@ -32,7 +36,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   };
 
   // Função que chama o seletor de tempo para armazenar hora inicial
-  $scope.horaIni = function() {
+  $scope.horaIni = function(index) {
     timePickerObj.callback = function(val) {
       if (typeof (val) === 'undefined') {
         console.log('Time not selected');
@@ -40,38 +44,61 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
         // console.log(val);
         var tempoSelecionado = new Date(val * 1000);
         // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
-
-        $scope.data.horaIniSelected = FormatarNumero(tempoSelecionado.getUTCHours(),2) + ':' + FormatarNumero(tempoSelecionado.getUTCMinutes(),2);
+        $scope.materia.dataAula[index].horaIni = {};
+        $scope.materia.dataAula[index].horaIni.hora = tempoSelecionado.getUTCHours();
+        $scope.materia.dataAula[index].horaIni.min = tempoSelecionado.getUTCMinutes();
+        $scope.materia.dataAula[index].horaIni.string = (FormatarNumero(tempoSelecionado.getUTCHours(),2) + ':' + FormatarNumero(tempoSelecionado.getUTCMinutes(),2));
       }
     }
     ionicTimePicker.openTimePicker(timePickerObj);
   }
 
   // Função que chama o seletor de tempo para armazenar hora final
-  $scope.horaFin = function() {
+  $scope.horaFin = function(index) {
     timePickerObj.callback = function(val) {
       if (typeof (val) === 'undefined') {
         console.log('Time not selected');
       } else {
         var tempoSelecionado = new Date(val * 1000);
         // console.log('Selected epoch is : ', val, 'and the time is ', tempoSelecionado.getUTCHours(), 'H :', tempoSelecionado.getUTCMinutes(), 'M');
-        $scope.data.horaFinSelected = FormatarNumero(tempoSelecionado.getUTCHours(),2) + ':' + FormatarNumero(tempoSelecionado.getUTCMinutes(),2);;
+        $scope.materia.dataAula[index].horaFin = {};
+        $scope.materia.dataAula[index].horaFin.hora = tempoSelecionado.getUTCHours();
+        $scope.materia.dataAula[index].horaFin.min = tempoSelecionado.getUTCMinutes();
+        $scope.materia.dataAula[index].horaFin.string = (FormatarNumero(tempoSelecionado.getUTCHours(),2) + ':' + FormatarNumero(tempoSelecionado.getUTCMinutes(),2));
+
       }
     }
     ionicTimePicker.openTimePicker(timePickerObj);
   }
 
+  //Botões do dia da semana na página nova matéria
   $scope.diasSemana = [{},{},{},{},{},{}];
   for(i=0;i<6;i++){
    $scope.diasSemana[i].class = "button-stable button-outline";
   }
-  $scope.selecDia = function(i) {
-    console.log(i);
+
+  function findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+  }
+
+  $scope.selecDia = function(i, diaSemana) {
+    // console.log(i);
+    //switch pra salvar o dia da semana selecionado no objeto
+
     if ($scope.diasSemana[i].class === "button-stable button-outline"){
       $scope.diasSemana[i].class = "button-dark";
+      $scope.materia.dataAula.push({diaSemana: diaSemana});
     }
     else{
       $scope.diasSemana[i].class = "button-stable button-outline";
+      var index = findWithAttr($scope.materia.dataAula, 'diaSemana', diaSemana);
+      console.log(index);
+      $scope.materia.dataAula.splice(index,1);
     }
   }
   //////////////MODAL
