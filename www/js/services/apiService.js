@@ -1,39 +1,21 @@
 angular.module('sos_estudante.services')
-.service('ApiService', function($http,$q){
-  var baseURL = "http://estudante.onthewifi.com/";
+.service('PouchService', function($http,$q){
+  var db = new PouchDB('http://186.214.78.208:3001/users');
 
-  var req = {
-   method: 'GET',
-   url: '/'
-  //  headers: {
-  //   'Access-Control-Allow-Origin': '*',
-  //   'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type',
-  //   'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS'
-  //  }
-  };
-
-  this.callPost = function(data,resto){
-    req.method = 'POST';
-    req.data = data;
-    var def = $q.defer();
-    req.url += resto;
-    $http(req).success(function(data){
-      def.resolve(data);
-    }).error(function(data, status){
-      def.reject("error-do-api-call-" + status);
+  this.Login = function(info) {
+    var defer = $q.defer();
+    db.get(info.email).then(function(doc) {
+      console.log(doc);
+      if(info.senha == doc.senha){
+        defer.resolve(true);
+      }else {
+        defer.resolve('Usuário e/ou senha incorreto(s)');
+      }
+    }).catch(function(err) {
+      // console.log('Usuário não existe');
+      if(err.status == 404)
+        defer.reject('Usuário não cadastrado');
     });
-    return def.promise;
-  }
-
-  this.callGet = function(resto){
-    req.method = 'GET';
-    var def = $q.defer();
-    req.url = baseURL + resto;
-    $http(req).success(function(data){
-      def.resolve(data);
-    }).error(function(data, status){
-      def.resolve(false);
-    });
-    return def.promise;
+    return defer.promise;
   }
 });

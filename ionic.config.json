@@ -1,5 +1,11 @@
 {
   "name": "sos_estudante",
   "app_id": "",
+  "proxies":[
+    {
+      "path": "/test",
+      "proxyUrl": "http://estudante.onthewifi.com/test"
+    }
+  ],
   "gulpStartupTasks": ["sass", "watch"]
 }
