@@ -197,12 +197,12 @@ $scope.abreDados = function(materia){
     dataAula: [{
       diaSemana: "Segunda",
       horaIni: {
-        hora: 10,
+        hora: 9,
         min:  30
       },
       horaFin: {
         hora: 12,
-        min:  30
+        min:  5
       }
     },{
     diaSemana : "Terça",
