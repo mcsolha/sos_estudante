@@ -13,10 +13,6 @@
   align-items: center;
 }
 
-.tabelaNotas{
-   border: 1px solid black;
- }
-
  /*Tabela de Notas*/
  .tabela-body label.item.item-input.item-stacked-label {
  padding: 5px 0;
@@ -31,5 +27,36 @@
  .tabela-body .row,
  .tabela-body .row .col{
    padding: 0;
-   text-align: center !important; 
+   text-align: center !important;
+ }
+
+
+ .tabela-notas{
+   border-bottom-width: 1px !important;
+   border-bottom-style: solid;
+   border-bottom: #444444;
+   padding: 1px;
+   border-right: 0px;
+ }
+
+ .tabela-notas .row{
+   border: 1px solid #444444;
+   border-bottom: 0px;
+   border-right:  0px;
+   margin: 0px !important;
+ }
+
+ .tabela-notas .row,
+ .tabela-notas .row .col{
+   padding: 0;
+ }
+
+.tabela-notas .col{
+  border-right: 1px solid #444444;
+}
+
+ .tabela-notas .col .item.item-input.item-stacked-label{
+   padding: 0;
+   /*border-right: 1px solid #444444;*/
+   border: 0;
  }

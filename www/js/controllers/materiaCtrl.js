@@ -220,7 +220,10 @@ $scope.abreDados = function(materia){
       mt : 0.1,
       me : 0.1
     },
-    notaProvas : [7.5, 4.5, 5.5],
+    qteProvas: 3,
+    qteTrabalhos: 2,
+    qteExercicios: 5,
+    notaProvas : [7.5, 4.5],
     notaTrabalhos : [8.0, 9.5],
     notaExercicios : [7.5, 6.8, 9.0, 7.4],
     faltas: {

@@ -2,6 +2,11 @@ angular.module('sos_estudante.controllers')
 .controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'ApiService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover',
 function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover) {
 
+  $scope.number = 7;
+  $scope.getNumber = function(number){
+    return new Array(number);
+  }
+
   //seta de voltar
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
    viewData.enableBack = true;
@@ -29,13 +34,30 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
 
   //função que verifica tamanho maximo da tabela
   function tamTabela(){
-    var maior = $scope.materiaSelec.notaProvas.length;
-   if ($scope.materiaSelec.notaTrabalhos.length > maior)
-     maior = $scope.materiaSelec.notaTrabalhos.length;
-   if($scope.materiaSelec.notaExercicios.length >  maior)
-     maior = $scope.materiaSelec.notaExercicios.length;
-     return new Array(maior);
+  var maior = $scope.materiaSelec.qteProvas;
+   if ($scope.materiaSelec.qteTrabalhos > maior)
+     maior = $scope.materiaSelec.qteTrabalhos;
+   if($scope.materiaSelec.qteExercicios >  maior)
+     maior = $scope.materiaSelec.qteExercicios;
+    var notas = new Array();
+
+
+    for (var i = 0; i < maior; i++) {
+      var nota = {};
+      if($scope.materiaSelec.notaProvas[i] != undefined)
+        nota.prova = $scope.materiaSelec.notaProvas[i];
+      if($scope.materiaSelec.notaTrabalhos[i] != undefined)
+        nota.trabalho = $scope.materiaSelec.notaTrabalhos[i];
+      if($scope.materiaSelec.notaExercicios[i] != undefined)
+        nota.exercicio = $scope.materiaSelec.notaExercicios[i];
+
+      notas.push(nota);
+    }
+    console.log(notas);
+    return notas;
   }
+
+
 
   //calcula faltas disponiveis
   function calculaFaltas(){
@@ -61,7 +83,7 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
    };
    //Fim modal Estimativas
 
-   $scope.notaDesejada = {};
+//   $scope.notaDesejada = {};
    //função que estima notas
    $scope.estimaNotas = function(){
      console.log($scope.notaDesejada);
