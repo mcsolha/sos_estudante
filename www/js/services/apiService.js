@@ -18,4 +18,21 @@ angular.module('sos_estudante.services')
     });
     return defer.promise;
   }
+
+  this.Cadastro = function(info){
+    var doc = {
+      _id: info.email,
+      senha: info.senha,
+      materias: [],
+      tarefas: []
+    }
+    var defer = $q.defer();
+    db.put(doc).then(function(response) {
+      console.log(response);
+      defer.resolve(response.ok);
+    }).catch(function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+  }
 });
