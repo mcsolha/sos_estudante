@@ -13,18 +13,18 @@
        </label>
        <label class="item item-input item-stacked-label">
          <span class="input-label">Nome do Professor</span>
-         <input type="text" placeholder="Kelton" ng-model="materia.prof">
+         <input type="text" placeholder="Kelton" ng-model="materia.professor">
        </label>
        <!-- SEMANA -->
        <div style="padding:6px 1px 5px 16px;">
         <span class="input-label" style="width:auto;">Dias da Semana</span>
         <div class="button-bar" id="reservar-button-bar1">
-         <button ng-click="selecDia(0,'Segunda')" class=" button {{diasSemana[0].class}}  button-block" id="reservar-button-seg" ng-model="materia.diasSemana" ng-value="'segunda'">S</button>
-         <button ng-click="selecDia(1,'Terça')" class=" button {{diasSemana[1].class}}  button-block" id="reservar-button-ter" ng-model="materia.diasSemana" ng-value="'terça'">T</button>
-         <button ng-click="selecDia(2,'Quarta')" class=" button {{diasSemana[2].class}}  button-block" id="reservar-button-qua" ng-model="materia.diasSemana" ng-value="'quarta'">Q</button>
-         <button ng-click="selecDia(3,'Quinta')" class=" button {{diasSemana[3].class}}  button-block" id="reservar-button-qui" ng-model="materia.diasSemana" ng-value="'quinta'">Q</button>
-         <button ng-click="selecDia(4,'Sexta')" class=" button {{diasSemana[4].class}}  button-block" id="reservar-button-sex" ng-model="materia.diasSemana" ng-value="'sexta'">S</button>
-         <button ng-click="selecDia(5,'Sábado')" class=" button {{diasSemana[5].class}}  button-block" id="reservar-button-sab" ng-model="materia.diasSemana" ng-value="'sabado'">S</button>
+         <button ng-click="selecDia(0,'Segunda')" class=" button {{diasSemana[0].class}}  button-block" id="reservar-button-seg" ng-model="materia.diasSemana">S</button>
+         <button ng-click="selecDia(1,'Terça')" class=" button {{diasSemana[1].class}}  button-block" id="reservar-button-ter" ng-model="materia.diasSemana">T</button>
+         <button ng-click="selecDia(2,'Quarta')" class=" button {{diasSemana[2].class}}  button-block" id="reservar-button-qua" ng-model="materia.diasSemana">Q</button>
+         <button ng-click="selecDia(3,'Quinta')" class=" button {{diasSemana[3].class}}  button-block" id="reservar-button-qui" ng-model="materia.diasSemana">Q</button>
+         <button ng-click="selecDia(4,'Sexta')" class=" button {{diasSemana[4].class}}  button-block" id="reservar-button-sex" ng-model="materia.diasSemana">S</button>
+         <button ng-click="selecDia(5,'Sábado')" class=" button {{diasSemana[5].class}}  button-block" id="reservar-button-sab" ng-model="materia.diasSemana">S</button>
         </div>
         <div class="row">
 
@@ -93,51 +93,43 @@
       <!--FIM DA FUNÇÃO DA MÉDIA FINAL-->
 
       <label class="item item-input item-stacked-label">
-        <span class="input-label">Nota mínima de aprovação</span>
-        <label>
-          <input type="number" min="0" placeholder="1" ng-model="materia.notaMinima">
-        </label>
-      </label>
-
-      <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de provas</span>
         <label>
-          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeProva">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qteProva">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de trabalhos</span>
         <label>
-          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeTrab">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qteTrab">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de exercícios</span>
         <label>
-          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeEx">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qteEx">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Quantidade de aulas</span>
         <label>
-          <input type="number" min="0" placeholder="1" ng-model="materia.qtdeAula">
+          <input type="number" min="0" placeholder="1" ng-model="materia.qteAula">
         </label>
       </label>
 
       <label class="item item-input item-stacked-label">
         <span class="input-label">Porcentagem máxima de faltas</span>
         <label>
-          <input type="number" min="0" placeholder="1" ng-model="materia.porcFalta">
+          <input type="number" min="0" placeholder="1" ng-model="materia.porcFaltas">
         </label>
       </label>
-
+      <!-- TESTE LOG-->
       <label>
         {{materia}}
       </label>
-
 
       <!--Botao para editar as notas e salvar -->
       <div class="row">

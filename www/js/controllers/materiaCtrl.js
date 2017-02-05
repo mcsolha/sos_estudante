@@ -4,13 +4,6 @@ angular.module('sos_estudante.controllers')
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover) {
 
- //parte para mostrar a quantidade certa na tabela de notas
-  $scope.number = 5;
-  $scope.getNumber = function(number){
-    return new Array(number);
-  }
-  //fim da tabela de notas
-
   //Objeto a ser mandado para o banco de dados
   $scope.data = {horaIni:[]};
   //Scope dos dados da nova matéria
@@ -151,9 +144,6 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
           }
         ]
       });
-      $timeout(function() {
-     myPopup.close(); //close the popup after 3 seconds for some reason
-  }, 3000);
   };
 
 //////////////////////////Inicio Dados Materia////////////////////////////////
@@ -195,6 +185,44 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     dia:"Quinta",
     hora:"14:00",
     fim:"18:00",
+    professor: "Kelton",
+    dataAula: [{
+      diaSemana: "Segunda",
+      horaIni: {
+        hora: 9,
+        min:  30
+      },
+      horaFin: {
+        hora: 12,
+        min:  5
+      }
+    },{
+    diaSemana : "Terça",
+    horaIni : {
+      hora: 14,
+      min:  30
+    },
+    horaFin : {
+      hora: 18,
+      min:  30
+    }
+  }],
+    criterio :{
+      mp : 0.8,
+      mt : 0.1,
+      me : 0.1
+    },
+    qteProvas: 3,
+    qteTrabalhos: 2,
+    qteExercicios: 5,
+    notaProvas : [7.5, 4.5],
+    notaTrabalhos : [8.0, 9.5],
+    notaExercicios : [7.5, 6.8, 9.0, 7.4],
+    faltas: {
+      totalAulas: 60,
+      porcFaltas: 30,
+      qtdeFaltas: 2
+    },
     arquivado:"false"
   },{
     nome:"Engenharia de Software 2",
@@ -216,6 +244,74 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     arquivado:"false"
   }];
 
+  //editar as notas na tabela de notas
+  $scope.materiaEdit = {
+    nome:"Redes",
+    dia:"Quinta",
+    hora:"14:00",
+    fim:"18:00",
+    professor: "Kelton",
+    dataAula: [{
+      diaSemana: "Segunda",
+      horaIni: {
+        hora: 9,
+        min:  30
+      },
+      horaFin: {
+        hora: 12,
+        min:  5
+      }
+    },{
+    diaSemana : "Terça",
+    horaIni : {
+      hora: 14,
+      min:  30
+    },
+    horaFin : {
+      hora: 18,
+      min:  30
+    }
+  }],
+    criterio :{
+      mp : 0.8,
+      mt : 0.1,
+      me : 0.1
+    },
+    qteProvas: 3,
+    qteTrabalhos: 2,
+    qteExercicios: 5,
+    notaProvas : [7.5, 4.5],
+    notaTrabalhos : [8.0, 9.5],
+    notaExercicios : [7.5, 6.8, 9.0, 7.4],
+    faltas: {
+      totalAulas: 60,
+      porcFaltas: 30,
+      qtdeFaltas: 2
+    },
+    arquivado:"false"
+  };
+  //pega o maior valor
+  function tamTabela(){
+    var maior = $scope.materiaEdit.qteProvas;
+    if($scope.materiaEdit.qteTrabalhos > maior)
+      maior = $scope.materiaEdit.qteTrabalhos;
+    if($scope.materiaEdit.qteExercicios > maior)
+      maior = $scope.materiaEdit.qteExercicios;
+    var notas = new Array();
+
+    for (var i = 0; i < maior; i++) {
+      var nota = {};
+      if($scope.materiaEdit.notaProvas[i] != undefined)
+        nota.prova = $scope.materiaEdit.notaProvas[i];
+      if($scope.materiaEdit.notaTrabalhos[i] != undefined)
+        nota.trabalho = $scope.materiaEdit.notaTrabalhos[i];
+      if($scope.materiaEdit.notaExercicios[i] != undefined)
+        nota.exercicio = $scope.materiaEdit.notaExercicios[i];
+      notas.push(nota);
+    }
+      return notas;
+  }
+  $scope.tamTabela = tamTabela();
 
  //Começo do popOver
  $ionicPopover.fromTemplateUrl('./templates/dadosMatPopOver.html', {

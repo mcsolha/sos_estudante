@@ -12,20 +12,20 @@
 </div>
 <!--Tabela -->
 <div class="tab-notas">
-  <div class="row" ng-repeat="n in getNumber(number) track by $index">
+  <div class="row" ng-repeat="nota in tamTabela">
     <div class="col">
       <label class="item item-input item-stacked-label">
-        <input type="number" min="0" max="10" step="0.1" placeholder="8"> </input>
+        <input type="number" min="0" max="10" step="0.1" placeholder="8" ng-model="nota.prova"></input>
       </label>
     </div>
     <div class="col">
       <label class="item item-input item-stacked-label">
-        <input type="number" min="0" max="10" step="0.1" placeholder="3"> </input>
+        <input type="number" min="0" max="10" step="0.1" placeholder="3" ng-model="nota.trabalho"></input>
       </label>
     </div>
     <div class="col">
       <label class="item item-input item-stacked-label">
-        <input type="number" min="0" max="10" step="0.1" placeholder="6"> </input>
+        <input type="number" min="0" max="10" step="0.1" placeholder="6" ng-model="nota.exercicio"></input>
       </label>
     </div>
   </div>
