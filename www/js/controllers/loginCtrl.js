@@ -1,6 +1,16 @@
 angular.module('sos_estudante.controllers')
-.controller('loginCtrl', ['$scope', '$stateParams', 'ApiService', '$state',  '$ionicPopup', '$timeout',
-function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout) {
+.controller('loginCtrl', ['$scope', '$stateParams', 'ApiService', '$state',  '$ionicPopup', '$timeout', '$q',
+function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $q) {
+  var test = new PouchDB('http://186.214.78.208:3001/test');
+  test.put({
+  _id: 'mydoc',
+  title: 'Heroes'
+  }).then(function (response) {
+    // handle response
+  }).catch(function (err) {
+    console.log(err);
+  });
+  console.log(test);
   $scope.login = {};
   $scope.loginUsuario = function() {
     $scope.loading = true;
