@@ -19,7 +19,7 @@ angular.module('sos_estudante.services')
     return defer.promise;
   }
 
-  this.Cadastro = function(info){
+  this.CadastroUsuario = function(info){
     var doc = {
       _id: info.email,
       senha: info.senha,
@@ -28,9 +28,11 @@ angular.module('sos_estudante.services')
     }
     var defer = $q.defer();
     db.put(doc).then(function(response) {
-      console.log(response);
       defer.resolve(response.ok);
     }).catch(function(err) {
+      if(err.status != undefined)
+        defer.reject(err.status);
+      else
       defer.reject(err);
     });
     return defer.promise;
