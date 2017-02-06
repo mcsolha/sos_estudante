@@ -17,8 +17,9 @@ angular.module('sos_estudante.services')
     db.get(info.email).then(function(doc) {
       console.log(doc);
       if(info.senha == doc.senha){
+        UsuarioLogado = info.email;
+        console.log('USUARIO CORRETO');
         defer.resolve(true);
-        SetUsuarioLogado(info.email);
       }else {
         defer.resolve('Usuário e/ou senha incorreto(s)');
       }
@@ -50,19 +51,22 @@ angular.module('sos_estudante.services')
   }
 
   this.CadastroMateria = function(materia) {
+    var defer = $q.defer();
     db.get(UsuarioLogado).then(function(doc) {
       var materias = doc.materias;
       materias.push(materia);
       return db.put({
         _id: UsuarioLogado,
+        senha: doc.senha,
         _rev: doc._rev,
         materias: materias,
         tarefas: doc.tarefas
       });
     }).then(function(response){
-
+      defer.resolve(response);
     }).catch(function(err) {
-      console.log(err);
+      defer.reject(err);
     });
+    return defer.promise;
   }
 });

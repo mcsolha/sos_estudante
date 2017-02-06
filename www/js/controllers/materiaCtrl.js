@@ -1,14 +1,40 @@
 angular.module('sos_estudante.controllers')
-.controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', 'PouchService', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover) {
+function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, state) {
+  //Função para salvar materia no bd
+  $scope.salvarMateria = function() {
+    $scope.loading = true;
+    $scope.materia.faltas.qtdeFaltas = undefined;
+    $scope.materia.arquivado = false;
+    console.log($scope.materia);
+    PouchService.CadastroMateria($scope.materia).then(function(response) {
+      console.log(response);
+      $state.go('tabsController.matRias');
+      $scope.loading = false;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  }
 
   //Objeto a ser mandado para o banco de dados
   $scope.data = {horaIni:[]};
   //Scope dos dados da nova matéria
   $scope.materia = {
-    dataAula: []
+    dataAula: [],
+    qteProvas: 0,
+    qteTrabalhos: 0,
+    qteExercicios: 0,
+    faltas: {
+      totalAulas: 0,
+      porcFaltas:0
+    },
+    criterioAval: {
+      mp: 0,
+      mt: 0,
+      me: 0
+    }
   };
 
   // Função utilizada para formatar o numero
@@ -85,7 +111,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
 
     if ($scope.diasSemana[i].class === "button-stable button-outline"){
       $scope.diasSemana[i].class = "button-dark";
-      $scope.materia.dataAula.push({diaSemana: diaSemana});
+      $scope.materia.dataAula.push({diaSemana: diaSemana, horaIni: {hora: 0, min: 0, string: '08:00'}, horaFin: {hora: 0, min: 0, string: '08:00'}});
     }
     else{
       $scope.diasSemana[i].class = "button-stable button-outline";
@@ -283,26 +309,104 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
   };
   //pega o maior valor
   function tamTabela(){
-    var maior = $scope.materiaEdit.qteProvas;
-    if($scope.materiaEdit.qteTrabalhos > maior)
-      maior = $scope.materiaEdit.qteTrabalhos;
-    if($scope.materiaEdit.qteExercicios > maior)
-      maior = $scope.materiaEdit.qteExercicios;
-    var notas = new Array();
+    $scope.materiaEdit = undefined;
+    if($scope.materiaEdit == undefined){
+      console.log('provas: ' + $scope.materia.qteProvas + '\n trabalhos: ' + $scope.materia.qteTrabalhos + '\n exercs: ' + $scope.materia.qteExercicios);
+      var maior = $scope.materia.qteProvas;
+      if(maior == undefined || $scope.materia.qteTrabalhos > maior)
+        maior = $scope.materia.qteTrabalhos;
+      if(maior == undefined || $scope.materia.qteExercicios > maior)
+        maior = $scope.materia.qteExercicios;
 
-    for (var i = 0; i < maior; i++) {
-      var nota = {};
-      if($scope.materiaEdit.notaProvas[i] != undefined)
-        nota.prova = $scope.materiaEdit.notaProvas[i];
-      if($scope.materiaEdit.notaTrabalhos[i] != undefined)
-        nota.trabalho = $scope.materiaEdit.notaTrabalhos[i];
-      if($scope.materiaEdit.notaExercicios[i] != undefined)
-        nota.exercicio = $scope.materiaEdit.notaExercicios[i];
-      notas.push(nota);
-    }
+      console.log(maior);
+      var notas = new Array();
+      if($scope.materia.notaProvas == undefined)
+        $scope.materia.notaProvas = new Array($scope.materia.qteProvas);
+      else{
+        var dif = $scope.materia.qteProvas - $scope.materia.notaProvas.length;
+        if(dif > 0)
+          for (var i = 0; i < dif; i++) {
+            $scope.materia.notaProvas.push();
+          }
+      }
+      if($scope.materia.notaExercicios == undefined)
+        $scope.materia.notaExercicios = new Array($scope.materia.qteExercicios);
+      else {
+        var dif = $scope.materia.qteExercicios - $scope.materia.notaExercicios.length;
+        if(dif > 0)
+          for (var i = 0; i < dif; i++) {
+            $scope.materia.notaExercicios.push();
+          }
+      }
+      if($scope.materia.notaTrabalhos == undefined)
+        $scope.materia.notaTrabalhos = new Array($scope.materia.qteTrabalhos);
+      else {
+        var dif = $scope.materia.qteTrabalhos - $scope.materia.notaTrabalhos.length;
+        if(dif > 0)
+          for (var i = 0; i < dif; i++) {
+            $scope.materia.notaTrabalhos.push();
+          }
+      }
+      for (var i = 0; i < maior; i++) {
+        var nota = {};
+        if($scope.materia.notaProvas[i] != undefined){
+          nota.prova = $scope.materia.notaProvas[i];
+        }
+        if($scope.materia.notaTrabalhos[i] != undefined){
+          nota.trabalho = $scope.materia.notaTrabalhos[i];
+        }
+        if($scope.materia.notaExercicios[i] != undefined){
+          nota.exercicio = $scope.materia.notaExercicios[i];
+        }
+        notas.push(nota);
+      }
+
       return notas;
+    }else
+    {
+      var maior = $scope.materiaEdit.qteProvas;
+      if($scope.materiaEdit.qteTrabalhos > maior)
+        maior = $scope.materiaEdit.qteTrabalhos;
+      if($scope.materiaEdit.qteExercicios > maior)
+        maior = $scope.materiaEdit.qteExercicios;
+      var notas = new Array();
+
+      for (var i = 0; i < maior; i++) {
+        var nota = {};
+        if($scope.materiaEdit.notaProvas[i] != undefined)
+          nota.prova = $scope.materiaEdit.notaProvas[i];
+        if($scope.materiaEdit.notaTrabalhos[i] != undefined)
+          nota.trabalho = $scope.materiaEdit.notaTrabalhos[i];
+        if($scope.materiaEdit.notaExercicios[i] != undefined)
+          nota.exercicio = $scope.materiaEdit.notaExercicios[i];
+        notas.push(nota);
+      }
+      return notas;
+    }
   }
-  $scope.tamTabela = tamTabela();
+
+  $scope.qteMudou = function() {
+    $scope.tamTabela = tamTabela();
+  }
+
+  $scope.qteMudou();
+
+  //Funções ng-change
+  $scope.provaChange = function(index) {
+    $scope.materia.notaProvas[index] = $scope.tamTabela[index].prova;
+    console.log($scope.materia);
+  }
+
+  $scope.trabalhoChange = function(index) {
+    $scope.materia.notaTrabalhos[index] = $scope.tamTabela[index].trabalho;
+    console.log($scope.materia);
+  }
+
+  $scope.exercChange = function(index) {
+    $scope.materia.notaExercicios[index] = $scope.tamTabela[index].exercicio;
+    console.log($scope.materia);
+  }
+
 
  //Começo do popOver
  $ionicPopover.fromTemplateUrl('./templates/dadosMatPopOver.html', {

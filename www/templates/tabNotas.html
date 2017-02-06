@@ -15,17 +15,17 @@
   <div class="row" ng-repeat="nota in tamTabela">
     <div class="col">
       <label class="item item-input item-stacked-label">
-        <input type="number" min="0" max="10" step="0.1" placeholder="8" ng-model="nota.prova"></input>
+        <input type="number" min="0" max="10" step="0.1" ng-model="nota.prova" class="{{nota.prova.class}}" ng-disabled="$index > (materia.qteProvas - 1)" ng-change="provaChange($index)"></input>
       </label>
     </div>
     <div class="col">
       <label class="item item-input item-stacked-label">
-        <input type="number" min="0" max="10" step="0.1" placeholder="3" ng-model="nota.trabalho"></input>
+        <input type="number" min="0" max="10" step="0.1" ng-model="nota.trabalho" class="{{nota.trabalho.class}}" ng-disabled="$index > (materia.qteTrabalhos - 1)" ng-change="trabalhoChange($index)"></input>
       </label>
     </div>
     <div class="col">
       <label class="item item-input item-stacked-label">
-        <input type="number" min="0" max="10" step="0.1" placeholder="6" ng-model="nota.exercicio"></input>
+        <input type="number" min="0" max="10" step="0.1" ng-model="nota.exercicio" class="{{nota.exercicio.class}}" ng-disabled="$index > (materia.qteExercicios - 1)" ng-change="exercChange($index)"></input>
       </label>
     </div>
   </div>
