@@ -21,7 +21,10 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $q)
     $scope.showAlert = function(status) {
       var alertPopup = $ionicPopup.alert({
         title: 'Erro',
-        template: status
+        template: status,
+        buttons: [
+          {text: '<b>OK</b>',
+          type: 'button-dark',}]
       });
     };
 }]);

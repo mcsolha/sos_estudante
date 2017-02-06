@@ -20,7 +20,10 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout) {
   $scope.showAlertSucesso = function() {
     var alertPopup = $ionicPopup.alert({
       title: 'Aviso',
-      template: 'Usuario cadastrado com sucesso. Faça o login para começar a utilizar o aplicativo.'
+      template: 'Usuario cadastrado com sucesso. Faça o login para começar a utilizar o aplicativo.',
+      buttons: [
+        {text: '<b>OK</b>',
+        type: 'button-dark',}]
     });
   };
 
@@ -29,6 +32,9 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout) {
     var alertPopup = $ionicPopup.alert({
       title: 'Erro',
       template: 'Falha no cadastro ou usuário já existente.'
+      buttons: [
+        {text: '<b>OK</b>',
+        type: 'button-dark',}]
     });
   };
 }]);
