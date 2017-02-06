@@ -69,4 +69,13 @@ angular.module('sos_estudante.services')
     });
     return defer.promise;
   }
+
+  this.RetMaterias = function() {
+    var defer = $q.defer();
+    db.get(UsuarioLogado).then(function(doc) {
+      defer.resolve(doc.materias);
+    }).catch(function(err) {
+      defer.reject(err);
+    });
+  }
 });
