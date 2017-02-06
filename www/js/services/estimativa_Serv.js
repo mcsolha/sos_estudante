@@ -6,16 +6,17 @@ angular.module('sos_estudante.services')
     var numNotasP = 0;
     var numNotasT = 0;
     var numNotasE = 0;
+
     //calcula quatidade de espaços vazios
-    for (var i = 0; i < mat.notaProvas.length; i++) {
+    for (var i = 0; i < mat.qteProvas; i++) {
       if(mat.notaProvas[i] == null)
         numNotasP++;
     }
-    for (var i = 0; i < mat.notaTrabalhos.length; i++) {
+    for (var i = 0; i < mat.qteTrabalhos; i++) {
       if(mat.notaTrabalhos[i] == null)
         numNotasT++;
     }
-    for (var i = 0; i < mat.notaExercicios.length; i++) {
+    for (var i = 0; i < mat.qteExercicios; i++) {
       if(mat.notaExercicios[i] == null)
         numNotasE++;
     }
@@ -58,10 +59,17 @@ angular.module('sos_estudante.services')
             }
             notaRestante = (mat.qteExercicios*(resto/mat.criterioAval.me)) - soma;
             notaE = notaRestante/numNotasE;
+
+           if(notaE > 10)
+              notaE = 10;
+           else if(notaE < 0) {
+              notaE = 0;
+           }
           }
         }
         else if(notaT < 0)
           notaT = 0;
+
       }
 
       //calcula exercicio
@@ -187,7 +195,6 @@ angular.module('sos_estudante.services')
 
     mat.mediaFinal = mat.criterioAval.mp*mediaProvas + mat.criterioAval.mt*mediaTrabalhos + mat.criterioAval.me*mediaExercicios;
 
-    console.log();
     if(mat.mediaFinal > 10){
       mat.mediaFinal = 10;
     }
@@ -195,7 +202,6 @@ angular.module('sos_estudante.services')
       mat.mediaFinal = 0;
     }
     mat.mediaFinal = parseFloat(mat.mediaFinal.toFixed(2));
-
 
     return mat;
  }
