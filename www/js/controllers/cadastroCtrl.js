@@ -1,9 +1,9 @@
 angular.module('sos_estudante.controllers')
-.controller('cadastroCtrl', ['$scope', '$stateParams', 'ApiService', '$state', '$ionicPopup', '$timeout',
-function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout) {
+.controller('cadastroCtrl', ['$scope', '$stateParams', 'PouchService', '$state', '$ionicPopup', '$timeout',
+function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout) {
   $scope.cadastro = {};
   $scope.cadastroUsuario = function() {
-    $scope.status = ApiService.callPost($scope.cadastro,'cadastro/usuario').then(function(status) {
+    PouchService.CadastroUsuario($scope.cadastro).then(function(status){
       if (status){
         $scope.showAlertSucesso();
         $state.go('login');
@@ -11,8 +11,10 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout) {
       else{
         $scope.showAlertErro();
       }
-    });
-  }
+    }).catch(function(status){
+      $scope.showAlertErro();
+    })
+  };
 
   // POP UP sucesso
   $scope.showAlertSucesso = function() {
