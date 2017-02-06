@@ -31,10 +31,10 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout) {
   $scope.showAlertErro = function() {
     var alertPopup = $ionicPopup.alert({
       title: 'Erro',
-      template: 'Falha no cadastro ou usuário já existente.'
+      template: 'Falha no cadastro ou usuário já existente.',
       buttons: [
         {text: '<b>OK</b>',
-        type: 'button-dark',}]
+        type: 'button-dark'}]
     });
   };
 }]);
