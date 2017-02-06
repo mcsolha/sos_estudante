@@ -9,6 +9,12 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
 
   $scope.$on('$ionicView.enter', function(event, data) {
     $scope.materiaSelec = data.stateParams.materia;
+    $scope.faltasDisp = calculaFaltas();
+    $scope.tamanhoTabela = tamTabela($scope.materiaSelec);
+    //tabela da pagina de estimativas
+    $scope.tabEstima = tamTabela($scope.materiaSelec);
+    //tabela do editar notas
+    $scope.tamTabela = tabPopup();
   });
 
      $scope.materiaSelec = $stateParams.materia;
@@ -26,6 +32,66 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
     }
     return r;
   }
+
+  function tabPopup(){
+    $scope.materiaEdit = undefined;
+    $scope.materia = $scope.materiaSelec;
+    if($scope.materiaEdit == undefined){
+      console.log('provas: ' + $scope.materiaSelec.qteProvas + '\n trabalhos: ' + $scope.materiaSelec.qteTrabalhos + '\n exercs: ' + $scope.materiaSelec.qteExercicios);
+      var maior = $scope.materiaSelec.qteProvas;
+      if(maior == undefined || $scope.materiaSelec.qteTrabalhos > maior)
+        maior = $scope.materiaSelec.qteTrabalhos;
+      if(maior == undefined || $scope.materiaSelec.qteExercicios > maior)
+        maior = $scope.materiaSelec.qteExercicios;
+
+      console.log(maior);
+      var notas = new Array();
+      if($scope.materiaSelec.notaProvas == undefined)
+        $scope.materiaSelec.notaProvas = new Array($scope.materiaSelec.qteProvas);
+      else{
+        var dif = $scope.materiaSelec.qteProvas - $scope.materiaSelec.notaProvas.length;
+        if(dif > 0)
+          for (var i = 0; i < dif; i++) {
+            $scope.materiaSelec.notaProvas.push();
+          }
+      }
+      if($scope.materiaSelec.notaExercicios == undefined)
+        $scope.materiaSelec.notaExercicios = new Array($scope.materiaSelec.qteExercicios);
+      else {
+        var dif = $scope.materiaSelec.qteExercicios - $scope.materiaSelec.notaExercicios.length;
+        if(dif > 0)
+          for (var i = 0; i < dif; i++) {
+            $scope.materiaSelec.notaExercicios.push();
+          }
+      }
+      if($scope.materiaSelec.notaTrabalhos == undefined)
+        $scope.materiaSelec.notaTrabalhos = new Array($scope.materiaSelec.qteTrabalhos);
+      else {
+        var dif = $scope.materiaSelec.qteTrabalhos - $scope.materiaSelec.notaTrabalhos.length;
+        if(dif > 0)
+          for (var i = 0; i < dif; i++) {
+            $scope.materiaSelec.notaTrabalhos.push();
+          }
+      }
+      for (var i = 0; i < maior; i++) {
+        var nota = {};
+        if($scope.materiaSelec.notaProvas[i] != undefined){
+          nota.prova = $scope.materiaSelec.notaProvas[i];
+        }
+        if($scope.materiaSelec.notaTrabalhos[i] != undefined){
+          nota.trabalho = $scope.materiaSelec.notaTrabalhos[i];
+        }
+        if($scope.materiaSelec.notaExercicios[i] != undefined){
+          nota.exercicio = $scope.materiaSelec.notaExercicios[i];
+        }
+        notas.push(nota);
+      }
+
+      return notas;
+    }
+  }
+
+
 
   //função que verifica tamanho maximo da tabela
   function tamTabela(mat){
@@ -54,9 +120,8 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
   //calcula faltas disponiveis
   function calculaFaltas(){
       var p = $scope.materiaSelec.faltas.porcFaltas/100;
-      console.log($scope.materiaSelec.faltas);
+      console.log($scope.materiaSelec.faltas.qtdeFaltas);
       var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
-      console.log(disponivel);
       return disponivel;
   }
 
@@ -112,8 +177,9 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
    }
 
    //Inicio POPUP Faltas
+   $scope.faltas = {};
    $scope.onshowPopUpFaltas = function(){
-     //ng-model popup faltas
+     $scope.faltas.qtdeFaltas = $scope.materiaSelec.faltas.qtdeFaltas;
      var fPopUp = $ionicPopup.show({
        title: 'Incluir Faltas',
        templateUrl:'./templates/faltasPopup.html',
@@ -122,15 +188,16 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
          {text: "Salvar",
          type: 'button-dark',
          onTap: function(){
-            $scope.materiaSelec.qtdeFaltas =   $scope.materiaSelec.qtdeFaltas + $scope.qtdeFaltas;
+            return $scope.faltas.qtdeFaltas;
             }
          },
          {text: "Cancelar"}
        ],
      });
-     $timeout(function() {
-      fPopUp.close(); //close the popup after 3 seconds for some reason
-    },10000);
+     fPopUp.then(function(res){
+       $scope.materiaSelec.faltas.qtdeFaltas = res;
+       $scope.faltasDisp = calculaFaltas();
+     });
   };
    //Fim POPup faltas
 
@@ -161,6 +228,7 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
 
    /////////POPUP de editar notas
    $scope.showPopupNotas = function() {
+     $scope.tamTabela = tabPopup();
      $scope.data = {};
      // An elaborate, custom popup
        var myPopup = $ionicPopup.show({
@@ -169,21 +237,37 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
          scope: $scope,
          buttons: [
            { text: '<b>Salvar',
-             type: 'button-dark'},
+             type: 'button-dark',
+             onTap: function() {
+               return $scope.tamTabela;
+             }
+           },
            {
              text: 'Cancelar',
            }
          ]
        });
-       $timeout(function() {
-      myPopup.close(); //close the popup after 3 seconds for some reason
-   }, 10000);
+
+       myPopup.then(function(notas) {
+         for (var i = 0; i < notas.length; i++) {
+          if(notas[i].prova != undefined && notas[i].prova != $scope.materiaSelec.notaProvas[i])
+            $scope.materiaSelec.notaProvas[i] = notas[i].prova;
+          if(notas[i].trabalho != undefined && notas[i].trabalho != $scope.materiaSelec.notaTrabalhos[i])
+            $scope.materiaSelec.notaTrabalhos[i] = notas[i].trabalho;
+          if(notas[i].exercicio != undefined && notas[i].exercicio != $scope.materiaSelec.notaExercicios[i])
+            $scope.materiaSelec.notaExercicios[i] = notas[i].exercicio;
+         }
+         $scope.tamanhoTabela = tamTabela($scope.materiaSelec);
+         //tabela da pagina de estimativas
+         $scope.tabEstima = tamTabela($scope.materiaSelec);
+       });
    };
 
 
    //função de arquivar
    $scope.arquiva = function(){
      $scope.materiaSelec.arquivado = true;
+     $scope.popoverDados.hide();
      $state.go('tabsController.matRias');
    }
 
