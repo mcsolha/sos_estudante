@@ -234,21 +234,38 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
      $scope.modal.hide();
    };
 
+   // An alert dialog
+  $scope.popupErro = function() {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Erro',
+      template: 'Erro no critério de avaliação ou Nome da Matéria não preenchido',
+      buttons: [{
+        text: 'Ok',
+        type: 'button-dark'
+        }]
+    });
+   };
+
    //Função para salvar materia no bd
    $scope.salvarMateria = function() {
-     $scope.loading = true;
-     $scope.materia.faltas.qtdeFaltas = 0;
-     $scope.materia.arquivado = false;
-     console.log($scope.materia);
-     PouchService.AtualizaMateria($scope.materia).then(function(response) {
-       console.log(response);
-       $scope.closeModal();
-      //  atualizarMaterias();
-       $rootScope.$broadcast('materiaAtualizada');
-       $scope.loading = false;
-     }).catch(function(err) {
-       console.log(err);
-     });
+     if($scope.materia.criterioAval.mp + $scope.materia.criterioAval.mt + $scope.materia.criterioAval.me > 1 ||
+       $scope.materia.nome == null || $scope.materia.nome == undefined || $scope.materia.nome == ''){
+       $scope.popupErro();
+     }else{
+       $scope.loading = true;
+       $scope.materia.faltas.qtdeFaltas = 0;
+       $scope.materia.arquivado = false;
+       console.log($scope.materia);
+       PouchService.AtualizaMateria($scope.materia).then(function(response) {
+         console.log(response);
+         $scope.closeModal();
+        //  atualizarMaterias();
+         $rootScope.$broadcast('materiaAtualizada');
+         $scope.loading = false;
+       }).catch(function(err) {
+         console.log(err);
+       });
+      }
    }
 
    //Botões do dia da semana na página nova matéria
