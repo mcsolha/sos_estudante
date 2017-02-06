@@ -5,9 +5,9 @@ angular.module('sos_estudante.controllers')
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
-    if($scope.materia.criterioAval.mp + $scope.materia.criterioAval.mt + $scope.materia.criterioAval.me > 1){
+    if($scope.materia.criterioAval.mp + $scope.materia.criterioAval.mt + $scope.materia.criterioAval.me > 1 &&
+      $scope.materia.nome == null || $scope.materia.nome == undefined || $scope.materia.nome == ''){
       $scope.popupErro();
-      console.log("erro media final");
     }else{
       $scope.loading = true;
       $scope.materia.faltas.qtdeFaltas = undefined;
@@ -27,7 +27,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
  $scope.popupErro = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Erro',
-     template: 'Erro no critério de avaliação',
+     template: 'Erro no critério de avaliação ou Nome da Matéria não preenchido',
      buttons: [{
        text: 'Ok',
        type: 'button-dark'
