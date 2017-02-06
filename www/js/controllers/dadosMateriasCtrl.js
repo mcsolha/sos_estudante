@@ -7,16 +7,14 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
    viewData.enableBack = true;
   });
 
+  $scope.$on('$ionicView.enter', function(event, data) {
+    $scope.materiaSelec = data.stateParams.materia;
+  });
+
      $scope.materiaSelec = $stateParams.materia;
      $scope.faltasDisp = calculaFaltas();
      $scope.tamanhoTabela = tamTabela($scope.materiaSelec);
-     for (var i = 0; i < $scope.materiaSelec.dataAula.length; i++) {
-       $scope.materiaSelec.dataAula[i].horaIni.hora = FormatarNumero($scope.materiaSelec.dataAula[i].horaIni.hora,2);
-       $scope.materiaSelec.dataAula[i].horaIni.min = FormatarNumero($scope.materiaSelec.dataAula[i].horaIni.min,2);
 
-       $scope.materiaSelec.dataAula[i].horaFin.hora = FormatarNumero($scope.materiaSelec.dataAula[i].horaFin.hora,2);
-       $scope.materiaSelec.dataAula[i].horaFin.min = FormatarNumero($scope.materiaSelec.dataAula[i].horaFin.min,2);
-     }
      //tabela da pagina de estimativas
      $scope.tabEstima = tamTabela($scope.materiaSelec);
 
