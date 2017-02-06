@@ -3,15 +3,6 @@ angular.module('sos_estudante.controllers', [])
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, ionicTimePicker, $ionicPopup, ionicDatePicker, calendarioAPI, compromissoFctr, $timeout) {
-  $scope.textoBotao = "Entrar";
-  $scope.fazAlgo = function() {
-    $scope.loading = true;
-    console.log('loading...');
-    $timeout(function() {
-        $scope.loading = false; // stop loading
-        console.log('done!');
-      }, 3000);
-  }
   $scope.showConfirm = function() {
     // Objeto criado que contém as informações selecionadas pelo usuario na criação de um compromisso
     $scope.data = {};

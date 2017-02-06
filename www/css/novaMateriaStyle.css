@@ -53,3 +53,12 @@ padding: 5px 0;
   padding: 0;
   text-align: center;
 }
+
+/*configuracao dos cards*/
+.card-color{
+  background-color: #f8f8f8;
+}
+
+.desabilitado{
+  background-color: red !important;
+}

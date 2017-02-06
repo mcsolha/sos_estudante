@@ -5,16 +5,12 @@
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
       <div class="list">
-      <div class="card" ng-repeat="materia in materias | filter: { arquivado: 'false' }" ng-click="abreDados(materia)">
+      <div class="card card-color" ng-repeat="materia in materias | filter: { arquivado: 'false' }" ng-click="abreDados(materia)">
         <h3>{{materia.nome}}</h3>
-        <div class="row">
-          <h4 class="col">{{materia.dia}}</h4>
-          <div class="col">
-            <div class="row">
-              <h4 class="col">{{materia.hora}}</h4>
-              <h4 class="col">{{materia.fim}}</h4>
-            </div>
-          </div>
+        <div class="row" ng-repeat="data in materia.dataAula">
+          <div class="col">{{data.diaSemana}}</div>
+          <div class="col">{{data.horaIni.string}}</div>
+          <div class="col">{{data.horaFin.string}}</div>
         </div>
         </div>
     </div>

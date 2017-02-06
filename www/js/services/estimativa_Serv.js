@@ -17,7 +17,7 @@ angular.module('sos_estudante.services')
       for (var i = 0; i < mat.notaProvas.length; i++) {
         soma =  soma + mat.notaProvas[i]
       }
-      var notaRestante = (mat.qteProvas*(notaDesejada/mat.criterio.mp)) - soma;
+      var notaRestante = (mat.qteProvas*(notaDesejada/mat.criterioAval.mp)) - soma;
       notaP = notaRestante/numNotasP;
       //se passar de 10
       if(notaP > 10){
@@ -30,7 +30,7 @@ angular.module('sos_estudante.services')
         for (var i = 0; i < mat.notaTrabalhos.length; i++) {
           soma =  soma + mat.notaTrabalhos[i]
         }
-        notaRestante = (mat.qteTrabalhos*(resto/mat.criterio.mt)) - soma;
+        notaRestante = (mat.qteTrabalhos*(resto/mat.criterioAval.mt)) - soma;
         notaT = notaRestante/numNotasT;
 
         if(notaT > 10){
@@ -43,7 +43,7 @@ angular.module('sos_estudante.services')
             for (var i = 0; i < mat.notaExercicios.length; i++) {
               soma =  soma + mat.notaExercicios[i]
             }
-            notaRestante = (mat.qteExercicios*(resto/mat.criterio.me)) - soma;
+            notaRestante = (mat.qteExercicios*(resto/mat.criterioAval.me)) - soma;
             notaE = notaRestante/numNotasE;
           }
         }
@@ -57,7 +57,7 @@ angular.module('sos_estudante.services')
         for (var i = 0; i < mat.notaExercicios.length; i++) {
           soma =  soma + mat.notaExercicios[i]
         }
-        notaRestante = (mat.qteExercicios*(resto/mat.criterio.me)) - soma;
+        notaRestante = (mat.qteExercicios*(resto/mat.criterioAval.me)) - soma;
         notaE = notaRestante/numNotasE;
 
         if(notaE > 10){
@@ -78,7 +78,7 @@ angular.module('sos_estudante.services')
       for (var i = 0; i < mat.notaTrabalhos.length; i++) {
         soma =  soma + mat.notaTrabalhos[i]
       }
-      notaRestante = (mat.qteTrabalhos*(notaDesejada/mat.criterio.mt)) - soma;
+      notaRestante = (mat.qteTrabalhos*(notaDesejada/mat.criterioAval.mt)) - soma;
       notaT = notaRestante/numNotasT;
 
       if(notaT > 10){
@@ -91,7 +91,7 @@ angular.module('sos_estudante.services')
           for (var i = 0; i < mat.notaExercicios.length; i++) {
             soma =  soma + mat.notaExercicios[i]
           }
-          notaRestante = (mat.qteExercicios*(resto/mat.criterio.me)) - soma;
+          notaRestante = (mat.qteExercicios*(resto/mat.criterioAval.me)) - soma;
           notaE = notaRestante/numNotasE;
 
           if(notaE > 10){
@@ -111,7 +111,7 @@ angular.module('sos_estudante.services')
       for (var i = 0; i < mat.notaExercicios.length; i++) {
         soma =  soma + mat.notaExercicios[i]
       }
-      notaRestante = (mat.qteExercicios*(notaDesejada/mat.criterio.me)) - soma;
+      notaRestante = (mat.qteExercicios*(notaDesejada/mat.criterioAval.me)) - soma;
       notaE = notaRestante/numNotasE;
 
       if(notaE > 10){
@@ -158,7 +158,7 @@ angular.module('sos_estudante.services')
     }
     var mediaExercicios = soma/mat.qteExercicios;
 
-    mat.mediaFinal = mat.criterio.mp*mediaProvas + mat.criterio.mt*mediaTrabalhos + mat.criterio.me*mediaExercicios;
+    mat.mediaFinal = mat.criterioAval.mp*mediaProvas + mat.criterioAval.mt*mediaTrabalhos + mat.criterioAval.me*mediaExercicios;
 
     if(mat.mediaFinal > 10){
       mat.mediaFinal = 10;

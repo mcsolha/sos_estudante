@@ -18,8 +18,8 @@ angular.module('ionicCalendarDisplay', [])
     scope: {
       dateformat: "="
     },
-    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', '$ionicModal', '$ionicPopover',
-    function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI, $ionicModal, $ionicPopover) {
+    controller: ['$scope','$filter', '$ionicPopup', 'ionicTimePicker' , 'calendarioAPI', '$ionicModal', '$ionicPopover', '$state',
+    function($scope, $filter, $ionicPopup, ionicTimePicker, calendarioAPI, $ionicModal, $ionicPopover, $state) {
       $ionicPopover.fromTemplateUrl('./templates/tarefasPopover.html', {
         scope: $scope,
       }).then(function(popover) {
@@ -198,9 +198,10 @@ angular.module('ionicCalendarDisplay', [])
         }
         $scope.display = $filter('date')(timeStamp, format);
         calendarioAPI.defDataSelecionada($scope.display);
-        trocarLista();
-        if($scope.tarefas.length > 0)
-          $scope.openModal();
+        var tarefas = calendarioAPI.retDados().find(condicao).tarefas;
+        if(tarefas.length > 0)
+          $state.go('tarefas',{tarefas: tarefas})
+          // $scope.openModal();
         //$scope.mostrarPopup($scope.display);
         //console.log($scope.display);
       }
@@ -460,7 +461,7 @@ angular.module('ionicCalendarDisplay', [])
         '		  <div class="col">Dom</div><div class="col">Seg</div><div class="col">Ter</div><div class="col">Qua</div><div class="col">Qui</div><div class="col">Sex</div><div class="col">Sab</div>' +
         '		</div>' +
         '		<div class="row Daysheading DaysDisplay" ng-repeat = "rowVal in datesDisp  track by $index" ng-class="{\'marginTop0\':$first}">' +
-        '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\'), \'comCompr\':(colVal.comCompr)}"  ng-click="selectedDateClick(colVal)" >{{colVal.date}}</div> ' +
+        '		  <div class="col" ng-repeat = "colVal in rowVal  track by $index" ng-class="{\'fadeDateDisp\':(colVal.type == \'oldMonth\' || colVal.type == \'newMonth\'), \'selDate\':(colVal.date == displayDate && colVal.type == \'currentMonth\'), \'comCompr\':(colVal.comCompr)}"  ng-click="selectedDateClick(colVal)">{{colVal.date}}</div> ' +
         '		</div>' +
         '	</div>' +
         '	<div class="calendar_Month" ng-show="UICalendarDisplay.Month">' +

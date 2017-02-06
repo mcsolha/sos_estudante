@@ -58,6 +58,15 @@ angular.module('sos_estudante.routes', [])
     templateUrl: 'templates/dadosMaterias.html',
     controller : 'dadoMateriasCtrl'
   })
+  
+  .state('tarefas',{
+    url:'/tarefas',
+    params:{
+      tarefas: null
+    },
+    templateUrl: 'templates/tarefas.html',
+    controller: 'tarefasCtrl'
+  })
 
 $urlRouterProvider.otherwise('login')
 });

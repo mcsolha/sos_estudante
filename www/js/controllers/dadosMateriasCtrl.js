@@ -1,6 +1,6 @@
 angular.module('sos_estudante.controllers')
-.controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'ApiService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover', 'estimativasService',
-function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover, estimativasService ) {
+.controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'PouchService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover', 'estimativasService',
+function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover, estimativasService ) {
 
   //seta de voltar
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -56,7 +56,9 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
   //calcula faltas disponiveis
   function calculaFaltas(){
       var p = $scope.materiaSelec.faltas.porcFaltas/100;
+      console.log($scope.materiaSelec.faltas);
       var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
+      console.log(disponivel);
       return disponivel;
   }
 
@@ -87,10 +89,10 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
        qteProvas: $scope.materiaSelec.qteProvas,
        qteTrabalhos: $scope.materiaSelec.qteTrabalhos,
        qteExercicios: $scope.materiaSelec.qteExercicios,
-       criterio : {
-         mp : $scope.materiaSelec.criterio.mp,
-         mt : $scope.materiaSelec.criterio.mt,
-         me : $scope.materiaSelec.criterio.me
+       criterioAval : {
+         mp : $scope.materiaSelec.criterioAval.mp,
+         mt : $scope.materiaSelec.criterioAval.mt,
+         me : $scope.materiaSelec.criterioAval.me
        },
        notaTrabalhos : [],
        notaProvas : [],

@@ -1,0 +1,14 @@
+<ion-view view-title="Tarefas">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list show-delete="remover">
+      <ion-item ng-repeat = "item in tarefas" class="item-left">
+        <h2 style="word-wrap: break-word; white-space:normal;">{{item.titulo}}: {{item.horaIniSelected}} - {{item.horaFinSelected}}</h2>
+        <ion-delete-button class="ion-minus-circled dark" ng-click="tarefas.splice($index, 1)">
+        </ion-delete-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
