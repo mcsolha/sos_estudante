@@ -5,18 +5,35 @@ angular.module('sos_estudante.controllers')
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
-    $scope.loading = true;
-    $scope.materia.faltas.qtdeFaltas = undefined;
-    $scope.materia.arquivado = false;
-    console.log($scope.materia);
-    PouchService.CadastroMateria($scope.materia).then(function(response) {
-      console.log(response);
-      $scope.closeModal();
-      $scope.loading = false;
-    }).catch(function(err) {
-      console.log(err);
-    });
+    if($scope.materia.criterioAval.mp + $scope.materia.criterioAval.mt + $scope.materia.criterioAval.me > 1){
+      $scope.popupErro();
+      console.log("erro media final");
+    }else{
+      $scope.loading = true;
+      $scope.materia.faltas.qtdeFaltas = undefined;
+      $scope.materia.arquivado = false;
+      console.log($scope.materia);
+      PouchService.CadastroMateria($scope.materia).then(function(response) {
+        console.log(response);
+        $scope.closeModal();
+        $scope.loading = false;
+      }).catch(function(err) {
+        console.log(err);
+      });
+    }
   }
+
+  // An alert dialog
+ $scope.popupErro = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Erro',
+     template: 'Erro no critério de avaliação',
+     buttons: [{
+       text: 'Ok',
+       type: 'button-dark'
+       }]
+   });
+  };
 
   //Objeto a ser mandado para o banco de dados
   $scope.data = {horaIni:[]};
@@ -407,7 +424,6 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     $scope.materia.notaExercicios[index] = $scope.tamTabela[index].exercicio;
     console.log($scope.materia);
   }
-
 
  //Começo do popOver
  $ionicPopover.fromTemplateUrl('./templates/dadosMatPopOver.html', {
