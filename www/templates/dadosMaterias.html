@@ -67,21 +67,21 @@
               </div>
             </div>
             <!--Tabela -->
-            <div class="tabela-notas">
-              <div class="row" ng-repeat="nota in tamanhoTabela track by $index">
+            <div class="tab-notas">
+              <div class="row" ng-repeat="nota in tamanhoTabela">
                 <div class="col">
-                  <label class="item item-input item-stacked-label"> {{nota.prova}}
-                    <!-- <input type="number" disabled="true">{{nota.prova}}</input> -->
+                  <label class="item item-input item-stacked-label">
+                    <input type="number" disabled="true" ng-model = "nota.prova"></input>
                   </label>
                 </div>
                 <div class="col">
-                  <label class="item item-input item-stacked-label"> {{nota.trabalho}}
-                    <!-- <input type="number" disabled="true" > {{nota.trabalho}}</input> -->
+                  <label class="item item-input item-stacked-label">
+                    <input type="number" disabled="true" ng-model = "nota.trabalho"></input>
                   </label>
                 </div>
                 <div class="col">
-                  <label class="item item-input item-stacked-label">{{nota.exercicio}}
-                    <!-- <input type="number" disabled="true" >{{nota.exercicio}} </input> -->
+                  <label class="item item-input item-stacked-label">
+                    <input type="number" disabled="true" ng-model="nota.exercicio"></input>
                   </label>
                 </div>
               </div>

@@ -51,9 +51,9 @@
    padding: 0;
  }
 
-.tabela-notas .col{
+/*.tabela-notas .col{
   border-right: 1px solid #444444;
-}
+}*/
 
  .tabela-notas .col .item.item-input.item-stacked-label{
    padding: 0;

@@ -1,11 +1,6 @@
 angular.module('sos_estudante.controllers')
-.controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'ApiService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover',
-function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover) {
-
-  $scope.number = 7;
-  $scope.getNumber = function(number){
-    return new Array(number);
-  }
+.controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'ApiService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover', 'estimativasService',
+function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover, estimativasService ) {
 
   //seta de voltar
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -14,7 +9,7 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
 
      $scope.materiaSelec = $stateParams.materia;
      $scope.faltasDisp = calculaFaltas();
-     $scope.tamanhoTabela = tamTabela();
+     $scope.tamanhoTabela = tamTabela($scope.materiaSelec);
      for (var i = 0; i < $scope.materiaSelec.dataAula.length; i++) {
        $scope.materiaSelec.dataAula[i].horaIni.hora = FormatarNumero($scope.materiaSelec.dataAula[i].horaIni.hora,2);
        $scope.materiaSelec.dataAula[i].horaIni.min = FormatarNumero($scope.materiaSelec.dataAula[i].horaIni.min,2);
@@ -22,6 +17,8 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
        $scope.materiaSelec.dataAula[i].horaFin.hora = FormatarNumero($scope.materiaSelec.dataAula[i].horaFin.hora,2);
        $scope.materiaSelec.dataAula[i].horaFin.min = FormatarNumero($scope.materiaSelec.dataAula[i].horaFin.min,2);
      }
+     //tabela da pagina de estimativas
+     $scope.tabEstima = tamTabela($scope.materiaSelec);
 
   //formata horario
   function FormatarNumero(num, length) {
@@ -33,31 +30,28 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
   }
 
   //função que verifica tamanho maximo da tabela
-  function tamTabela(){
-  var maior = $scope.materiaSelec.qteProvas;
-   if ($scope.materiaSelec.qteTrabalhos > maior)
-     maior = $scope.materiaSelec.qteTrabalhos;
-   if($scope.materiaSelec.qteExercicios >  maior)
-     maior = $scope.materiaSelec.qteExercicios;
+  function tamTabela(mat){
+  var maior = mat.qteProvas;
+   if (mat.qteTrabalhos > maior)
+     maior = mat.qteTrabalhos;
+   if(mat.qteExercicios >  maior)
+     maior = mat.qteExercicios;
     var notas = new Array();
-
 
     for (var i = 0; i < maior; i++) {
       var nota = {};
-      if($scope.materiaSelec.notaProvas[i] != undefined)
-        nota.prova = $scope.materiaSelec.notaProvas[i];
-      if($scope.materiaSelec.notaTrabalhos[i] != undefined)
-        nota.trabalho = $scope.materiaSelec.notaTrabalhos[i];
-      if($scope.materiaSelec.notaExercicios[i] != undefined)
-        nota.exercicio = $scope.materiaSelec.notaExercicios[i];
-
-      notas.push(nota);
+      if(mat.notaProvas[i] != undefined)
+        nota.prova = mat.notaProvas[i];
+      if(mat.notaTrabalhos[i] != undefined)
+        nota.trabalho = mat.notaTrabalhos[i];
+      if(mat.notaExercicios[i] != undefined)
+        nota.exercicio = mat.notaExercicios[i];
+      if(nota == null)
+        nota.prova = null;
+      notas[i] = nota;
     }
-    console.log(notas);
     return notas;
   }
-
-
 
   //calcula faltas disponiveis
   function calculaFaltas(){
@@ -83,18 +77,43 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
    };
    //Fim modal Estimativas
 
-//   $scope.notaDesejada = {};
+   $scope.final = {};
+
    //função que estima notas
    $scope.estimaNotas = function(){
-     console.log($scope.notaDesejada);
-  //   $scope.materiaSelec = EstimativasService.callEstima($scope.materiaSelec, $scope.notaDesejada);
-  //   console.log(materiaSelec);
+
+     //copiar propriedades uteis para estimar nota
+     $scope.materiaEstimada = {
+       qteProvas: $scope.materiaSelec.qteProvas,
+       qteTrabalhos: $scope.materiaSelec.qteTrabalhos,
+       qteExercicios: $scope.materiaSelec.qteExercicios,
+       criterio : {
+         mp : $scope.materiaSelec.criterio.mp,
+         mt : $scope.materiaSelec.criterio.mt,
+         me : $scope.materiaSelec.criterio.mp
+       },
+       notaTrabalhos : [],
+       notaProvas : [],
+       notaExercicios : [],
+       mediaFinal : 0
+     }
+     for (var i = 0; i < $scope.materiaSelec.notaProvas.length; i++) {
+       $scope.materiaEstimada.notaProvas[i] = $scope.materiaSelec.notaProvas[i]
+     }
+     for (var i = 0; i < $scope.materiaSelec.notaTrabalhos.length; i++) {
+       $scope.materiaEstimada.notaTrabalhos[i] = $scope.materiaSelec.notaTrabalhos[i]
+     }
+     for (var i = 0; i < $scope.materiaSelec.notaExercicios.length; i++) {
+       $scope.materiaEstimada.notaExercicios[i] = $scope.materiaSelec.notaExercicios[i]
+     }
+
+     $scope.materiaEstimada = estimativasService.callEstima($scope.materiaEstimada, $scope.final.notaDesejada);
+     $scope.tabEstima = tamTabela($scope.materiaEstimada);
    }
 
    //Inicio POPUP Faltas
    $scope.onshowPopUpFaltas = function(){
      //ng-model popup faltas
-     $scope.qtdeFaltas = {};
      var fPopUp = $ionicPopup.show({
        title: 'Incluir Faltas',
        templateUrl:'./templates/faltasPopup.html',
@@ -103,7 +122,8 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
          {text: "Salvar",
          type: 'button-dark',
          onTap: function(){
-            $scope.materiaSelec.qtdeFaltas = $scope.qtdeFaltas;}
+            $scope.materiaSelec.qtdeFaltas =   $scope.materiaSelec.qtdeFaltas + $scope.qtdeFaltas;
+            }
          },
          {text: "Cancelar"}
        ],
