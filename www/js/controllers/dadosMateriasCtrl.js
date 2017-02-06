@@ -24,6 +24,17 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
      //tabela da pagina de estimativas
      $scope.tabEstima = tamTabela($scope.materiaSelec);
 
+  $scope.excluir = function() {
+    PouchService.RemoveMateria($scope.materiaSelec).then(function(response) {
+      console.log(response);
+      $rootScope.$broadcast('materiaAtualizada');
+      $scope.popoverDados.hide();
+      $state.go('tabsController.matRias');
+    }).catch(function(err) {
+      console.log(err);
+    })
+  }
+
   //formata horario
   function FormatarNumero(num, length) {
     var r = "" + num;

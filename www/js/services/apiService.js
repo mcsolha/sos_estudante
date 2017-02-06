@@ -113,4 +113,29 @@ angular.module('sos_estudante.services')
     });
     return defer.promise;
   }
+
+  this.RemoveMateria = function(materia) {
+    var defer = $q.defer();
+    db.get(UsuarioLogado).then(function(doc) {
+      var materias = doc.materias;
+      var index = findWithAttr(materias,'nome',materia.nome);
+      if(index > -1){
+        materias.splice(index,1);
+        console.log('materias:');
+        console.log(materias);
+      }
+      return db.put({
+        _id: UsuarioLogado,
+        senha: doc.senha,
+        _rev: doc._rev,
+        materias: materias,
+        tarefas: doc.tarefas
+      });
+    }).then(function(response) {
+      defer.resolve(response);
+    }).catch(function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+  }
 });
