@@ -162,6 +162,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
    });
  }
  //Fim POPup faltas
+ 
   //preenchendo conteudo dos cards
   $scope.materias = [{
     nome:"Redes",

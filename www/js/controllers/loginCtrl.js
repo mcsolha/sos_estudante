@@ -6,7 +6,7 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $q)
     $scope.loading = true;
     PouchService.Login($scope.login).then(function(status){
       $scope.loading = false;
-      if (status){
+      if (status==true){
         $state.go('tabsController.matRias'); //NAVEGAR DE PÁGINA
       }
       else{
