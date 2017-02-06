@@ -2,7 +2,7 @@
    <div class="bar bar-header">
      <!--Botão pra fechar o modal-->
      <button class="button button-icon ion-close-round" ng-click="closeModal()"></button>
-      <h1 class = "title">Nova Matéria</h1>
+      <h1 class = "title">{{nomePag}}</h1>
    </div>
    <!--CORPO-->
    <ion-content class="has-header">
@@ -134,7 +134,7 @@
       <!--Botao para editar as notas e salvar -->
       <div class="row">
         <div class="col">
-          <button class="button button-block button-dark" ng-click="showPopup()">Editar Notas</button>
+          <button class="button button-block button-dark" ng-click="showPopup()" ng-disabled="editMode">Editar Notas</button>
         </div>
         <div class="col">
           <button class="button button-block button-dark" ladda="loading" ng-click="salvarMateria()">Salvar</button>

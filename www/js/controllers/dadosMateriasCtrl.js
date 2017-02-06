@@ -1,7 +1,7 @@
 angular.module('sos_estudante.controllers')
 .controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'PouchService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover', 'estimativasService',
 function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover, estimativasService ) {
-
+  $scope.editMode = true;
   //seta de voltar
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
    viewData.enableBack = true;
@@ -209,6 +209,7 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
    });
    //Fim do popOver
 
+   /////////////////////////////////////////////////////REGIÃO: EDITAR MATERIA/////////////////////////////
    //MODAL DA NOVA MATÉRIA - para editar
    $ionicModal.fromTemplateUrl('./templates/novaMateria.html', {
        scope: $scope,
@@ -218,13 +219,86 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
      });
      //ABRE MODAL
    $scope.openModal = function() {
+     $scope.nomePag = "Editar Matéria";
+     $scope.materia = $scope.materiaSelec;
      $scope.modal.show();
    };
    //FECHA MODAL
    $scope.closeModal = function() {
      $scope.modal.hide();
    };
+
+   //Função para salvar materia no bd
+   $scope.salvarMateria = function() {
+     $scope.loading = true;
+     $scope.materia.faltas.qtdeFaltas = 0;
+     $scope.materia.arquivado = false;
+     console.log($scope.materia);
+     PouchService.CadastroMateria($scope.materia).then(function(response) {
+       console.log(response);
+       $scope.closeModal();
+       atualizarMaterias();
+       $scope.loading = false;
+     }).catch(function(err) {
+       console.log(err);
+     });
+   }
+
+   //Botões do dia da semana na página nova matéria
+   $scope.diasSemana = [{},{},{},{},{},{}];
+   for(i=0;i<6;i++){
+    $scope.diasSemana[i].class = "button-stable button-outline";
+   }
+   for (var i = 0; i < $scope.materiaSelec.dataAula.length; i++) {
+     switch ($scope.materiaSelec.dataAula[i].diaSemana) {
+       case "Segunda":
+         $scope.diasSemana[0].class = "button-dark";
+         break;
+       case "Terça":
+         $scope.diasSemana[1].class = "button-dark";
+         break;
+       case "Quarta":
+         $scope.diasSemana[2].class = "button-dark";
+         break;
+       case "Quinta":
+         $scope.diasSemana[3].class = "button-dark";
+         break;
+       case "Sexta":
+         $scope.diasSemana[4].class = "button-dark";
+         break;
+       case "Sábado":
+         $scope.diasSemana[5].class = "button-dark";
+         break;
+     }
+   }
+
+   function findWithAttr(array, attr, value) {
+     for(var i = 0; i < array.length; i += 1) {
+         if(array[i][attr] === value) {
+             return i;
+         }
+     }
+     return -1;
+   }
+
+   $scope.selecDia = function(i, diaSemana) {
+     // console.log(i);
+     //switch pra salvar o dia da semana selecionado no objeto
+
+     if ($scope.diasSemana[i].class === "button-stable button-outline"){
+       $scope.diasSemana[i].class = "button-dark";
+       $scope.materia.dataAula.push({diaSemana: diaSemana, horaIni: {hora: 0, min: 0, string: '08:00'}, horaFin: {hora: 0, min: 0, string: '08:00'}});
+     }
+     else{
+       $scope.diasSemana[i].class = "button-stable button-outline";
+       var index = findWithAttr($scope.materia.dataAula, 'diaSemana', diaSemana);
+       console.log(index);
+       $scope.materia.dataAula.splice(index,1);
+     }
+   }
    //////////FIM MODAL//
+
+   /////////////////////////////////////////////FIM REGIÃO//////////////////////////////////////////
 
    /////////POPUP de editar notas
    $scope.showPopupNotas = function() {
@@ -260,6 +334,7 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
          $scope.tamanhoTabela = tamTabela($scope.materiaSelec);
          //tabela da pagina de estimativas
          $scope.tabEstima = tamTabela($scope.materiaSelec);
+         $scope.popoverDados.hide();
        });
    };
 

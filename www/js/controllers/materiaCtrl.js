@@ -3,6 +3,8 @@ angular.module('sos_estudante.controllers')
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
+  $scope.editMode = false;
+  $scope.nomePag = "Nova Matéria";
   //obter as materias cadastradas no banco de dados
   function atualizarMaterias() {
     PouchService.RetMaterias().then(function(materias){
