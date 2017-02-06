@@ -1,9 +1,16 @@
 angular.module('sos_estudante.services')
-.service('calendarioAPI', ['compromissoFctr', function(compromissoFctr){
+.service('calendarioAPI', ['compromissoFctr','PouchService', function(compromissoFctr, PouchService){
   var callbackFun = [];
 
   // Variável que armazena qual data foi selecionada pelo usuario através do calendário
   var dataSelecionada = '';
+
+  function RetornarTarefas() {
+    PouchService.RetTarefas().then(function(tarefas) {
+      return tarefas;
+    });
+  }
+
 
   // Simulaçao de tarefas criadas pelo usuário
   var dados = [
@@ -49,18 +56,24 @@ angular.module('sos_estudante.services')
     },
     // Função que retorna os dados fictícios
     retDados: function() {
+      dados = RetornarTarefas();
       return dados;
     },
     // Função para adicionar dados novos
     adcDados: function(dia,comp) {
       // console.log(dado);
+      if(dados == undefined)
+        dados = [];
       for (var i = 0; i < dados.length; i++) { // Procura nos dados se ja existe pelo menos uma tarefa para o dia
         if(dados[i].dia == dia){
           comp.id = dados[i].tarefas[dados[dados.length - 1].tarefas.length - 1].id + 1;
           dados[i].tarefas.push(comp);
-          for (var i = 0; i < callbackFun.length; i++) {
-            callbackFun[i]();
-          }
+          PouchService.SalvaTarefas(dados).then(function(response) {
+            console.log(response);
+            for (var i = 0; i < callbackFun.length; i++) {
+              callbackFun[i]();
+            }
+          });
           return true;
         }
       }
@@ -71,10 +84,12 @@ angular.module('sos_estudante.services')
         tarefas: [comp]
       }
       dados.push(obj);
-      for (var i = 0; i < callbackFun.length; i++) {
-        callbackFun[i]();
-      }
-      console.log(dados);
+      PouchService.SalvaTarefas(dados).then(function(response) {
+        console.log(response);
+        for (var i = 0; i < callbackFun.length; i++) {
+          callbackFun[i]();
+        }
+      });
       return true;
     },
     // Função para retornar data selecionada

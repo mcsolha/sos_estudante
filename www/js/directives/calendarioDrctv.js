@@ -198,7 +198,11 @@ angular.module('ionicCalendarDisplay', [])
         }
         $scope.display = $filter('date')(timeStamp, format);
         calendarioAPI.defDataSelecionada($scope.display);
-        var tarefas = calendarioAPI.retDados().find(condicao).tarefas;
+        var tarefas = calendarioAPI.retDados();
+        if(tarefas != undefined)
+          tarefas = tarefas.find(condicao);
+        else
+          tarefas = [];
         if(tarefas.length > 0)
           $state.go('tarefas',{tarefas: tarefas})
           // $scope.openModal();
@@ -316,7 +320,10 @@ angular.module('ionicCalendarDisplay', [])
       var temCompromisso = function(dia,mes,ano) {
         var data = calendarioAPI.formatarData(dia,mes,ano,1);
         // console.log(data);
-        for (var i = 0; i < calendarioAPI.retDados().length; i++) {
+        var dados = calendarioAPI.retDados();
+        if(dados == undefined)
+          dados = [];
+        for (var i = 0; i < dados.length; i++) {
           if(calendarioAPI.retDados()[i].dia == data){
             return true;
           }

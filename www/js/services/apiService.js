@@ -138,4 +138,32 @@ angular.module('sos_estudante.services')
     });
     return defer.promise;
   }
+
+  this.RetTarefas = function() {
+    var defer = $q.defer();
+    db.get(UsuarioLogado).then(function(doc) {
+      defer.resolve(doc.tarefas);
+    }).catch(function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+  }
+
+  this.SalvaTarefas = function(tarefas) {
+    var defer = $q.defer();
+    db.get(UsuarioLogado).then(function(doc) {
+      return db.put({
+        _id: UsuarioLogado,
+        senha: doc.senha,
+        _rev: doc._rev,
+        materias: doc.materias,
+        tarefas: tarefas
+      });
+    }).then(function(response) {
+      defer.resolve(response);
+    }).catch(function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+  }
 });
