@@ -9,7 +9,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
       $scope.materias=materias;
     });
   }
-
+  atualizarMaterias();
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
     $scope.loading = true;
