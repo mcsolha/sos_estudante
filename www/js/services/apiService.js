@@ -2,12 +2,23 @@ angular.module('sos_estudante.services')
 .service('PouchService', function($http,$q){
   var db = new PouchDB('http://186.214.78.208:3001/users');
 
+  var UsuarioLogado;
+
+  this.GetUsuarioLogado = function() {
+    return UsuarioLogado;
+  };
+
+  this.SetUsuarioLogado = function(usuario) {
+    UsuarioLogado = usuario;
+  }
+
   this.Login = function(info) {
     var defer = $q.defer();
     db.get(info.email).then(function(doc) {
       console.log(doc);
       if(info.senha == doc.senha){
         defer.resolve(true);
+        SetUsuarioLogado(info.email);
       }else {
         defer.resolve('Usuário e/ou senha incorreto(s)');
       }
@@ -36,5 +47,22 @@ angular.module('sos_estudante.services')
       defer.reject(err);
     });
     return defer.promise;
+  }
+
+  this.CadastroMateria = function(materia) {
+    db.get(UsuarioLogado).then(function(doc) {
+      var materias = doc.materias;
+      materias.push(materia);
+      return db.put({
+        _id: UsuarioLogado,
+        _rev: doc._rev,
+        materias: materias,
+        tarefas: doc.tarefas
+      });
+    }).then(function(response){
+
+    }).catch(function(err) {
+      console.log(err);
+    });
   }
 });
