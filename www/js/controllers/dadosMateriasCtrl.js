@@ -159,6 +159,28 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
    };
    //////////FIM MODAL//
 
+   /////////POPUP de editar notas
+   $scope.showPopupNotas = function() {
+     $scope.data = {};
+     // An elaborate, custom popup
+       var myPopup = $ionicPopup.show({
+         title: 'Notas',
+         templateUrl: './templates/tabNotas.html',
+         scope: $scope,
+         buttons: [
+           { text: '<b>Salvar',
+             type: 'button-dark'},
+           {
+             text: 'Cancelar',
+           }
+         ]
+       });
+       $timeout(function() {
+      myPopup.close(); //close the popup after 3 seconds for some reason
+   }, 10000);
+   };
+
+
    //função de arquivar
    $scope.arquiva = function(){
      $scope.materiaSelec.arquivado = true;
