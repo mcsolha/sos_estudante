@@ -3,6 +3,10 @@ angular.module('sos_estudante.controllers')
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
+  //obter as materias cadastradas no banco de dados
+  PouchService.RetMaterias().then(function(materias){
+    $scope.materias=materias;
+  })
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
     $scope.loading = true;
@@ -205,62 +209,6 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
    });
  }
  //Fim POPup faltas
-
-  //preenchendo conteudo dos cards
-  $scope.materias = [{
-    nome:"Redes",
-    dia:"Quinta",
-    hora:"14:00",
-    fim:"18:00",
-    professor: "Kelton",
-    dataAula: [{
-      diaSemana: "Segunda",
-      horaIni: {
-        hora: 10,
-        min:  30
-      },
-      horaFin: {
-        hora: 12,
-        min:  30
-      }
-    },{
-    diaSemana : "Terça",
-    horaIni : {
-      hora: 14,
-      min:  30
-    },
-    horaFin : {
-      hora: 18,
-      min:  30
-    }
-  }],
-    criterio :{
-      mp : 0.8,
-      mt : 0.1,
-      me : 0.1
-    },
-    qteProvas: 3,
-    qteTrabalhos: 2,
-    qteExercicios: 5,
-    notaProvas : [7.5, 4.5],
-    notaTrabalhos : [8.0, 9.5],
-    notaExercicios : [7.5, 6.8, 9.0, 7.4],
-    faltas: {
-      totalAulas: 60,
-      porcFaltas: 30,
-      qtdeFaltas: 2
-    },
-    arquivado:"false"
-  },{
-    nome:"Engenharia de Software 2",
-    arquivado:"true"
-  },{
-    nome:"Inteligência Artificial",
-    arquivado:"true"
-  },{
-    nome:"Computação Gráfica",
-    arquivado:"true"
-  }];
 
   //editar as notas na tabela de notas
   $scope.materiaEdit = {

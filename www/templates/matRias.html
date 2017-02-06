@@ -9,8 +9,8 @@
         <h3>{{materia.nome}}</h3>
         <div class="row" ng-repeat="data in materia.dataAula">
           <div class="col">{{data.diaSemana}}</div>
-          <div class="col">{{data.horaIni.hora}}:{{data.horaIni.min}}</div>
-          <div class="col">{{data.horaFin.hora}}:{{data.horaFin.min}}</div>
+          <div class="col">{{data.horaIni.string}}</div>
+          <div class="col">{{data.horaFin.string}}</div>
         </div>
         </div>
     </div>

@@ -77,5 +77,6 @@ angular.module('sos_estudante.services')
     }).catch(function(err) {
       defer.reject(err);
     });
+    return defer.promise;
   }
 });
