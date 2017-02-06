@@ -2,7 +2,7 @@ angular.module('sos_estudante.controllers')
 .controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', 'PouchService', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, state) {
+function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
     $scope.loading = true;
@@ -11,7 +11,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     console.log($scope.materia);
     PouchService.CadastroMateria($scope.materia).then(function(response) {
       console.log(response);
-      $state.go('tabsController.matRias');
+      $scope.closeModal();
       $scope.loading = false;
     }).catch(function(err) {
       console.log(err);
@@ -205,7 +205,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
    });
  }
  //Fim POPup faltas
- 
+
   //preenchendo conteudo dos cards
   $scope.materias = [{
     nome:"Redes",
