@@ -44,7 +44,6 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
       if(maior == undefined || $scope.materiaSelec.qteExercicios > maior)
         maior = $scope.materiaSelec.qteExercicios;
 
-      console.log(maior);
       var notas = new Array();
       if($scope.materiaSelec.notaProvas == undefined)
         $scope.materiaSelec.notaProvas = new Array($scope.materiaSelec.qteProvas);
@@ -120,7 +119,6 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
   //calcula faltas disponiveis
   function calculaFaltas(){
       var p = $scope.materiaSelec.faltas.porcFaltas/100;
-      console.log($scope.materiaSelec.faltas.qtdeFaltas);
       var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
       return disponivel;
   }
@@ -174,6 +172,8 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
 
      $scope.materiaEstimada = estimativasService.callEstima($scope.materiaEstimada, $scope.final.notaDesejada);
      $scope.tabEstima = tamTabela($scope.materiaEstimada);
+     $scope.final.media = $scope.materiaEstimada.mediaFinal;
+
    }
 
    //Inicio POPUP Faltas

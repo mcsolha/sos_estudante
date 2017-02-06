@@ -3,10 +3,23 @@ angular.module('sos_estudante.services')
 
   this.callEstima = function(mat, notaDesejada){
 
+    var numNotasP = 0;
+    var numNotasT = 0;
+    var numNotasE = 0;
     //calcula quatidade de espaços vazios
-    var numNotasP = mat.qteProvas - mat.notaProvas.length;
-    var numNotasT = mat.qteTrabalhos - mat.notaTrabalhos.length;
-    var numNotasE = mat.qteExercicios - mat.notaExercicios.length;
+    for (var i = 0; i < mat.notaProvas.length; i++) {
+      if(mat.notaProvas[i] == null)
+        numNotasP++;
+    }
+    for (var i = 0; i < mat.notaTrabalhos.length; i++) {
+      if(mat.notaTrabalhos[i] == null)
+        numNotasT++;
+    }
+    for (var i = 0; i < mat.notaExercicios.length; i++) {
+      if(mat.notaExercicios[i] == null)
+        numNotasE++;
+    }
+
     var resto;
     var notaP = 0;
     var notaT = 0;
@@ -125,41 +138,56 @@ angular.module('sos_estudante.services')
 
     //adiciona no vetor
     if(numNotasP > 0 ){
-      for (var i = 0; i < numNotasP; i++) {
-         mat.notaProvas.push(notaP);
+      for (var i = 0; i < mat.qteProvas; i++) {
+          if(mat.notaProvas[i] == null){
+            mat.notaProvas[i] = parseFloat(notaP.toFixed(2))
+          }
       }
     }
     if(numNotasT > 0){
-      for (var i = 0; i < numNotasT; i++) {
-          mat.notaTrabalhos.push(notaT);
+      for (var i = 0; i < mat.qteTrabalhos; i++) {
+        if(mat.notaTrabalhos[i] == null)
+          mat.notaTrabalhos[i] = parseFloat(notaT.toFixed(2));
       }
     }
     if(numNotasE > 0){
-      for (var i = 0; i < numNotasE; i++) {
-         mat.notaExercicios.push(notaE);
+      for (var i = 0; i < mat.qteProvas; i++) {
+         if(mat.notaExercicios[i] == null)
+            mat.notaExercicios[i] = parseFloat(notaE.toFixed(2));
       }
     }
 
-    soma = 0;
-    for (var i = 0; i < mat.notaProvas.length; i++) {
-      soma =  soma + mat.notaProvas[i]
-    }
-    var mediaProvas = soma/mat.qteProvas;
+    var mediaProvas = 0;
+    var mediaTrabalhos = 0;
+    var mediaExercicios = 0;
 
-    soma = 0;
-    for (var i = 0; i < mat.notaTrabalhos.length; i++) {
-      soma =  soma + mat.notaTrabalhos[i]
+    if(mat.qteProvas > 0){
+      soma = 0;
+      for (var i = 0; i < mat.notaProvas.length; i++) {
+        soma =  soma + mat.notaProvas[i]
+      }
+      mediaProvas = soma/mat.qteProvas;
     }
-    var mediaTrabalhos = soma/mat.qteTrabalhos;
 
-    soma = 0;
-    for (var i = 0; i < mat.notaExercicios.length; i++) {
-      soma =  soma + mat.notaExercicios[i]
+    if(mat.qteTrabalhos > 0){
+      soma = 0;
+      for (var i = 0; i < mat.notaTrabalhos.length; i++) {
+        soma =  soma + mat.notaTrabalhos[i]
+      }
+       mediaTrabalhos = soma/mat.qteTrabalhos;
     }
-    var mediaExercicios = soma/mat.qteExercicios;
+
+    if(mat.qteExercicios > 0){
+      soma = 0;
+      for (var i = 0; i < mat.notaExercicios.length; i++) {
+        soma =  soma + mat.notaExercicios[i]
+      }
+      var mediaExercicios = soma/mat.qteExercicios;
+    }
 
     mat.mediaFinal = mat.criterioAval.mp*mediaProvas + mat.criterioAval.mt*mediaTrabalhos + mat.criterioAval.me*mediaExercicios;
 
+    console.log();
     if(mat.mediaFinal > 10){
       mat.mediaFinal = 10;
     }
@@ -167,6 +195,7 @@ angular.module('sos_estudante.services')
       mat.mediaFinal = 0;
     }
     mat.mediaFinal = parseFloat(mat.mediaFinal.toFixed(2));
+
 
     return mat;
  }
