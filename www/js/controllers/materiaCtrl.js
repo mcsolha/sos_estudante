@@ -189,12 +189,12 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     dataAula: [{
       diaSemana: "Segunda",
       horaIni: {
-        hora: 9,
+        hora: 10,
         min:  30
       },
       horaFin: {
         hora: 12,
-        min:  5
+        min:  30
       }
     },{
     diaSemana : "Terça",
@@ -226,22 +226,13 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     arquivado:"false"
   },{
     nome:"Engenharia de Software 2",
-    dia:"Segunda",
-    hora:"10:00",
-    fim:"12:00",
     arquivado:"true"
   },{
     nome:"Inteligência Artificial",
-    dia:"Segunda",
-    hora:"08:00",
-    fim:"10:00",
-    arquivado:"false"
+    arquivado:"true"
   },{
     nome:"Computação Gráfica",
-    dia:"Sexta",
-    hora:"08:00",
-    fim:"12:00",
-    arquivado:"false"
+    arquivado:"true"
   }];
 
   //editar as notas na tabela de notas
