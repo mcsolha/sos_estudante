@@ -4,9 +4,12 @@ angular.module('sos_estudante.controllers')
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
   //obter as materias cadastradas no banco de dados
-  PouchService.RetMaterias().then(function(materias){
-    $scope.materias=materias;
-  })
+  function atualizarMaterias() {
+    PouchService.RetMaterias().then(function(materias){
+      $scope.materias=materias;
+    });
+  }
+
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
     $scope.loading = true;
@@ -16,6 +19,7 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
     PouchService.CadastroMateria($scope.materia).then(function(response) {
       console.log(response);
       $scope.closeModal();
+      atualizarMaterias();
       $scope.loading = false;
     }).catch(function(err) {
       console.log(err);
