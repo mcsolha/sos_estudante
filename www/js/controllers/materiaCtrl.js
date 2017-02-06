@@ -1,8 +1,9 @@
 angular.module('sos_estudante.controllers')
-.controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', 'PouchService', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('matRiasCtrl', ['$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'ionicTimePicker','$ionicPopover', 'PouchService', '$state', '$rootScope',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state) {
+function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ionicPopover, PouchService, $state, $rootScope) {
+
   $scope.editMode = false;
   $scope.nomePag = "Nova Matéria";
   //obter as materias cadastradas no banco de dados
@@ -11,6 +12,9 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
       $scope.materias=materias;
     });
   }
+  $rootScope.$on('materiaAtualizada', function () {
+    atualizarMaterias();
+  });
   atualizarMaterias();
   //Função para salvar materia no bd
   $scope.salvarMateria = function() {
@@ -168,7 +172,16 @@ function ($scope, $stateParams, $ionicModal, $ionicPopup, ionicTimePicker, $ioni
 
   $scope.abreDados = function(materia){
     console.log(materia);
-    $state.go('dadosMateria',{materia: materia})
+    $state.go('dadosMateria',{materia: materia});
+  }
+
+  $scope.desarquivarMateria = function(materia) {
+    materia.arquivado = false;
+    PouchService.AtualizaMateria(materia).then(function(response) {
+      console.log(response);
+      $rootScope.$broadcast('materiaAtualizada');
+      $scope.abreDados(materia);
+    });
   }
 
   //editar as notas na tabela de notas

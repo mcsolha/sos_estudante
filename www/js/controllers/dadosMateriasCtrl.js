@@ -1,6 +1,6 @@
 angular.module('sos_estudante.controllers')
-.controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'PouchService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover', 'estimativasService',
-function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover, estimativasService ) {
+.controller('dadoMateriasCtrl', ['$scope', '$stateParams', 'PouchService', '$state', '$ionicPopup', '$timeout', '$ionicModal', '$ionicPopover', 'estimativasService', '$rootScope',
+function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $ionicModal, $ionicPopover, estimativasService, $rootScope) {
   $scope.editMode = true;
   //seta de voltar
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -122,6 +122,8 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
       var p = $scope.materiaSelec.faltas.porcFaltas/100;
       console.log($scope.materiaSelec.faltas.qtdeFaltas);
       var disponivel = (p*$scope.materiaSelec.faltas.totalAulas) - $scope.materiaSelec.faltas.qtdeFaltas;
+      if(disponivel < 0)
+        disponivel = "Limite de faltas atingido!";
       return disponivel;
   }
 
@@ -197,6 +199,10 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
      fPopUp.then(function(res){
        $scope.materiaSelec.faltas.qtdeFaltas = res;
        $scope.faltasDisp = calculaFaltas();
+       PouchService.AtualizaMateria($scope.materiaSelec).then(function(response) {
+         console.log(response);
+         $rootScope.$broadcast('materiaAtualizada');
+       });
      });
   };
    //Fim POPup faltas
@@ -234,10 +240,11 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
      $scope.materia.faltas.qtdeFaltas = 0;
      $scope.materia.arquivado = false;
      console.log($scope.materia);
-     PouchService.CadastroMateria($scope.materia).then(function(response) {
+     PouchService.AtualizaMateria($scope.materia).then(function(response) {
        console.log(response);
        $scope.closeModal();
-       atualizarMaterias();
+      //  atualizarMaterias();
+       $rootScope.$broadcast('materiaAtualizada');
        $scope.loading = false;
      }).catch(function(err) {
        console.log(err);
@@ -323,6 +330,7 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
        });
 
        myPopup.then(function(notas) {
+         if(notas == undefined) return;
          for (var i = 0; i < notas.length; i++) {
           if(notas[i].prova != undefined && notas[i].prova != $scope.materiaSelec.notaProvas[i])
             $scope.materiaSelec.notaProvas[i] = notas[i].prova;
@@ -335,6 +343,10 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
          //tabela da pagina de estimativas
          $scope.tabEstima = tamTabela($scope.materiaSelec);
          $scope.popoverDados.hide();
+         PouchService.AtualizaMateria($scope.materiaSelec).then(function(response) {
+           console.log(response);
+           $rootScope.$broadcast('materiaAtualizada');
+         });
        });
    };
 
@@ -342,7 +354,12 @@ function ($scope, $stateParams, PouchService, $state, $ionicPopup, $timeout, $io
    //função de arquivar
    $scope.arquiva = function(){
      $scope.materiaSelec.arquivado = true;
+     console.log($scope.materiaSelec);
      $scope.popoverDados.hide();
+     PouchService.AtualizaMateria($scope.materiaSelec).then(function(response) {
+       console.log(response);
+       $rootScope.$broadcast('materiaAtualizada');
+     });
      $state.go('tabsController.matRias');
    }
 

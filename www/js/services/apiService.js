@@ -4,6 +4,15 @@ angular.module('sos_estudante.services')
 
   var UsuarioLogado;
 
+  function findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+  }
+
   this.GetUsuarioLogado = function() {
     return UsuarioLogado;
   };
@@ -74,6 +83,31 @@ angular.module('sos_estudante.services')
     var defer = $q.defer();
     db.get(UsuarioLogado).then(function(doc) {
       defer.resolve(doc.materias);
+    }).catch(function(err) {
+      defer.reject(err);
+    });
+    return defer.promise;
+  }
+
+  this.AtualizaMateria = function(materia) {
+    var defer = $q.defer();
+    db.get(UsuarioLogado).then(function(doc) {
+      var materias = doc.materias;
+      var index = findWithAttr(materias,'nome',materia.nome);
+      if(index > -1){
+        materias[index] = materia;
+        console.log('materias:');
+        console.log(materias);
+      }
+      return db.put({
+        _id: UsuarioLogado,
+        senha: doc.senha,
+        _rev: doc._rev,
+        materias: materias,
+        tarefas: doc.tarefas
+      });
+    }).then(function(response) {
+      defer.resolve(response);
     }).catch(function(err) {
       defer.reject(err);
     });
