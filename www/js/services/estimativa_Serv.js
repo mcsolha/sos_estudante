@@ -139,7 +139,7 @@ angular.module('sos_estudante.services')
          mat.notaExercicios.push(notaE);
       }
     }
-    
+
     soma = 0;
     for (var i = 0; i < mat.notaProvas.length; i++) {
       soma =  soma + mat.notaProvas[i]
@@ -159,11 +159,15 @@ angular.module('sos_estudante.services')
     var mediaExercicios = soma/mat.qteExercicios;
 
     mat.mediaFinal = mat.criterio.mp*mediaProvas + mat.criterio.mt*mediaTrabalhos + mat.criterio.me*mediaExercicios;
-    if(mat.mediaFinal > 10)
+
+    if(mat.mediaFinal > 10){
       mat.mediaFinal = 10;
+    }
     else if(mat.mediaFinal < 0){
       mat.mediaFinal = 0;
     }
+    mat.mediaFinal = parseFloat(mat.mediaFinal.toFixed(2));
+
     return mat;
  }
 

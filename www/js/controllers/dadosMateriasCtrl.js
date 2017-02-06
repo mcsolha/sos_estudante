@@ -90,7 +90,7 @@ function ($scope, $stateParams, ApiService, $state, $ionicPopup, $timeout, $ioni
        criterio : {
          mp : $scope.materiaSelec.criterio.mp,
          mt : $scope.materiaSelec.criterio.mt,
-         me : $scope.materiaSelec.criterio.mp
+         me : $scope.materiaSelec.criterio.me
        },
        notaTrabalhos : [],
        notaProvas : [],
